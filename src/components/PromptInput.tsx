@@ -26,12 +26,12 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
     }
   };
 
-  // Updated examples with clearer, more specific modification requests
+  // Updated examples focused on specific edits rather than general changes
   const examples = [
-    "Change the exterior paint color to navy blue",
-    "Replace the roof with dark gray shingles",
-    "Add stone veneer to the bottom half of the front facade",
-    "Update the front door to a red craftsman style"
+    "Make the shutters dark gray instead of blue",
+    "Change just the front door to a vibrant red color",
+    "Replace only the roof with brown cedar shingles",
+    "Add white trim around the windows without changing anything else"
   ];
 
   return (
@@ -58,7 +58,7 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
       
       {isImageSelected && (
         <div className="space-y-2">
-          <p className="text-xs text-muted-foreground">Try being specific about the changes you want:</p>
+          <p className="text-xs text-muted-foreground">Be specific about what to edit (not create):</p>
           <div className="flex flex-wrap gap-2">
             {examples.map((example, index) => (
               <Button

@@ -37,14 +37,20 @@ serve(async (req) => {
       );
     }
 
-    // Enhanced prompt with clear instructions to preserve original image integrity
-    const enhancedPrompt = `Create a realistic photo editing result. IMPORTANT: Use the original image as the exact base and ONLY apply this specific change: ${prompt}. 
-DO NOT change any other aspects of the image such as composition, perspective, lighting, background, people, objects, or surroundings. 
-Maintain the exact same angle, position, and all existing elements from the original photo. 
-This is for home renovation visualization where clients need to see realistic modifications to their actual property.`;
+    // Enhanced prompt specifically designed for image editing rather than generation
+    const enhancedPrompt = `PHOTO EDITING TASK ONLY: 
+I have a photo of a property that needs ONE specific modification: ${prompt}
+EXTREMELY IMPORTANT INSTRUCTIONS:
+- This is a real photo being edited, NOT a generated image
+- PRESERVE all existing elements, angles, lighting, shadows, reflections, and exact perspective
+- ONLY modify what was explicitly requested: ${prompt}
+- Do NOT redraw or regenerate the whole image - just edit the specified part
+- Maintain the EXACT same composition, scale, and geometry
+- Keep all surroundings, people, objects, and design elements identical
+- The result must look like a professional photo edit, NOT an AI generation
+- Ensure seamless integration of the edit into the original photo`;
 
-    // Call OpenAI API to generate image
-    console.log("Calling OpenAI API with enhanced prompt");
+    console.log("Calling OpenAI API with image editing prompt");
     const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
@@ -57,7 +63,6 @@ This is for home renovation visualization where clients need to see realistic mo
         n: 1,
         size: "1024x1024",
         quality: "hd",
-        // Reference the original image
         response_format: "url",
       })
     });
