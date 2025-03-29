@@ -37,31 +37,32 @@ serve(async (req) => {
       );
     }
 
-    // First, use GPT-4o to enhance the prompt
-    console.log("Calling GPT-4o to create a safer and more effective prompt");
+    // Step 1: Vision Input Recognition with GPT-4o
+    // Use GPT-4o to analyze the image and refine the prompt
+    console.log("Step 1: Using GPT-4o to analyze the image and refine the prompt");
+    
     const sanitizedUserPrompt = prompt
       .trim()
-      .replace(/[^\w\s,.?!()]/g, '')  // Remove potentially problematic characters
       .toLowerCase();
 
-    // Create a safer prompt template that's more likely to pass content policy checks
+    // Create a system instruction that follows the smart routing approach
     const systemInstructions = `
-      You are a home renovation visualization assistant. Your task is to take a user's request for a home 
-      modification and create a safe, neutral prompt for DALL-E 3 that will generate a realistic visualization.
-      
-      ONLY reply with the revised prompt text, nothing else.
-      
-      The prompt must:
-      1. Focus ONLY on home exterior/interior design changes
-      2. Be descriptive but neutral in tone
-      3. Avoid any politically, socially, or ethically sensitive concepts
-      4. Emphasize photorealism and professional quality
-      5. Never include anything that could violate OpenAI's content policy
+      You are a professional architectural visualization expert specializing in photo-realistic home renovations.
 
-      Format your response as:
-      "A photorealistic visualization showing [specific home change requested], maintaining the exact same structure, lighting and composition as the reference photo."
+      Your task is to create a highly specific DALL-E 3 prompt that will modify ONLY the exact feature requested
+      in the reference photo.
+
+      Follow this precise workflow:
+      1. Carefully analyze what specific element the user wants to change (e.g., shutters, door color, roof material)
+      2. Create a prompt that instructs DALL-E to ONLY modify that specific element
+      3. Explicitly instruct to preserve ALL other elements exactly as shown (structure, perspective, lighting, surroundings)
+      4. Use detailed, specific language about materials, colors, and textures
+      5. Format your prompt as: "IMAGE EDITING TASK: Change [specific element] to [specific description]. Preserve ALL other architectural elements, lighting, perspective, and surroundings exactly as shown in the reference photo."
+      
+      IMPORTANT: Your prompt must be focused ONLY on architectural visualization. Reply ONLY with the DALL-E prompt text, nothing else.
     `;
 
+    // Call GPT-4o with the image to analyze it and create an optimized prompt
     const visionResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -69,25 +70,42 @@ serve(async (req) => {
         'Authorization': `Bearer ${openaiApiKey}`
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
+        model: "gpt-4o",  // Using gpt-4o which has vision capabilities
         messages: [
-          { role: "system", content: systemInstructions },
-          { role: "user", content: `Create a safe prompt to visualize a home with this change: ${sanitizedUserPrompt}` }
+          { 
+            role: "system", 
+            content: systemInstructions 
+          },
+          {
+            role: "user", 
+            content: [
+              {
+                type: "text", 
+                text: `${sanitizedUserPrompt}. Do not change anything else.`
+              },
+              {
+                type: "image_url",
+                image_url: {
+                  url: imageUrl
+                }
+              }
+            ]
+          }
         ],
-        max_tokens: 200,
-        temperature: 0.3
+        max_tokens: 500
       })
     });
 
     if (!visionResponse.ok) {
       const errorData = await visionResponse.json();
-      console.error("Error creating safe prompt:", errorData);
+      console.error("Error creating optimized prompt:", errorData);
       
-      // Use a fallback safe prompt structure
-      const fallbackPrompt = `A photorealistic visualization showing a home with ${sanitizedUserPrompt}, maintaining the exact same structure, lighting, and composition as the reference photo.`;
+      // Use a fallback prompt structure
+      const fallbackPrompt = `IMAGE EDITING TASK: ${sanitizedUserPrompt}. Preserve ALL other architectural elements, lighting, perspective, and surroundings exactly as shown in the reference photo.`;
       console.log("Using fallback prompt:", fallbackPrompt);
       
-      // Call DALL-E 3 with the fallback prompt
+      // Step 3: Call DALL-E 3 with the fallback prompt
+      console.log("Step 3: Calling DALL-E 3 with the fallback prompt");
       const response = await fetch('https://api.openai.com/v1/images/generations', {
         method: 'POST',
         headers: {
@@ -99,9 +117,8 @@ serve(async (req) => {
           prompt: fallbackPrompt,
           n: 1,
           size: "1024x1024",
-          quality: "standard",
-          response_format: "url",
-          style: "natural"
+          quality: "hd",  // Use high quality
+          style: "natural",  // Use natural style for photorealism
         })
       });
       
@@ -133,14 +150,15 @@ serve(async (req) => {
     if (!enhancedPrompt) {
       console.error("No enhanced prompt generated:", visionData);
       return new Response(
-        JSON.stringify({ error: "Failed to generate a safe prompt" }),
+        JSON.stringify({ error: "Failed to generate a proper prompt" }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log("Using enhanced prompt for DALL-E:", enhancedPrompt);
+    console.log("Step 2: GPT-4o enhanced prompt:", enhancedPrompt);
 
-    // Call DALL-E 3 with the enhanced prompt
+    // Step 3: Call DALL-E 3 with the enhanced prompt for generation
+    console.log("Step 3: Calling DALL-E 3 with the enhanced prompt");
     const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
@@ -152,9 +170,8 @@ serve(async (req) => {
         prompt: enhancedPrompt,
         n: 1,
         size: "1024x1024",
-        quality: "standard",
-        response_format: "url",
-        style: "natural"
+        quality: "hd",  // Upgraded to high quality
+        style: "natural",  // Use natural style for photorealism
       })
     });
 
@@ -165,9 +182,9 @@ serve(async (req) => {
     if (!response.ok) {
       console.error("DALL-E API error:", data);
       
-      // Try one more time with an even safer prompt
-      console.log("Trying again with safer prompt");
-      const saferPrompt = `A photorealistic image of a house with ${sanitizedUserPrompt.slice(0, 50)}`;
+      // Step 4: Fall back to a simpler prompt if the first attempt fails
+      console.log("Step 4: Trying again with simplified prompt");
+      const simplifiedPrompt = `A photorealistic image showing ${sanitizedUserPrompt}. The image should look exactly like a professional architectural photograph.`;
       
       const retryResponse = await fetch('https://api.openai.com/v1/images/generations', {
         method: 'POST',
@@ -177,12 +194,11 @@ serve(async (req) => {
         },
         body: JSON.stringify({
           model: "dall-e-3",
-          prompt: saferPrompt,
+          prompt: simplifiedPrompt,
           n: 1,
           size: "1024x1024",
-          quality: "standard",
-          response_format: "url",
-          style: "natural"
+          quality: "hd",
+          style: "natural",
         })
       });
       
@@ -192,7 +208,7 @@ serve(async (req) => {
         console.error("DALL-E API error on retry:", retryData);
         return new Response(
           JSON.stringify({ 
-            error: "Your request couldn't be processed due to content safety policies. Please try a different, more specific home modification request.",
+            error: "Your request couldn't be processed. Please try a different, more specific home modification description.",
             details: retryData.error || "Unknown error"
           }),
           { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -201,13 +217,13 @@ serve(async (req) => {
       
       const generatedImageUrl = retryData.data[0].url;
       
-      console.log("Image successfully generated with safer prompt. URL:", generatedImageUrl);
+      console.log("Image successfully generated with simplified prompt. URL:", generatedImageUrl);
       
       return new Response(
         JSON.stringify({ 
           success: true,
           generatedImageUrl,
-          enhancedPrompt: saferPrompt
+          enhancedPrompt: simplifiedPrompt
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
@@ -218,6 +234,7 @@ serve(async (req) => {
     
     console.log("Image successfully generated. URL:", generatedImageUrl);
 
+    // Step 5: Return the generated image
     return new Response(
       JSON.stringify({ 
         success: true,

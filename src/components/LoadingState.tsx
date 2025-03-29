@@ -43,7 +43,7 @@ export const LoadingState = ({
           <div className="text-center space-y-2 mb-2">
             <h3 className="text-xl font-medium">Creating your visualization</h3>
             <p className="text-muted-foreground text-sm">
-              We're working through these steps to create your image
+              Our AI systems are working through these steps to transform your image
             </p>
           </div>
           

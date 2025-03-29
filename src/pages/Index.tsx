@@ -24,16 +24,23 @@ const DEFAULT_STEPS: ProcessStep[] = [
     isCompleted: false
   },
   {
+    id: "analyze",
+    title: "AI analyzing your image",
+    description: "GPT-4o Vision is studying the details of your home",
+    isActive: false,
+    isCompleted: false
+  },
+  {
     id: "enhance",
-    title: "Enhancing your prompt",
-    description: "Our AI is analyzing your request to optimize results",
+    title: "Crafting optimal instructions",
+    description: "Creating precise instructions for the image generation",
     isActive: false,
     isCompleted: false
   },
   {
     id: "generate",
     title: "Generating visualization",
-    description: "Creating your image based on the specified changes",
+    description: "DALL-E is creating your photorealistic home modification",
     isActive: false,
     isCompleted: false
   },
@@ -100,7 +107,7 @@ const Index = () => {
     
     setPrompt(promptText);
     setIsLoading(true);
-    setProgressValue(10);
+    setProgressValue(5);
     setProgressText("Processing your request...");
     setError(null);
     resetSteps();
@@ -108,7 +115,7 @@ const Index = () => {
     try {
       // Step 1: Upload image
       updateStep("upload", { isActive: true });
-      setProgressValue(20);
+      setProgressValue(15);
       setProgressText("Uploading your image...");
       console.log("Beginning the image generation process");
       
@@ -116,26 +123,35 @@ const Index = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       updateStep("upload", { isCompleted: true, isActive: false });
       
-      // Step 2: Enhance prompt
-      updateStep("enhance", { isActive: true });
-      setProgressValue(35);
-      setProgressText("Enhancing your prompt with AI...");
+      // Step 2: AI analyzing the image
+      updateStep("analyze", { isActive: true });
+      setProgressValue(30);
+      setProgressText("GPT-4o is analyzing your home image...");
       
-      // Wait a moment to show the second step animation
+      // Wait a moment to show the analysis step animation
       await new Promise(resolve => setTimeout(resolve, 1500));
+      updateStep("analyze", { isCompleted: true, isActive: false });
+      
+      // Step 3: Creating perfect instructions
+      updateStep("enhance", { isActive: true });
+      setProgressValue(45);
+      setProgressText("Creating precise instructions for your modification...");
+      
+      // Wait a moment to show the enhancing step animation
+      await new Promise(resolve => setTimeout(resolve, 1200));
       updateStep("enhance", { isCompleted: true, isActive: false });
       
-      // Step 3: Generate image
+      // Step 4: Generate image
       updateStep("generate", { isActive: true });
-      setProgressValue(50);
-      setProgressText("Generating your visualization...");
+      setProgressValue(60);
+      setProgressText("DALL-E is creating your photorealistic visualization...");
       
       console.log("Calling image generation with prompt:", promptText);
       const generatedUrl = await generateImageWithExternalAPI(selectedFile, promptText);
       
       updateStep("generate", { isCompleted: true, isActive: false });
       
-      // Step 4: Finalize
+      // Step 5: Finalize
       updateStep("finalize", { isActive: true });
       setProgressValue(85);
       setProgressText("Finalizing your visualization...");

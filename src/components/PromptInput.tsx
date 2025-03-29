@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import { Wand2, Info } from "lucide-react";
+import { Wand2, Info, Lightbulb } from "lucide-react";
 
 interface PromptInputProps {
   onSubmit: (prompt: string) => void;
@@ -57,7 +57,7 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
       </div>
       
       {isImageSelected && (
-        <div className="space-y-2">
+        <div className="space-y-3">
           <div className="flex items-start gap-2 text-xs text-muted-foreground">
             <Info className="h-4 w-4 shrink-0 mt-0.5" />
             <p>
@@ -65,6 +65,20 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
               such as a color modification or material replacement. Be specific about colors and materials.
             </p>
           </div>
+          
+          <div className="bg-primary/5 rounded-lg p-3 border border-primary/10">
+            <div className="flex items-center gap-2 mb-2">
+              <Lightbulb className="h-4 w-4 text-primary" />
+              <p className="text-sm font-medium">Tips for best results:</p>
+            </div>
+            <ul className="text-xs space-y-1 text-muted-foreground">
+              <li>• Specify exact colors (e.g., "navy blue" instead of just "blue")</li>
+              <li>• Mention materials (e.g., "cedar shingles" instead of just "shingles")</li>
+              <li>• Focus on one change at a time for highest quality results</li>
+              <li>• Be clear about which part of the house you want to modify</li>
+            </ul>
+          </div>
+          
           <div className="flex flex-wrap gap-2">
             {examples.map((example, index) => (
               <Button
