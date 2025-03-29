@@ -9,8 +9,8 @@ import { LoadingState } from "@/components/LoadingState";
 import { Footer } from "@/components/Footer";
 import { useToast } from "@/components/ui/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { uploadImage, generateImage, saveGeneratedImage } from "@/lib/supabase";
-import { supabase } from "@/integrations/supabase/client";
+import { generateImageWithExternalAPI, saveMockup } from "@/lib/imageService";
+import { uploadImage } from "@/lib/supabase";
 import { useAuth } from "@/hooks/use-auth";
 
 const Index = () => {
@@ -53,10 +53,11 @@ const Index = () => {
     setPrompt(promptText);
     setIsLoading(true);
     setProgressValue(10);
-    setProgressText("Uploading your image...");
+    setProgressText("Processing your request...");
     setError(null);
     
     try {
+      // Upload the image to Supabase for persistence
       let imageUrl;
       try {
         imageUrl = await uploadImage(selectedFile);
@@ -71,45 +72,41 @@ const Index = () => {
         throw new Error(`Failed to upload image: ${uploadError.message}`);
       }
       
-      let result;
+      let generatedUrl;
       try {
-        result = await generateImage(promptText, imageUrl);
-        if (!result || !result.generatedImageUrl) {
+        // Use the external API to generate the image
+        generatedUrl = await generateImageWithExternalAPI(selectedFile, promptText);
+        if (!generatedUrl) {
           throw new Error("No image URL returned from generation service");
         }
         setProgressValue(90);
         setProgressText("Visualization created successfully, finalizing...");
-        console.log("Image generated successfully:", result);
+        console.log("Image generated successfully:", generatedUrl);
       } catch (generationError) {
         console.error("Image generation failed:", generationError);
         throw new Error(`Failed to generate image: ${generationError.message}`);
       }
       
-      setGeneratedImage(result.generatedImageUrl);
+      setGeneratedImage(generatedUrl);
       
-      if (user) {
+      // Save the mockup to Supabase
+      if (imageUrl) {
         try {
-          await saveGeneratedImage(
-            user.id,
+          await saveMockup(
+            user?.id,
             imageUrl,
-            result.generatedImageUrl,
-            promptText,
-            result.enhancedPrompt
+            generatedUrl,
+            promptText
           );
-          console.log("Image saved to database");
+          console.log("Mockup saved to database");
         } catch (saveError) {
-          console.error("Failed to save image to database:", saveError);
+          console.error("Failed to save mockup to database:", saveError);
           toast({
             variant: "default",
             title: "Image generated successfully",
             description: "But we couldn't save it to your history.",
           });
         }
-      } else {
-        toast({
-          description: "Sign in to save your generated images",
-          variant: "default"
-        });
       }
       
       toast({
@@ -129,6 +126,12 @@ const Index = () => {
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleRegenerate = () => {
+    if (prompt && selectedFile) {
+      handlePromptSubmit(prompt);
     }
   };
 
@@ -204,6 +207,7 @@ const Index = () => {
                       generatedImage={generatedImage}
                       prompt={prompt}
                       onStartNew={handleStartNew}
+                      onRegenerate={handleRegenerate}
                     />
                   )
                 )}
