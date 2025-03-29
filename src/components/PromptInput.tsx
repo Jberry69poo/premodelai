@@ -76,6 +76,7 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
               <li>• Mention materials (e.g., "cedar shingles" instead of just "shingles")</li>
               <li>• Focus on one change at a time for highest quality results</li>
               <li>• Be clear about which part of the house you want to modify</li>
+              <li>• For best editing results, use phrases like "change only the..." or "modify just the..."</li>
             </ul>
           </div>
           
