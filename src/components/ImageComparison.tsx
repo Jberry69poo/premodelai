@@ -1,19 +1,21 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, Share2 } from "lucide-react";
+import { Download, Share2, PlusCircle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 interface ImageComparisonProps {
   originalImage: string;
   generatedImage: string | null;
   prompt: string;
+  onStartNew: () => void; // New prop to handle creating a new image
 }
 
 export const ImageComparison = ({ 
   originalImage, 
   generatedImage,
-  prompt
+  prompt,
+  onStartNew
 }: ImageComparisonProps) => {
   const { toast } = useToast();
   const [showOriginal, setShowOriginal] = useState(false);
@@ -77,22 +79,33 @@ export const ImageComparison = ({
         )}
       </div>
       
-      <div className="flex justify-end gap-2">
+      <div className="flex justify-between gap-2">
         <Button 
           variant="outline" 
           className="bg-secondary/60"
-          onClick={handleShare}
+          onClick={onStartNew}
         >
-          <Share2 className="mr-2 h-4 w-4" />
-          Share
+          <PlusCircle className="mr-2 h-4 w-4" />
+          Create New
         </Button>
-        <Button 
-          className="bg-primary text-primary-foreground"
-          onClick={handleDownload}
-        >
-          <Download className="mr-2 h-4 w-4" />
-          Download
-        </Button>
+        
+        <div className="flex gap-2">
+          <Button 
+            variant="outline" 
+            className="bg-secondary/60"
+            onClick={handleShare}
+          >
+            <Share2 className="mr-2 h-4 w-4" />
+            Share
+          </Button>
+          <Button 
+            className="bg-primary text-primary-foreground"
+            onClick={handleDownload}
+          >
+            <Download className="mr-2 h-4 w-4" />
+            Download
+          </Button>
+        </div>
       </div>
     </div>
   );

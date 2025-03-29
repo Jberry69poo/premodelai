@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Hero } from "@/components/Hero";
@@ -57,8 +56,6 @@ const Index = () => {
     setError(null);
     
     try {
-      // Step 1: Upload the image to Supabase Storage
-      console.log("Starting image upload process");
       let imageUrl;
       try {
         imageUrl = await uploadImage(selectedFile);
@@ -73,8 +70,6 @@ const Index = () => {
         throw new Error(`Failed to upload image: ${uploadError.message}`);
       }
       
-      // Step 2: Generate the new image using OpenAI
-      console.log("Starting image generation with prompt:", promptText);
       let result;
       try {
         result = await generateImage(promptText, imageUrl);
@@ -89,10 +84,8 @@ const Index = () => {
         throw new Error(`Failed to generate image: ${generationError.message}`);
       }
       
-      // Step 3: Set the generated image
       setGeneratedImage(result.generatedImageUrl);
       
-      // Step 4: Save to database if user is logged in
       if (user) {
         try {
           await saveGeneratedImage(
@@ -104,7 +97,6 @@ const Index = () => {
           console.log("Image saved to database");
         } catch (saveError) {
           console.error("Failed to save image to database:", saveError);
-          // We don't throw here since the image generation was successful
           toast({
             variant: "default",
             title: "Image generated successfully",
@@ -136,6 +128,21 @@ const Index = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleStartNew = () => {
+    setSelectedImage(null);
+    setSelectedFile(null);
+    setGeneratedImage(null);
+    setPrompt("");
+    setError(null);
+    setActiveTab("create");
+    
+    toast({
+      title: "Starting new creation",
+      description: "Upload a new image to begin.",
+      variant: "default"
+    });
   };
 
   return (
@@ -194,6 +201,7 @@ const Index = () => {
                       originalImage={selectedImage} 
                       generatedImage={generatedImage}
                       prompt={prompt}
+                      onStartNew={handleStartNew}
                     />
                   )
                 )}
