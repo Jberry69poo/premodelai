@@ -1,232 +1,68 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CustomNavbar } from "@/components/CustomNavbar";
-import { Hero } from "@/components/Hero";
-import { ImageUpload } from "@/components/ImageUpload";
-import { PromptInput } from "@/components/PromptInput";
-import { ImageComparison } from "@/components/ImageComparison";
-import { LoadingState, ProcessStep } from "@/components/LoadingState";
 import { Footer } from "@/components/Footer";
-import { useToast } from "@/components/ui/use-toast";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { generateImageWithExternalAPI, saveMockup } from "@/lib/imageService";
-import { uploadImage } from "@/lib/imageService";
-import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
-import { AlertCircle } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import { ArrowRight, CheckCircle2, Wand2, Clock, CameraIcon, SmartphoneIcon, PresentationIcon } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
-const DEFAULT_STEPS: ProcessStep[] = [
-  {
-    id: "upload",
-    title: "Preparing your image",
-    description: "Uploading your image and preparing it for processing",
-    isActive: false,
-    isCompleted: false
-  },
-  {
-    id: "analyze",
-    title: "AI analyzing your image",
-    description: "GPT-4o Vision is studying the details of your home",
-    isActive: false,
-    isCompleted: false
-  },
-  {
-    id: "enhance",
-    title: "Crafting optimal instructions",
-    description: "Creating precise instructions for the image generation",
-    isActive: false,
-    isCompleted: false
-  },
-  {
-    id: "generate",
-    title: "Generating visualization",
-    description: "DALL-E is creating your photorealistic home modification",
-    isActive: false,
-    isCompleted: false
-  },
-  {
-    id: "finalize",
-    title: "Finalizing result",
-    description: "Applying finishing touches and preparing display",
-    isActive: false,
-    isCompleted: false
-  }
-];
+const betaFormSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  company: z.string().min(2, { message: "Company name is required." }),
+  email: z.string().email({ message: "Please enter a valid email address." }),
+  phone: z.string().min(10, { message: "Please enter a valid phone number." }),
+});
+
+type BetaFormValues = z.infer<typeof betaFormSchema>;
 
 const Index = () => {
   const { toast } = useToast();
-  const { user } = useAuth();
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [generatedImage, setGeneratedImage] = useState<string | null>(null);
-  const [prompt, setPrompt] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState("create");
-  const [progressValue, setProgressValue] = useState(0);
-  const [progressText, setProgressText] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [apiRetries, setApiRetries] = useState(0);
-  const [processSteps, setProcessSteps] = useState<ProcessStep[]>(DEFAULT_STEPS);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const updateStep = (stepId: string, updates: Partial<ProcessStep>) => {
-    setProcessSteps(currentSteps => 
-      currentSteps.map(step => 
-        step.id === stepId ? { ...step, ...updates } : step
-      )
-    );
-  };
-  
-  const resetSteps = () => {
-    setProcessSteps(DEFAULT_STEPS);
-  };
+  const form = useForm<BetaFormValues>({
+    resolver: zodResolver(betaFormSchema),
+    defaultValues: {
+      name: "",
+      company: "",
+      email: "",
+      phone: "",
+    },
+  });
 
-  const handleImageSelect = async (file: File | null) => {
-    if (!file) {
-      setSelectedImage(null);
-      setSelectedFile(null);
-      return;
-    }
-    
-    setSelectedFile(file);
-    const imageUrl = URL.createObjectURL(file);
-    setSelectedImage(imageUrl);
-    setGeneratedImage(null);
-    setError(null);
-    resetSteps();
-  };
-
-  const handlePromptSubmit = async (promptText: string) => {
-    if (!selectedImage || !selectedFile) {
-      toast({
-        variant: "destructive",
-        title: "No image selected",
-        description: "Please upload an image first.",
-      });
-      return;
-    }
-    
-    setPrompt(promptText);
-    setIsLoading(true);
-    setProgressValue(5);
-    setProgressText("Processing your request...");
-    setError(null);
-    resetSteps();
-    
+  const onSubmit = async (values: BetaFormValues) => {
+    setIsSubmitting(true);
     try {
-      // Step 1: Upload image
-      updateStep("upload", { isActive: true });
-      setProgressValue(15);
-      setProgressText("Uploading your image...");
-      console.log("Beginning the image generation process");
+      // This would be replaced with your actual API call to save the beta signup
+      console.log("Form values:", values);
       
-      // Wait a moment to show the first step animation
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      updateStep("upload", { isCompleted: true, isActive: false });
-      
-      // Step 2: AI analyzing the image
-      updateStep("analyze", { isActive: true });
-      setProgressValue(30);
-      setProgressText("GPT-4o is analyzing your home image...");
-      
-      // Wait a moment to show the analysis step animation
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      updateStep("analyze", { isCompleted: true, isActive: false });
-      
-      // Step 3: Creating perfect instructions
-      updateStep("enhance", { isActive: true });
-      setProgressValue(45);
-      setProgressText("Creating precise instructions for your modification...");
-      
-      // Wait a moment to show the enhancing step animation
-      await new Promise(resolve => setTimeout(resolve, 1200));
-      updateStep("enhance", { isCompleted: true, isActive: false });
-      
-      // Step 4: Generate image
-      updateStep("generate", { isActive: true });
-      setProgressValue(60);
-      setProgressText("DALL-E is creating your photorealistic visualization...");
-      
-      console.log("Calling image generation with prompt:", promptText);
-      const generatedUrl = await generateImageWithExternalAPI(selectedFile, promptText);
-      
-      updateStep("generate", { isCompleted: true, isActive: false });
-      
-      // Step 5: Finalize
-      updateStep("finalize", { isActive: true });
-      setProgressValue(85);
-      setProgressText("Finalizing your visualization...");
-      
-      console.log("Image generated successfully:", generatedUrl);
-      
-      // Wait a moment to show the final step animation
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      updateStep("finalize", { isCompleted: true, isActive: false });
-      
-      setGeneratedImage(generatedUrl);
-      setApiRetries(0); // Reset retries on success
-      
-      const imageUrl = await uploadImage(selectedFile);
-      
-      if (imageUrl) {
-        await saveMockup(
-          user?.id,
-          imageUrl,
-          generatedUrl,
-          promptText
-        );
-        console.log("Mockup saved to database");
-      }
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       
       toast({
-        title: "Success!",
-        description: "Your visualization is ready to view.",
+        title: "Successfully joined the beta!",
+        description: "We'll be in touch soon with access details.",
       });
       
-      setActiveTab("result");
-      setProgressValue(100);
+      form.reset();
     } catch (error) {
-      console.error("Error in handlePromptSubmit:", error);
-      setError(error.message || "An unexpected error occurred");
       toast({
         variant: "destructive",
-        title: "Generation failed",
-        description: error.message || "There was an error generating your image. Please try again with a more specific change description.",
+        title: "Submission failed",
+        description: "Please try again later.",
       });
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
-  const handleRegenerate = () => {
-    if (prompt && selectedFile) {
-      if (apiRetries > 2) {
-        toast({
-          variant: "destructive",
-          title: "Too many attempts",
-          description: "The service may be temporarily unavailable. Please try again later.",
-        });
-        return;
-      }
-      setApiRetries(apiRetries + 1);
-      handlePromptSubmit(prompt);
-    }
-  };
-
-  const handleStartNew = () => {
-    setSelectedImage(null);
-    setSelectedFile(null);
-    setGeneratedImage(null);
-    setPrompt("");
-    setError(null);
-    setActiveTab("create");
-    setApiRetries(0);
-    resetSteps();
-    
-    toast({
-      title: "Starting new creation",
-      description: "Upload a new image to begin.",
-      variant: "default"
-    });
+  const scrollToSignup = () => {
+    document.getElementById("beta-signup")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -234,84 +70,303 @@ const Index = () => {
       <CustomNavbar />
       
       <main className="flex-1">
-        {!generatedImage && !isLoading && <Hero />}
-        
-        <div className="container px-4 md:px-6 py-8">
-          <div className="max-w-4xl mx-auto">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-8">
-                <TabsTrigger value="create">Create</TabsTrigger>
-                <TabsTrigger value="result" disabled={!generatedImage}>Result</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="create" className="space-y-8">
-                <div className="space-y-4">
-                  <h2 className="text-2xl font-bold tracking-tight">Upload an image</h2>
-                  <p className="text-muted-foreground">
-                    Start by uploading a photo of the home you want to modify.
-                  </p>
-                  <ImageUpload 
-                    onImageSelect={handleImageSelect} 
-                    selectedImage={selectedImage}
-                    isLoading={isLoading}
-                  />
+        {/* Hero Section */}
+        <section className="py-16 md:py-24 lg:py-32 bg-gradient-to-b from-background to-secondary/10">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+              <div className="flex-1 space-y-4">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter">
+                  Show Clients Their Finished Home <span className="text-primary">Before You Start</span>
+                </h1>
+                <p className="text-muted-foreground md:text-xl max-w-[700px]">
+                  MockingBird helps home improvement professionals increase close rates by showing clients photorealistic visualizations of completed projects in minutes, not weeks.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                  <Button size="lg" className="bg-primary text-primary-foreground" onClick={scrollToSignup}>
+                    Join the Free Beta
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                  <Button variant="outline" size="lg" onClick={scrollToSignup}>
+                    See Examples
+                  </Button>
                 </div>
-                
-                <div className="space-y-4">
-                  <h2 className="text-2xl font-bold tracking-tight">Describe the changes</h2>
-                  <p className="text-muted-foreground">
-                    Tell us what modifications you want to make to the image.
-                  </p>
-                  <PromptInput 
-                    onSubmit={handlePromptSubmit} 
-                    isLoading={isLoading}
-                    isImageSelected={!!selectedImage}
-                  />
-                  
-                  {error && (
-                    <div className="p-4 bg-destructive/10 text-destructive rounded-md">
-                      <div className="flex items-center gap-2 mb-2">
-                        <AlertCircle className="h-5 w-5" />
-                        <p className="font-medium">Error</p>
-                      </div>
-                      <p>{error}</p>
-                      {(error.includes("timed out") || error.includes("unavailable") || error.includes("Load failed")) && (
-                        <div className="mt-3">
-                          <p className="text-sm mb-2">The external image generation service appears to be unavailable at the moment. You can:</p>
-                          <ul className="list-disc pl-5 text-sm">
-                            <li>Try again in a few minutes</li>
-                            <li>Try a different prompt</li>
-                            <li>Check your internet connection</li>
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </TabsContent>
-              
-              <TabsContent value="result">
-                {isLoading ? (
-                  <LoadingState 
-                    progressValue={progressValue} 
-                    progressText={progressText}
-                    steps={processSteps}
-                  />
-                ) : (
-                  generatedImage && selectedImage && (
-                    <ImageComparison 
-                      originalImage={selectedImage} 
-                      generatedImage={generatedImage}
-                      prompt={prompt}
-                      onStartNew={handleStartNew}
-                      onRegenerate={handleRegenerate}
+              </div>
+              <div className="flex-1">
+                <div className="rounded-lg overflow-hidden shadow-2xl bg-card">
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-background/50 z-10"></div>
+                    <img 
+                      src="/placeholder.svg" 
+                      alt="MockingBird Home Visualization" 
+                      className="object-cover w-full h-full"
                     />
-                  )
-                )}
-              </TabsContent>
-            </Tabs>
+                  </div>
+                  <div className="p-4 bg-card/95 backdrop-blur-sm">
+                    <div className="flex items-center gap-2">
+                      <div className="h-2 w-2 rounded-full bg-primary"></div>
+                      <p className="text-sm font-medium">Before & After Preview</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section className="py-16 md:py-24 bg-card/30">
+          <div className="container px-4 md:px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tighter">How MockingBird Works</h2>
+              <p className="text-muted-foreground md:text-lg mt-2 max-w-[700px] mx-auto">
+                Three simple steps to create stunning visualizations of your projects
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="flex flex-col items-center space-y-4 p-6 border rounded-lg bg-card/60 shadow-sm">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <CameraIcon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold">1. Snap a Photo</h3>
+                <p className="text-muted-foreground text-center">
+                  Use your phone to take a photo of the home or area that needs improvement
+                </p>
+              </div>
+              
+              <div className="flex flex-col items-center space-y-4 p-6 border rounded-lg bg-card/60 shadow-sm">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <SmartphoneIcon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold">2. Describe the Change</h3>
+                <p className="text-muted-foreground text-center">
+                  Enter a brief description of the modification you want to visualize
+                </p>
+              </div>
+              
+              <div className="flex flex-col items-center space-y-4 p-6 border rounded-lg bg-card/60 shadow-sm">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <PresentationIcon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold">3. Show Your Client</h3>
+                <p className="text-muted-foreground text-center">
+                  Present a photorealistic visualization of the completed project to your client
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Benefits Section */}
+        <section className="py-16 md:py-24">
+          <div className="container px-4 md:px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tighter">Why Contractors Love MockingBird</h2>
+              <p className="text-muted-foreground md:text-lg mt-2 max-w-[700px] mx-auto">
+                Boost your business with these powerful advantages
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="flex gap-4 p-6 border rounded-lg shadow-sm">
+                <div className="shrink-0">
+                  <CheckCircle2 className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold">Increase Close Rates</h3>
+                  <p className="text-muted-foreground mt-2">
+                    When clients can visualize the end result, they're more likely to approve your proposal
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4 p-6 border rounded-lg shadow-sm">
+                <div className="shrink-0">
+                  <Clock className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold">Save Time</h3>
+                  <p className="text-muted-foreground mt-2">
+                    Create visualizations in minutes instead of hours spent with design software
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4 p-6 border rounded-lg shadow-sm">
+                <div className="shrink-0">
+                  <Wand2 className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold">Stand Out From Competition</h3>
+                  <p className="text-muted-foreground mt-2">
+                    Provide a premium experience that differentiates your service from other contractors
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4 p-6 border rounded-lg shadow-sm">
+                <div className="shrink-0">
+                  <CheckCircle2 className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold">Reduce Revisions</h3>
+                  <p className="text-muted-foreground mt-2">
+                    Aligning expectations visually means fewer change orders and clearer communication
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Before & After Examples - Placeholder until you supply the actual images */}
+        <section className="py-16 md:py-24 bg-card/30">
+          <div className="container px-4 md:px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tighter">Before & After Examples</h2>
+              <p className="text-muted-foreground md:text-lg mt-2 max-w-[700px] mx-auto">
+                See the transformative power of MockingBird visualizations
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+              {/* Example 1 - Replace with actual image pairs when available */}
+              <div className="space-y-4">
+                <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
+                  <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">Before</div>
+                  <img 
+                    src="/placeholder.svg" 
+                    alt="Before renovation" 
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+                <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
+                  <div className="absolute top-2 left-2 bg-primary/70 text-white text-xs px-2 py-1 rounded">After (AI Visualization)</div>
+                  <img 
+                    src="/placeholder.svg" 
+                    alt="After visualization" 
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+                <p className="text-sm text-muted-foreground italic">
+                  "Changed the siding color from beige to navy blue with white trim accents"
+                </p>
+              </div>
+              
+              {/* Example 2 - Replace with actual image pairs when available */}
+              <div className="space-y-4">
+                <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
+                  <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">Before</div>
+                  <img 
+                    src="/placeholder.svg" 
+                    alt="Before renovation" 
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+                <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
+                  <div className="absolute top-2 left-2 bg-primary/70 text-white text-xs px-2 py-1 rounded">After (AI Visualization)</div>
+                  <img 
+                    src="/placeholder.svg" 
+                    alt="After visualization" 
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+                <p className="text-sm text-muted-foreground italic">
+                  "Added stone veneer to the front entrance and updated the landscaping"
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Beta Signup Section */}
+        <section id="beta-signup" className="py-16 md:py-24 lg:py-32 bg-gradient-to-t from-background to-secondary/10">
+          <div className="container px-4 md:px-6">
+            <div className="max-w-2xl mx-auto">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold tracking-tighter">Join Our Free Beta</h2>
+                <p className="text-muted-foreground md:text-lg mt-2">
+                  Be among the first contractors to use MockingBird and transform your sales process
+                </p>
+              </div>
+              
+              <div className="p-6 md:p-8 border rounded-lg shadow-lg bg-card">
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Full Name</FormLabel>
+                            <FormControl>
+                              <Input placeholder="John Smith" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="company"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Company Name</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Smith Contractors" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                              <Input placeholder="john@example.com" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Phone Number</FormLabel>
+                            <FormControl>
+                              <Input placeholder="(555) 123-4567" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    
+                    <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+                      {isSubmitting ? "Submitting..." : "Join the Beta"}
+                    </Button>
+                    
+                    <p className="text-xs text-center text-muted-foreground mt-4">
+                      By signing up, you agree to our Terms of Service and Privacy Policy.
+                      We'll never share your information with third parties.
+                    </p>
+                  </form>
+                </Form>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       
       <Footer />
