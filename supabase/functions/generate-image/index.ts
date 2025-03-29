@@ -37,7 +37,7 @@ serve(async (req) => {
       );
     }
 
-    // Step 1: Generate optimized DALL-E prompt with GPT-4 Vision
+    // Step 1: Generate optimized DALL-E prompt with GPT-4o Vision
     console.log("Creating optimized DALL-E prompt with GPT-4o...");
     
     const gptResponse = await fetch('https://api.openai.com/v1/chat/completions', {
