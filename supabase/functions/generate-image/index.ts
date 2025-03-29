@@ -37,8 +37,28 @@ serve(async (req) => {
       );
     }
 
-    // Significantly improved prompt that focuses on precise edits while maintaining image fidelity
-    const preciseEditPrompt = `IMAGE EDITING TASK: Using the original image as a direct reference, show exactly how it would look with this ONE specific modification: ${prompt}
+    // First, enhance the prompt using GPT-4-Vision
+    console.log("Calling enhance-prompt function to optimize the prompt");
+    const enhanceResponse = await fetch('https://oalvdwqpjihwduqsdbyf.supabase.co/functions/v1/enhance-prompt', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${openaiApiKey}`
+      },
+      body: JSON.stringify({
+        imageUrl,
+        userRequest: prompt
+      })
+    });
+
+    const enhanceData = await enhanceResponse.json();
+
+    if (!enhanceResponse.ok) {
+      console.error("Enhance prompt error:", enhanceData);
+      console.log("Falling back to default prompt structure");
+      
+      // Default prompt if enhancement fails
+      enhanceData.enhancedPrompt = `IMAGE EDITING TASK: Using the original image as a direct reference, show exactly how it would look with this ONE specific modification: ${prompt}
 
 CRITICAL REQUIREMENTS:
 - This is a professional photo edit, not a new image creation
@@ -48,8 +68,14 @@ CRITICAL REQUIREMENTS:
 - Result must be photorealistic and match the exact properties of the original
 - The edit must be seamless and look like a professional photo edit made by a skilled designer
 - Ensure 100% accuracy in preserving all unchanged elements`;
+    }
 
-    console.log("Calling OpenAI API with precise image editing prompt");
+    // Use the enhanced prompt or fallback
+    const enhancedPrompt = enhanceData.enhancedPrompt;
+    console.log("Using prompt for DALL-E:", enhancedPrompt);
+
+    // Call DALL-E 3 with the enhanced prompt
+    console.log("Calling DALL-E 3 API with enhanced prompt");
     const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
@@ -58,7 +84,7 @@ CRITICAL REQUIREMENTS:
       },
       body: JSON.stringify({
         model: "dall-e-3",
-        prompt: preciseEditPrompt,
+        prompt: enhancedPrompt,
         n: 1,
         size: "1024x1024",
         quality: "hd",
@@ -68,10 +94,10 @@ CRITICAL REQUIREMENTS:
 
     const data = await response.json();
     
-    console.log("OpenAI API response status:", response.status);
+    console.log("DALL-E API response status:", response.status);
 
     if (!response.ok) {
-      console.error("OpenAI API error:", data);
+      console.error("DALL-E API error:", data);
       return new Response(
         JSON.stringify({ 
           error: data.error?.message || "Error generating image",
@@ -97,7 +123,8 @@ CRITICAL REQUIREMENTS:
     return new Response(
       JSON.stringify({ 
         success: true,
-        generatedImageUrl
+        generatedImageUrl,
+        enhancedPrompt  // Include the enhanced prompt in the response for transparency
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );

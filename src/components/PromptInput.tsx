@@ -26,19 +26,19 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
     }
   };
 
-  // Examples that focus on precise edits with clear before/after language
+  // Examples that focus on very specific edits for realistic photo modifications
   const examples = [
-    "add warm white C9 string lights along the roofline",
-    "wrap the palm trees with green LED lights",
-    "add recessed lighting under the pool coping",
-    "change the pool lights to a soft blue glow"
+    "change the shutters from blue to dark gray",
+    "replace the white front door with a rich mahogany door",
+    "change the roof to gray Spanish tile",
+    "add black wrought iron railing to the front steps"
   ];
 
   return (
     <div className="w-full space-y-4">
       <div className="relative">
         <Textarea
-          placeholder={isImageSelected ? "Describe EXACTLY what you want to change in the image..." : "Please upload an image first"}
+          placeholder={isImageSelected ? "Describe ONE specific change you want to make to this photo..." : "Please upload an image first"}
           className="min-h-24 resize-none bg-secondary/60 backdrop-blur-sm"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
@@ -58,7 +58,7 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
       
       {isImageSelected && (
         <div className="space-y-2">
-          <p className="text-xs text-muted-foreground">Describe precise changes while keeping the original image intact:</p>
+          <p className="text-xs text-muted-foreground">Describe a SINGLE specific change while keeping everything else exactly the same:</p>
           <div className="flex flex-wrap gap-2">
             {examples.map((example, index) => (
               <Button

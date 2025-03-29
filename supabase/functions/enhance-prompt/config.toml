@@ -1,0 +1,4 @@
+
+project_id = "oalvdwqpjihwduqsdbyf"
+[serve]
+cors = true
