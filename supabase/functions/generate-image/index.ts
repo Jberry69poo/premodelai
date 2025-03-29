@@ -98,11 +98,21 @@ Please create a DALL-E prompt that will produce a realistic photo edit showing O
     if (!imageResponse.ok) {
       throw new Error(`Failed to download image: ${imageResponse.status} ${imageResponse.statusText}`);
     }
-    const imageBlob = await imageResponse.blob();
     
-    // Convert the blob to a base64 string to use in the DALL-E 2 API call
-    const arrayBuffer = await imageBlob.arrayBuffer();
-    const base64Image = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+    // Get the image data as a buffer
+    const imageBuffer = await imageResponse.arrayBuffer();
+    
+    // Create a Uint8Array from the buffer
+    const uint8Array = new Uint8Array(imageBuffer);
+    
+    // Convert to base64 in chunks to avoid stack overflow
+    // This is the key fix for the Maximum call stack size exceeded error
+    const chunkSize = 32768; // Use a reasonable chunk size (32KB)
+    let base64Image = '';
+    for (let i = 0; i < uint8Array.length; i += chunkSize) {
+      const chunk = uint8Array.slice(i, i + chunkSize);
+      base64Image += btoa(String.fromCharCode.apply(null, chunk));
+    }
 
     // Step 3: Call DALL-E 2 with the image and enhanced prompt
     console.log("Calling DALL-E 2 API for image editing...");
