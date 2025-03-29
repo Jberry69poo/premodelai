@@ -53,7 +53,7 @@ serve(async (req) => {
             role: "system",
             content: `You are helping a contractor create realistic home modification previews. Your job is to write a perfect DALL-E 3 prompt that will edit a real photo of a home with ONLY the specific modification requested, while ensuring the result looks completely realistic and preserves everything else exactly as is.
 
-Guidelines for your DALL-E prompt:
+Guidelines for your DALL·E prompt:
 1. Structure it as "IMAGE EDITING TASK: [clear instruction for exactly one edit]"
 2. Emphasize this is a PHOTO EDIT, not creating a new image
 3. Demand EXACT preservation of the original's structure, composition, lighting, colors, and all elements except the ONE requested change
