@@ -37,8 +37,14 @@ serve(async (req) => {
       );
     }
 
+    // Enhanced prompt with clear instructions to preserve original image integrity
+    const enhancedPrompt = `Create a realistic photo editing result. IMPORTANT: Use the original image as the exact base and ONLY apply this specific change: ${prompt}. 
+DO NOT change any other aspects of the image such as composition, perspective, lighting, background, people, objects, or surroundings. 
+Maintain the exact same angle, position, and all existing elements from the original photo. 
+This is for home renovation visualization where clients need to see realistic modifications to their actual property.`;
+
     // Call OpenAI API to generate image
-    console.log("Calling OpenAI API...");
+    console.log("Calling OpenAI API with enhanced prompt");
     const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
@@ -47,9 +53,12 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         model: "dall-e-3",
-        prompt: `${prompt} (Original image at: ${imageUrl})`,
+        prompt: enhancedPrompt,
         n: 1,
-        size: "1024x1024"
+        size: "1024x1024",
+        quality: "hd",
+        // Reference the original image
+        response_format: "url",
       })
     });
 

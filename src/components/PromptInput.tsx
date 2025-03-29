@@ -26,18 +26,19 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
     }
   };
 
+  // Updated examples with clearer, more specific modification requests
   const examples = [
-    "Change the roof to dark red shingles",
-    "Update the exterior paint to navy blue",
-    "Add stone veneer to the front facade",
-    "Replace the windows with black framed ones"
+    "Change the exterior paint color to navy blue",
+    "Replace the roof with dark gray shingles",
+    "Add stone veneer to the bottom half of the front facade",
+    "Update the front door to a red craftsman style"
   ];
 
   return (
     <div className="w-full space-y-4">
       <div className="relative">
         <Textarea
-          placeholder={isImageSelected ? "Describe the changes you want to make..." : "Please upload an image first"}
+          placeholder={isImageSelected ? "Describe the specific changes you want to make to this image..." : "Please upload an image first"}
           className="min-h-24 resize-none bg-secondary/60 backdrop-blur-sm"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
@@ -57,7 +58,7 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
       
       {isImageSelected && (
         <div className="space-y-2">
-          <p className="text-xs text-muted-foreground">Example prompts:</p>
+          <p className="text-xs text-muted-foreground">Try being specific about the changes you want:</p>
           <div className="flex flex-wrap gap-2">
             {examples.map((example, index) => (
               <Button
