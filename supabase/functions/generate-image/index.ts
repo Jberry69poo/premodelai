@@ -51,7 +51,7 @@ serve(async (req) => {
         messages: [
           {
             role: "system",
-            content: `You are helping a contractor create realistic home modification previews. Your job is to write a perfect DALL-E 3 prompt that will edit a real photo of a home with ONLY the specific modification requested, while ensuring the result looks completely realistic and preserves everything else exactly as is.
+            content: `You are helping a contractor create realistic home modification previews. Your job is to write a perfect DALL-E 2 prompt that will edit a real photo of a home with ONLY the specific modification requested, while ensuring the result looks completely realistic and preserves everything else exactly as is.
 
 Guidelines for your DALL·E prompt:
 1. Structure it as "IMAGE EDITING TASK: [clear instruction for exactly one edit]"
@@ -92,20 +92,31 @@ Please create a DALL-E prompt that will produce a realistic photo edit showing O
     const enhancedPrompt = gptData.choices[0].message.content.trim();
     console.log("Optimized DALL-E prompt:", enhancedPrompt);
 
-    // Step 2: Call DALL-E 3 with the enhanced prompt
-    console.log("Calling DALL-E 3 API with optimized prompt...");
-    const dalleResponse = await fetch('https://api.openai.com/v1/images/generations', {
+    // Step 2: Download the image from the URL
+    console.log("Downloading image from URL...");
+    const imageResponse = await fetch(imageUrl);
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to download image: ${imageResponse.status} ${imageResponse.statusText}`);
+    }
+    const imageBlob = await imageResponse.blob();
+    
+    // Convert the blob to a base64 string to use in the DALL-E 2 API call
+    const arrayBuffer = await imageBlob.arrayBuffer();
+    const base64Image = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+
+    // Step 3: Call DALL-E 2 with the image and enhanced prompt
+    console.log("Calling DALL-E 2 API for image editing...");
+    const dalleResponse = await fetch('https://api.openai.com/v1/images/edits', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${openaiApiKey}`
       },
       body: JSON.stringify({
-        model: "dall-e-3",
+        image: `data:image/jpeg;base64,${base64Image}`,
         prompt: enhancedPrompt,
         n: 1,
         size: "1024x1024",
-        quality: "hd",
         response_format: "url",
       })
     });
