@@ -37,46 +37,64 @@ serve(async (req) => {
       );
     }
 
-    // First, enhance the prompt using GPT-4-Vision
-    console.log("Calling enhance-prompt function to optimize the prompt");
-    const enhanceResponse = await fetch('https://oalvdwqpjihwduqsdbyf.supabase.co/functions/v1/enhance-prompt', {
+    // First, optimize the prompt with GPT-4o vision
+    console.log("Creating optimized DALL-E prompt with GPT-4o...");
+    
+    const visionResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${openaiApiKey}`
       },
       body: JSON.stringify({
-        imageUrl,
-        userRequest: prompt
+        model: "gpt-4o",
+        messages: [
+          {
+            role: "system",
+            content: `You are helping a contractor create realistic home modification previews. Your job is to write a perfect DALL-E 3 prompt that will edit a real photo of a home with ONLY the specific modification requested, while ensuring the result looks completely realistic and preserves everything else exactly as is.
+
+Guidelines for your DALL-E prompt:
+1. Structure it as "IMAGE EDITING TASK: [clear instruction for exactly one edit]"
+2. Emphasize this is a PHOTO EDIT, not creating a new image
+3. Demand EXACT preservation of the original's structure, composition, lighting, colors, and all elements except the ONE requested change
+4. The edit must look professionally done and photorealistic
+5. Do NOT use creative language that could trigger content filters`
+          },
+          {
+            role: "user", 
+            content: [
+              {
+                type: "text",
+                text: `This is a real home photo. I need to show my client what it would look like with this ONE specific change: ${prompt}
+
+Please create a DALL-E prompt that will produce a realistic photo edit showing ONLY this change while keeping everything else exactly the same.`
+              },
+              {
+                type: "image_url",
+                image_url: {
+                  url: imageUrl
+                }
+              }
+            ]
+          }
+        ],
+        max_tokens: 500
       })
     });
 
-    const enhanceData = await enhanceResponse.json();
-
-    if (!enhanceResponse.ok) {
-      console.error("Enhance prompt error:", enhanceData);
-      console.log("Falling back to default prompt structure");
-      
-      // Default prompt if enhancement fails
-      enhanceData.enhancedPrompt = `IMAGE EDITING TASK: Using the original image as a direct reference, show exactly how it would look with this ONE specific modification: ${prompt}
-
-CRITICAL REQUIREMENTS:
-- This is a professional photo edit, not a new image creation
-- EXACT PRESERVATION of the original image's structure, layout, perspective, and all other elements
-- Only apply the requested modification: ${prompt}
-- Keep the exact same building, landscape, angles, lighting style, colors, and composition
-- Result must be photorealistic and match the exact properties of the original
-- The edit must be seamless and look like a professional photo edit made by a skilled designer
-- Ensure 100% accuracy in preserving all unchanged elements`;
+    const visionData = await visionResponse.json();
+    
+    if (!visionResponse.ok) {
+      console.error("GPT-4o vision API error:", visionData);
+      throw new Error(`GPT-4o API error: ${visionData.error?.message || "Unknown error"}`);
     }
 
-    // Use the enhanced prompt or fallback
-    const enhancedPrompt = enhanceData.enhancedPrompt;
-    console.log("Using prompt for DALL-E:", enhancedPrompt);
+    const enhancedPrompt = visionData.choices[0].message.content.trim();
+    console.log("Optimized DALL-E prompt:", enhancedPrompt);
 
-    // Call DALL-E 3 with the enhanced prompt
-    console.log("Calling DALL-E 3 API with enhanced prompt");
-    const response = await fetch('https://api.openai.com/v1/images/generations', {
+    // Now call DALL-E 3 with the enhanced prompt
+    console.log("Calling DALL-E 3 API with optimized prompt...");
+    const dalleResponse = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -92,28 +110,28 @@ CRITICAL REQUIREMENTS:
       })
     });
 
-    const data = await response.json();
+    const dalleData = await dalleResponse.json();
     
-    console.log("DALL-E API response status:", response.status);
+    console.log("DALL-E API response status:", dalleResponse.status);
 
-    if (!response.ok) {
-      console.error("DALL-E API error:", data);
+    if (!dalleResponse.ok) {
+      console.error("DALL-E API error:", dalleData);
       return new Response(
         JSON.stringify({ 
-          error: data.error?.message || "Error generating image",
-          details: data
+          error: dalleData.error?.message || "Error generating image",
+          details: dalleData
         }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     // Extract the generated image URL
-    const generatedImageUrl = data.data?.[0]?.url;
+    const generatedImageUrl = dalleData.data?.[0]?.url;
     
     if (!generatedImageUrl) {
-      console.error("No image URL in response:", data);
+      console.error("No image URL in response:", dalleData);
       return new Response(
-        JSON.stringify({ error: "No image was generated", details: data }),
+        JSON.stringify({ error: "No image was generated", details: dalleData }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
