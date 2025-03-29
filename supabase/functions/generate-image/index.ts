@@ -99,21 +99,9 @@ Please create a DALL-E prompt that will produce a realistic photo edit showing O
       throw new Error(`Failed to download image: ${imageResponse.status} ${imageResponse.statusText}`);
     }
     
-    // Get the image data as a buffer
+    // Get the image data as an ArrayBuffer
     const imageBuffer = await imageResponse.arrayBuffer();
     
-    // Create a Uint8Array from the buffer
-    const uint8Array = new Uint8Array(imageBuffer);
-    
-    // Convert to base64 in chunks to avoid stack overflow
-    // This is the key fix for the Maximum call stack size exceeded error
-    const chunkSize = 32768; // Use a reasonable chunk size (32KB)
-    let base64Image = '';
-    for (let i = 0; i < uint8Array.length; i += chunkSize) {
-      const chunk = uint8Array.slice(i, i + chunkSize);
-      base64Image += btoa(String.fromCharCode.apply(null, chunk));
-    }
-
     // Step 3: Call DALL-E 2 with the image and enhanced prompt
     // For DALL-E 2 edits endpoint, we need to use multipart/form-data
     console.log("Calling DALL-E 2 API for image editing...");
@@ -121,14 +109,8 @@ Please create a DALL-E prompt that will produce a realistic photo edit showing O
     // Create a FormData object for multipart/form-data request
     const formData = new FormData();
     
-    // Convert base64 to Blob
-    const byteCharacters = atob(base64Image);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], { type: 'image/jpeg' });
+    // Use the raw ArrayBuffer instead of trying to encode/decode base64
+    const blob = new Blob([new Uint8Array(imageBuffer)], { type: 'image/jpeg' });
     
     // Add parts to the form data
     formData.append('image', blob, 'image.jpg');
