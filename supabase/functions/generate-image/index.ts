@@ -115,20 +115,33 @@ Please create a DALL-E prompt that will produce a realistic photo edit showing O
     }
 
     // Step 3: Call DALL-E 2 with the image and enhanced prompt
+    // For DALL-E 2 edits endpoint, we need to use multipart/form-data
     console.log("Calling DALL-E 2 API for image editing...");
+    
+    // Create a FormData object for multipart/form-data request
+    const formData = new FormData();
+    
+    // Convert base64 to Blob
+    const byteCharacters = atob(base64Image);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'image/jpeg' });
+    
+    // Add parts to the form data
+    formData.append('image', blob, 'image.jpg');
+    formData.append('prompt', enhancedPrompt);
+    formData.append('n', '1');
+    formData.append('size', '1024x1024');
+    
     const dalleResponse = await fetch('https://api.openai.com/v1/images/edits', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${openaiApiKey}`
       },
-      body: JSON.stringify({
-        image: `data:image/jpeg;base64,${base64Image}`,
-        prompt: enhancedPrompt,
-        n: 1,
-        size: "1024x1024",
-        response_format: "url",
-      })
+      body: formData
     });
 
     const dalleData = await dalleResponse.json();
