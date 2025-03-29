@@ -39,28 +39,36 @@ export async function generateImageWithExternalAPI(file: File, prompt: string): 
     formData.append('image', file);
     formData.append('prompt', prompt);
     
+    // Adding error handling with timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
+    
     const response = await fetch('https://mockingbird.fly.dev/generate-image-fast', {
       method: 'POST',
       body: formData,
-    });
+      signal: controller.signal
+    }).finally(() => clearTimeout(timeoutId));
     
     if (!response.ok) {
       const errorText = await response.text();
       console.error('API error response:', errorText);
-      throw new Error(`API error: ${response.status} ${response.statusText}`);
+      throw new Error(`API error: ${response.status} ${response.statusText}. The image generation service might be temporarily unavailable.`);
     }
     
     const data = await response.json();
     
     if (!data || !data.image_url) {
       console.error('No image URL in response:', data);
-      throw new Error('No image URL returned from generation API');
+      throw new Error('No image URL returned from generation API. Please try again with a different prompt.');
     }
     
     console.log("Image generated successfully:", data.image_url);
     return data.image_url;
   } catch (error) {
     console.error('Error in generateImageWithExternalAPI:', error);
+    if (error.name === "AbortError") {
+      throw new Error("Generation request timed out. The service might be busy or temporarily unavailable.");
+    }
     throw error;
   }
 }

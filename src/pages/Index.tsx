@@ -12,6 +12,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { generateImageWithExternalAPI, saveMockup } from "@/lib/imageService";
 import { uploadImage } from "@/lib/supabase";
 import { useAuth } from "@/hooks/use-auth";
+import { Button } from "@/components/ui/button";
+import { AlertCircle } from "lucide-react";
 
 const Index = () => {
   const { toast } = useToast();
@@ -25,6 +27,7 @@ const Index = () => {
   const [progressValue, setProgressValue] = useState(0);
   const [progressText, setProgressText] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [apiRetries, setApiRetries] = useState(0);
 
   const handleImageSelect = async (file: File | null) => {
     if (!file) {
@@ -88,6 +91,7 @@ const Index = () => {
       }
       
       setGeneratedImage(generatedUrl);
+      setApiRetries(0); // Reset retries on success
       
       // Save the mockup to Supabase
       if (imageUrl) {
@@ -131,6 +135,15 @@ const Index = () => {
 
   const handleRegenerate = () => {
     if (prompt && selectedFile) {
+      if (apiRetries > 2) {
+        toast({
+          variant: "destructive",
+          title: "Too many attempts",
+          description: "The service may be temporarily unavailable. Please try again later.",
+        });
+        return;
+      }
+      setApiRetries(apiRetries + 1);
       handlePromptSubmit(prompt);
     }
   };
@@ -142,6 +155,7 @@ const Index = () => {
     setPrompt("");
     setError(null);
     setActiveTab("create");
+    setApiRetries(0);
     
     toast({
       title: "Starting new creation",
@@ -191,7 +205,21 @@ const Index = () => {
                   
                   {error && (
                     <div className="p-4 bg-destructive/10 text-destructive rounded-md">
-                      <p className="font-medium">Error: {error}</p>
+                      <div className="flex items-center gap-2 mb-2">
+                        <AlertCircle className="h-5 w-5" />
+                        <p className="font-medium">Error</p>
+                      </div>
+                      <p>{error}</p>
+                      {(error.includes("timed out") || error.includes("unavailable") || error.includes("Load failed")) && (
+                        <div className="mt-3">
+                          <p className="text-sm mb-2">The external image generation service appears to be unavailable at the moment. You can:</p>
+                          <ul className="list-disc pl-5 text-sm">
+                            <li>Try again in a few minutes</li>
+                            <li>Try a different prompt</li>
+                            <li>Check your internet connection</li>
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
