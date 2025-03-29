@@ -60,10 +60,11 @@ export async function saveGeneratedImage(
   userId: string, 
   originalImageUrl: string, 
   generatedImageUrl: string, 
-  prompt: string
+  prompt: string,
+  enhancedPrompt?: string
 ) {
   try {
-    console.log("Saving generated image:", { userId, prompt });
+    console.log("Saving generated image:", { userId, prompt, enhancedPrompt });
     const { data, error } = await supabase
       .from('generated_images')
       .insert([
@@ -71,7 +72,8 @@ export async function saveGeneratedImage(
           user_id: userId, 
           original_image_url: originalImageUrl, 
           generated_image_url: generatedImageUrl, 
-          prompt 
+          prompt,
+          enhanced_prompt: enhancedPrompt || null
         }
       ]);
 

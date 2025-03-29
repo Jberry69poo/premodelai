@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Hero } from "@/components/Hero";
@@ -92,7 +93,8 @@ const Index = () => {
             user.id,
             imageUrl,
             result.generatedImageUrl,
-            promptText
+            promptText,
+            result.enhancedPrompt
           );
           console.log("Image saved to database");
         } catch (saveError) {
@@ -123,7 +125,7 @@ const Index = () => {
       toast({
         variant: "destructive",
         title: "Generation failed",
-        description: error.message || "There was an error generating your image. Please try again.",
+        description: error.message || "There was an error generating your image. Please try again with a more specific change description.",
       });
     } finally {
       setIsLoading(false);

@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import { Wand2 } from "lucide-react";
+import { Wand2, Info } from "lucide-react";
 
 interface PromptInputProps {
   onSubmit: (prompt: string) => void;
@@ -58,7 +58,13 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
       
       {isImageSelected && (
         <div className="space-y-2">
-          <p className="text-xs text-muted-foreground">Describe a SINGLE specific change while keeping everything else exactly the same:</p>
+          <div className="flex items-start gap-2 text-xs text-muted-foreground">
+            <Info className="h-4 w-4 shrink-0 mt-0.5" />
+            <p>
+              For best results, describe a <span className="font-medium">single specific exterior change</span> to the home, 
+              such as a color modification or material replacement. Be specific about colors and materials.
+            </p>
+          </div>
           <div className="flex flex-wrap gap-2">
             {examples.map((example, index) => (
               <Button

@@ -37,45 +37,110 @@ serve(async (req) => {
       );
     }
 
-    // First, enhance the prompt using GPT-4-Vision
-    console.log("Calling enhance-prompt function to optimize the prompt");
-    const enhanceResponse = await fetch('https://oalvdwqpjihwduqsdbyf.supabase.co/functions/v1/enhance-prompt', {
+    // First, use GPT-4o to enhance the prompt
+    console.log("Calling GPT-4o to create a safer and more effective prompt");
+    const sanitizedUserPrompt = prompt
+      .trim()
+      .replace(/[^\w\s,.?!()]/g, '')  // Remove potentially problematic characters
+      .toLowerCase();
+
+    // Create a safer prompt template that's more likely to pass content policy checks
+    const systemInstructions = `
+      You are a home renovation visualization assistant. Your task is to take a user's request for a home 
+      modification and create a safe, neutral prompt for DALL-E 3 that will generate a realistic visualization.
+      
+      ONLY reply with the revised prompt text, nothing else.
+      
+      The prompt must:
+      1. Focus ONLY on home exterior/interior design changes
+      2. Be descriptive but neutral in tone
+      3. Avoid any politically, socially, or ethically sensitive concepts
+      4. Emphasize photorealism and professional quality
+      5. Never include anything that could violate OpenAI's content policy
+
+      Format your response as:
+      "A photorealistic visualization showing [specific home change requested], maintaining the exact same structure, lighting and composition as the reference photo."
+    `;
+
+    const visionResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${openaiApiKey}`
       },
       body: JSON.stringify({
-        imageUrl,
-        userRequest: prompt
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "system", content: systemInstructions },
+          { role: "user", content: `Create a safe prompt to visualize a home with this change: ${sanitizedUserPrompt}` }
+        ],
+        max_tokens: 200,
+        temperature: 0.3
       })
     });
 
-    const enhanceData = await enhanceResponse.json();
-
-    if (!enhanceResponse.ok) {
-      console.error("Enhance prompt error:", enhanceData);
-      console.log("Falling back to default prompt structure");
+    if (!visionResponse.ok) {
+      const errorData = await visionResponse.json();
+      console.error("Error creating safe prompt:", errorData);
       
-      // Default prompt if enhancement fails
-      enhanceData.enhancedPrompt = `IMAGE EDITING TASK: Using the original image as a direct reference, show exactly how it would look with this ONE specific modification: ${prompt}
-
-CRITICAL REQUIREMENTS:
-- This is a professional photo edit, not a new image creation
-- EXACT PRESERVATION of the original image's structure, layout, perspective, and all other elements
-- Only apply the requested modification: ${prompt}
-- Keep the exact same building, landscape, angles, lighting style, colors, and composition
-- Result must be photorealistic and match the exact properties of the original
-- The edit must be seamless and look like a professional photo edit made by a skilled designer
-- Ensure 100% accuracy in preserving all unchanged elements`;
+      // Use a fallback safe prompt structure
+      const fallbackPrompt = `A photorealistic visualization showing a home with ${sanitizedUserPrompt}, maintaining the exact same structure, lighting, and composition as the reference photo.`;
+      console.log("Using fallback prompt:", fallbackPrompt);
+      
+      // Call DALL-E 3 with the fallback prompt
+      const response = await fetch('https://api.openai.com/v1/images/generations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${openaiApiKey}`
+        },
+        body: JSON.stringify({
+          model: "dall-e-3",
+          prompt: fallbackPrompt,
+          n: 1,
+          size: "1024x1024",
+          quality: "standard",
+          response_format: "url",
+          style: "natural"
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        console.error("DALL-E API error:", data);
+        return new Response(
+          JSON.stringify({ error: data.error?.message || "Error generating image" }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      
+      const generatedImageUrl = data.data[0].url;
+      
+      return new Response(
+        JSON.stringify({ 
+          success: true,
+          generatedImageUrl,
+          enhancedPrompt: fallbackPrompt
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
-    // Use the enhanced prompt or fallback
-    const enhancedPrompt = enhanceData.enhancedPrompt;
-    console.log("Using prompt for DALL-E:", enhancedPrompt);
+    const visionData = await visionResponse.json();
+    const enhancedPrompt = visionData.choices[0]?.message?.content;
+    
+    if (!enhancedPrompt) {
+      console.error("No enhanced prompt generated:", visionData);
+      return new Response(
+        JSON.stringify({ error: "Failed to generate a safe prompt" }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    console.log("Using enhanced prompt for DALL-E:", enhancedPrompt);
 
     // Call DALL-E 3 with the enhanced prompt
-    console.log("Calling DALL-E 3 API with enhanced prompt");
     const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
@@ -87,8 +152,9 @@ CRITICAL REQUIREMENTS:
         prompt: enhancedPrompt,
         n: 1,
         size: "1024x1024",
-        quality: "hd",
+        quality: "standard",
         response_format: "url",
+        style: "natural"
       })
     });
 
@@ -98,33 +164,65 @@ CRITICAL REQUIREMENTS:
 
     if (!response.ok) {
       console.error("DALL-E API error:", data);
+      
+      // Try one more time with an even safer prompt
+      console.log("Trying again with safer prompt");
+      const saferPrompt = `A photorealistic image of a house with ${sanitizedUserPrompt.slice(0, 50)}`;
+      
+      const retryResponse = await fetch('https://api.openai.com/v1/images/generations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${openaiApiKey}`
+        },
+        body: JSON.stringify({
+          model: "dall-e-3",
+          prompt: saferPrompt,
+          n: 1,
+          size: "1024x1024",
+          quality: "standard",
+          response_format: "url",
+          style: "natural"
+        })
+      });
+      
+      const retryData = await retryResponse.json();
+      
+      if (!retryResponse.ok) {
+        console.error("DALL-E API error on retry:", retryData);
+        return new Response(
+          JSON.stringify({ 
+            error: "Your request couldn't be processed due to content safety policies. Please try a different, more specific home modification request.",
+            details: retryData.error || "Unknown error"
+          }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      
+      const generatedImageUrl = retryData.data[0].url;
+      
+      console.log("Image successfully generated with safer prompt. URL:", generatedImageUrl);
+      
       return new Response(
         JSON.stringify({ 
-          error: data.error?.message || "Error generating image",
-          details: data
+          success: true,
+          generatedImageUrl,
+          enhancedPrompt: saferPrompt
         }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     // Extract the generated image URL
-    const generatedImageUrl = data.data?.[0]?.url;
+    const generatedImageUrl = data.data[0].url;
     
-    if (!generatedImageUrl) {
-      console.error("No image URL in response:", data);
-      return new Response(
-        JSON.stringify({ error: "No image was generated", details: data }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-
     console.log("Image successfully generated. URL:", generatedImageUrl);
 
     return new Response(
       JSON.stringify({ 
         success: true,
         generatedImageUrl,
-        enhancedPrompt  // Include the enhanced prompt in the response for transparency
+        enhancedPrompt
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
