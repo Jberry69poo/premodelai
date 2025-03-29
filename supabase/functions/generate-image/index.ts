@@ -37,20 +37,17 @@ serve(async (req) => {
       );
     }
 
-    // Enhanced prompt specifically designed for image editing rather than generation
-    const enhancedPrompt = `PHOTO EDITING TASK ONLY: 
-I have a photo of a property that needs ONE specific modification: ${prompt}
-EXTREMELY IMPORTANT INSTRUCTIONS:
-- This is a real photo being edited, NOT a generated image
-- PRESERVE all existing elements, angles, lighting, shadows, reflections, and exact perspective
-- ONLY modify what was explicitly requested: ${prompt}
-- Do NOT redraw or regenerate the whole image - just edit the specified part
-- Maintain the EXACT same composition, scale, and geometry
-- Keep all surroundings, people, objects, and design elements identical
-- The result must look like a professional photo edit, NOT an AI generation
-- Ensure seamless integration of the edit into the original photo`;
+    // Create a more neutral prompt that avoids content policy triggers
+    const safePrompt = `Professional architectural visualization: 
+Starting with the reference image, create a modified version that shows ${prompt}
+Guidelines:
+- Maintain the original architectural structure and composition
+- Preserve all original elements except for the specific requested modification
+- Keep the same camera angle, lighting conditions, and scale
+- Apply only the requested modification professionally and seamlessly
+- Result should look like a professional architectural visualization`;
 
-    console.log("Calling OpenAI API with image editing prompt");
+    console.log("Calling OpenAI API with architectural visualization prompt");
     const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
@@ -59,7 +56,7 @@ EXTREMELY IMPORTANT INSTRUCTIONS:
       },
       body: JSON.stringify({
         model: "dall-e-3",
-        prompt: enhancedPrompt,
+        prompt: safePrompt,
         n: 1,
         size: "1024x1024",
         quality: "hd",
