@@ -1,6 +1,6 @@
 
-import { useState } from "react";
-import { Navbar } from "@/components/Navbar";
+import { useState, useEffect } from "react";
+import { CustomNavbar } from "@/components/CustomNavbar";
 import { Hero } from "@/components/Hero";
 import { ImageUpload } from "@/components/ImageUpload";
 import { PromptInput } from "@/components/PromptInput";
@@ -9,17 +9,23 @@ import { LoadingState } from "@/components/LoadingState";
 import { Footer } from "@/components/Footer";
 import { useToast } from "@/components/ui/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { uploadImage, generateImage, saveGeneratedImage } from "@/lib/supabase";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
 
 const Index = () => {
   const { toast } = useToast();
+  const { user } = useAuth();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [prompt, setPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("create");
+  const [progressValue, setProgressValue] = useState(0);
+  const [progressText, setProgressText] = useState("");
 
-  const handleImageSelect = (file: File | null) => {
+  const handleImageSelect = async (file: File | null) => {
     if (!file) {
       setSelectedImage(null);
       setSelectedFile(null);
@@ -33,18 +39,52 @@ const Index = () => {
   };
 
   const handlePromptSubmit = async (promptText: string) => {
-    if (!selectedImage) return;
+    if (!selectedImage || !selectedFile) return;
     
     setPrompt(promptText);
     setIsLoading(true);
+    setProgressValue(0);
+    setProgressText("Uploading your image...");
     
     try {
-      // Mock AI image generation
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      // Step 1: Upload the image to Supabase Storage
+      setProgressValue(10);
+      const imageUrl = await uploadImage(selectedFile);
       
-      // For demo purposes, we'll just use the same image
-      // In a real app, we would call the OpenAI API here
-      setGeneratedImage(selectedImage);
+      if (!imageUrl) {
+        throw new Error("Failed to upload image");
+      }
+      
+      // Step 2: Generate the new image using OpenAI
+      setProgressValue(30);
+      setProgressText("Generating your visualization...");
+      
+      const result = await generateImage(promptText, imageUrl);
+      
+      if (!result || !result.generatedImageUrl) {
+        throw new Error("Failed to generate image");
+      }
+      
+      setProgressValue(90);
+      setProgressText("Finalizing your result...");
+      
+      // Step 3: Set the generated image
+      setGeneratedImage(result.generatedImageUrl);
+      
+      // Step 4: Save to database if user is logged in
+      if (user) {
+        await saveGeneratedImage(
+          user.id,
+          imageUrl,
+          result.generatedImageUrl,
+          promptText
+        );
+      } else {
+        toast({
+          description: "Sign in to save your generated images",
+          variant: "default"
+        });
+      }
       
       toast({
         title: "Image generated successfully!",
@@ -52,11 +92,15 @@ const Index = () => {
       });
       
       setActiveTab("result");
+      setProgressValue(100);
     } catch (error) {
+      console.error("Error generating image:", error);
       toast({
         variant: "destructive",
         title: "Generation failed",
-        description: "There was an error generating your image. Please try again.",
+        description: error instanceof Error 
+          ? error.message 
+          : "There was an error generating your image. Please try again.",
       });
     } finally {
       setIsLoading(false);
@@ -65,7 +109,7 @@ const Index = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+      <CustomNavbar />
       
       <main className="flex-1">
         {!generatedImage && !isLoading && <Hero />}
@@ -106,7 +150,7 @@ const Index = () => {
               
               <TabsContent value="result">
                 {isLoading ? (
-                  <LoadingState />
+                  <LoadingState progressValue={progressValue} progressText={progressText} />
                 ) : (
                   generatedImage && selectedImage && (
                     <ImageComparison 
