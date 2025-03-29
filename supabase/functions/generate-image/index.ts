@@ -37,17 +37,19 @@ serve(async (req) => {
       );
     }
 
-    // Create a more neutral prompt that avoids content policy triggers
-    const safePrompt = `Professional architectural visualization: 
-Starting with the reference image, create a modified version that shows ${prompt}
-Guidelines:
-- Maintain the original architectural structure and composition
-- Preserve all original elements except for the specific requested modification
-- Keep the same camera angle, lighting conditions, and scale
-- Apply only the requested modification professionally and seamlessly
-- Result should look like a professional architectural visualization`;
+    // Significantly improved prompt that focuses on precise edits while maintaining image fidelity
+    const preciseEditPrompt = `IMAGE EDITING TASK: Using the original image as a direct reference, show exactly how it would look with this ONE specific modification: ${prompt}
 
-    console.log("Calling OpenAI API with architectural visualization prompt");
+CRITICAL REQUIREMENTS:
+- This is a professional photo edit, not a new image creation
+- EXACT PRESERVATION of the original image's structure, layout, perspective, and all other elements
+- Only apply the requested modification: ${prompt}
+- Keep the exact same building, landscape, angles, lighting style, colors, and composition
+- Result must be photorealistic and match the exact properties of the original
+- The edit must be seamless and look like a professional photo edit made by a skilled designer
+- Ensure 100% accuracy in preserving all unchanged elements`;
+
+    console.log("Calling OpenAI API with precise image editing prompt");
     const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
@@ -56,7 +58,7 @@ Guidelines:
       },
       body: JSON.stringify({
         model: "dall-e-3",
-        prompt: safePrompt,
+        prompt: preciseEditPrompt,
         n: 1,
         size: "1024x1024",
         quality: "hd",

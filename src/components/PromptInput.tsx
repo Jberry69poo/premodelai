@@ -26,19 +26,19 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
     }
   };
 
-  // Updated examples with architectural visualization language
+  // Examples that focus on precise edits with clear before/after language
   const examples = [
-    "dark gray shutters instead of the current blue ones",
-    "a vibrant red front door replacing the existing one",
-    "brown cedar shingles on the roof",
-    "white trim around all the windows"
+    "add warm white C9 string lights along the roofline",
+    "wrap the palm trees with green LED lights",
+    "add recessed lighting under the pool coping",
+    "change the pool lights to a soft blue glow"
   ];
 
   return (
     <div className="w-full space-y-4">
       <div className="relative">
         <Textarea
-          placeholder={isImageSelected ? "Describe what specific feature you want to visualize differently..." : "Please upload an image first"}
+          placeholder={isImageSelected ? "Describe EXACTLY what you want to change in the image..." : "Please upload an image first"}
           className="min-h-24 resize-none bg-secondary/60 backdrop-blur-sm"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
@@ -58,7 +58,7 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
       
       {isImageSelected && (
         <div className="space-y-2">
-          <p className="text-xs text-muted-foreground">Describe the specific architectural changes you'd like to visualize:</p>
+          <p className="text-xs text-muted-foreground">Describe precise changes while keeping the original image intact:</p>
           <div className="flex flex-wrap gap-2">
             {examples.map((example, index) => (
               <Button
