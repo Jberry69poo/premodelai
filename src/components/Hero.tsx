@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, PaintBucket, Clock, Zap } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export const Hero = () => {
   return (
@@ -24,40 +24,6 @@ export const Hero = () => {
             <Button variant="outline" className="bg-secondary/60">
               See Examples
             </Button>
-          </div>
-        </div>
-      </div>
-      
-      <div className="container px-4 md:px-6 mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="glass-card p-6 rounded-lg flex flex-col items-center text-center space-y-4">
-            <div className="p-3 bg-primary/10 rounded-full">
-              <PaintBucket className="h-6 w-6 text-primary" />
-            </div>
-            <h3 className="text-xl font-medium">Realistic Visualizations</h3>
-            <p className="text-muted-foreground">
-              Show customers exactly how new roofing, siding, paint, or landscaping will look with photorealistic images.
-            </p>
-          </div>
-          
-          <div className="glass-card p-6 rounded-lg flex flex-col items-center text-center space-y-4">
-            <div className="p-3 bg-primary/10 rounded-full">
-              <Clock className="h-6 w-6 text-primary" />
-            </div>
-            <h3 className="text-xl font-medium">Save Time</h3>
-            <p className="text-muted-foreground">
-              Generate visualizations in seconds instead of hours of manual design work or expensive rendering software.
-            </p>
-          </div>
-          
-          <div className="glass-card p-6 rounded-lg flex flex-col items-center text-center space-y-4">
-            <div className="p-3 bg-primary/10 rounded-full">
-              <Zap className="h-6 w-6 text-primary" />
-            </div>
-            <h3 className="text-xl font-medium">Close More Deals</h3>
-            <p className="text-muted-foreground">
-              Help clients overcome uncertainty and make confident decisions by showing them the finished result upfront.
-            </p>
           </div>
         </div>
       </div>
