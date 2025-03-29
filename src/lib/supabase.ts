@@ -3,32 +3,37 @@ import { supabase } from "@/integrations/supabase/client";
 
 export async function uploadImage(file: File): Promise<string | null> {
   try {
+    console.log("Starting image upload:", file.name, file.size);
     const fileExt = file.name.split('.').pop();
     const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
     const filePath = `${fileName}`;
 
+    console.log("Uploading to bucket: mockingbird-images, path:", filePath);
     const { data, error } = await supabase.storage
       .from('mockingbird-images')
       .upload(filePath, file);
 
     if (error) {
       console.error('Error uploading image:', error);
-      return null;
+      throw new Error(`Upload failed: ${error.message}`);
     }
 
+    console.log("Upload successful, getting public URL");
     const { data: urlData } = supabase.storage
       .from('mockingbird-images')
       .getPublicUrl(filePath);
 
+    console.log("Generated public URL:", urlData.publicUrl);
     return urlData.publicUrl;
   } catch (error) {
     console.error('Error in uploadImage:', error);
-    return null;
+    throw error;
   }
 }
 
 export async function generateImage(prompt: string, originalImageUrl: string) {
   try {
+    console.log("Calling generate-image function with:", { prompt, originalImageUrl });
     const { data, error } = await supabase.functions.invoke('generate-image', {
       body: { prompt, imageUrl: originalImageUrl }
     });
@@ -38,6 +43,12 @@ export async function generateImage(prompt: string, originalImageUrl: string) {
       throw new Error(error.message || 'Failed to generate image');
     }
 
+    if (!data || !data.generatedImageUrl) {
+      console.error('No image data returned:', data);
+      throw new Error('No image data returned from generation');
+    }
+
+    console.log("Image generated successfully:", data);
     return data;
   } catch (error) {
     console.error('Error in generateImage:', error);
@@ -52,6 +63,7 @@ export async function saveGeneratedImage(
   prompt: string
 ) {
   try {
+    console.log("Saving generated image:", { userId, prompt });
     const { data, error } = await supabase
       .from('generated_images')
       .insert([
@@ -68,6 +80,7 @@ export async function saveGeneratedImage(
       return null;
     }
 
+    console.log("Image saved successfully");
     return data;
   } catch (error) {
     console.error('Error in saveGeneratedImage:', error);

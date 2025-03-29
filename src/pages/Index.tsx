@@ -24,6 +24,7 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState("create");
   const [progressValue, setProgressValue] = useState(0);
   const [progressText, setProgressText] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const handleImageSelect = async (file: File | null) => {
     if (!file) {
@@ -36,49 +37,80 @@ const Index = () => {
     const imageUrl = URL.createObjectURL(file);
     setSelectedImage(imageUrl);
     setGeneratedImage(null);
+    setError(null);
   };
 
   const handlePromptSubmit = async (promptText: string) => {
-    if (!selectedImage || !selectedFile) return;
+    if (!selectedImage || !selectedFile) {
+      toast({
+        variant: "destructive",
+        title: "No image selected",
+        description: "Please upload an image first.",
+      });
+      return;
+    }
     
     setPrompt(promptText);
     setIsLoading(true);
-    setProgressValue(0);
+    setProgressValue(10);
     setProgressText("Uploading your image...");
+    setError(null);
     
     try {
       // Step 1: Upload the image to Supabase Storage
-      setProgressValue(10);
-      const imageUrl = await uploadImage(selectedFile);
-      
-      if (!imageUrl) {
-        throw new Error("Failed to upload image");
+      console.log("Starting image upload process");
+      let imageUrl;
+      try {
+        imageUrl = await uploadImage(selectedFile);
+        if (!imageUrl) {
+          throw new Error("Failed to upload image: No URL returned");
+        }
+        setProgressValue(30);
+        setProgressText("Image uploaded successfully, generating visualization...");
+        console.log("Image uploaded successfully:", imageUrl);
+      } catch (uploadError) {
+        console.error("Image upload failed:", uploadError);
+        throw new Error(`Failed to upload image: ${uploadError.message}`);
       }
       
       // Step 2: Generate the new image using OpenAI
-      setProgressValue(30);
-      setProgressText("Generating your visualization...");
-      
-      const result = await generateImage(promptText, imageUrl);
-      
-      if (!result || !result.generatedImageUrl) {
-        throw new Error("Failed to generate image");
+      console.log("Starting image generation with prompt:", promptText);
+      let result;
+      try {
+        result = await generateImage(promptText, imageUrl);
+        if (!result || !result.generatedImageUrl) {
+          throw new Error("No image URL returned from generation service");
+        }
+        setProgressValue(90);
+        setProgressText("Visualization created successfully, finalizing...");
+        console.log("Image generated successfully:", result);
+      } catch (generationError) {
+        console.error("Image generation failed:", generationError);
+        throw new Error(`Failed to generate image: ${generationError.message}`);
       }
-      
-      setProgressValue(90);
-      setProgressText("Finalizing your result...");
       
       // Step 3: Set the generated image
       setGeneratedImage(result.generatedImageUrl);
       
       // Step 4: Save to database if user is logged in
       if (user) {
-        await saveGeneratedImage(
-          user.id,
-          imageUrl,
-          result.generatedImageUrl,
-          promptText
-        );
+        try {
+          await saveGeneratedImage(
+            user.id,
+            imageUrl,
+            result.generatedImageUrl,
+            promptText
+          );
+          console.log("Image saved to database");
+        } catch (saveError) {
+          console.error("Failed to save image to database:", saveError);
+          // We don't throw here since the image generation was successful
+          toast({
+            variant: "default",
+            title: "Image generated successfully",
+            description: "But we couldn't save it to your history.",
+          });
+        }
       } else {
         toast({
           description: "Sign in to save your generated images",
@@ -87,20 +119,19 @@ const Index = () => {
       }
       
       toast({
-        title: "Image generated successfully!",
+        title: "Success!",
         description: "Your visualization is ready to view.",
       });
       
       setActiveTab("result");
       setProgressValue(100);
     } catch (error) {
-      console.error("Error generating image:", error);
+      console.error("Error in handlePromptSubmit:", error);
+      setError(error.message || "An unexpected error occurred");
       toast({
         variant: "destructive",
         title: "Generation failed",
-        description: error instanceof Error 
-          ? error.message 
-          : "There was an error generating your image. Please try again.",
+        description: error.message || "There was an error generating your image. Please try again.",
       });
     } finally {
       setIsLoading(false);
@@ -145,6 +176,12 @@ const Index = () => {
                     isLoading={isLoading}
                     isImageSelected={!!selectedImage}
                   />
+                  
+                  {error && (
+                    <div className="p-4 bg-destructive/10 text-destructive rounded-md">
+                      <p className="font-medium">Error: {error}</p>
+                    </div>
+                  )}
                 </div>
               </TabsContent>
               

@@ -17,25 +17,28 @@ serve(async (req) => {
     const { prompt, imageUrl } = await req.json();
     
     if (!prompt || !imageUrl) {
+      console.error("Missing required parameters:", { prompt, imageUrl });
       return new Response(
         JSON.stringify({ error: "Missing required parameters" }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log(`Processing image generation with prompt: ${prompt}`);
+    console.log(`Processing image generation with prompt: "${prompt}" and image URL: ${imageUrl}`);
     
     // Get the OpenAI API key from environment variables
     const openaiApiKey = Deno.env.get('OPENAI_API_KEY');
     
     if (!openaiApiKey) {
+      console.error("OpenAI API key not configured");
       return new Response(
         JSON.stringify({ error: "OpenAI API key not configured" }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Call OpenAI API to generate image variations
+    // Call OpenAI API to generate image
+    console.log("Calling OpenAI API...");
     const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
@@ -43,21 +46,24 @@ serve(async (req) => {
         'Authorization': `Bearer ${openaiApiKey}`
       },
       body: JSON.stringify({
+        model: "dall-e-3",
         prompt: `${prompt} (Original image at: ${imageUrl})`,
         n: 1,
-        size: "1024x1024",
-        model: "dall-e-3"
+        size: "1024x1024"
       })
     });
 
     const data = await response.json();
     
-    console.log("OpenAI API response received");
+    console.log("OpenAI API response status:", response.status);
 
-    if (data.error) {
-      console.error("OpenAI API error:", data.error);
+    if (!response.ok) {
+      console.error("OpenAI API error:", data);
       return new Response(
-        JSON.stringify({ error: data.error.message || "Error generating image" }),
+        JSON.stringify({ 
+          error: data.error?.message || "Error generating image",
+          details: data
+        }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -66,11 +72,14 @@ serve(async (req) => {
     const generatedImageUrl = data.data?.[0]?.url;
     
     if (!generatedImageUrl) {
+      console.error("No image URL in response:", data);
       return new Response(
-        JSON.stringify({ error: "No image was generated" }),
+        JSON.stringify({ error: "No image was generated", details: data }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    console.log("Image successfully generated. URL:", generatedImageUrl);
 
     return new Response(
       JSON.stringify({ 
@@ -80,9 +89,9 @@ serve(async (req) => {
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error("Unexpected error:", error.message, error.stack);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: error.message, stack: error.stack }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
