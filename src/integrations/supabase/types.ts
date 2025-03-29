@@ -12,6 +12,7 @@ export type Database = {
       generated_images: {
         Row: {
           created_at: string
+          enhanced_prompt: string | null
           generated_image_url: string
           id: string
           original_image_url: string
@@ -20,6 +21,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          enhanced_prompt?: string | null
           generated_image_url: string
           id?: string
           original_image_url: string
@@ -28,6 +30,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          enhanced_prompt?: string | null
           generated_image_url?: string
           id?: string
           original_image_url?: string
