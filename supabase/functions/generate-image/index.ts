@@ -37,117 +37,83 @@ serve(async (req) => {
       );
     }
 
-    // Step 1: Generate optimized DALL-E prompt with GPT-4o Vision
-    console.log("Creating optimized DALL-E prompt with GPT-4o...");
-    
-    const gptResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+    // First, enhance the prompt using GPT-4-Vision
+    console.log("Calling enhance-prompt function to optimize the prompt");
+    const enhanceResponse = await fetch('https://oalvdwqpjihwduqsdbyf.supabase.co/functions/v1/enhance-prompt', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${openaiApiKey}`
       },
       body: JSON.stringify({
-        model: "gpt-4o",
-        messages: [
-          {
-            role: "system",
-            content: `You are helping a contractor create realistic home modification previews. Your job is to write a perfect DALL-E 2 prompt that will edit a real photo of a home with ONLY the specific modification requested, while ensuring the result looks completely realistic and preserves everything else exactly as is.
-
-Guidelines for your DALL·E prompt:
-1. Structure it as "IMAGE EDITING TASK: [clear instruction for exactly one edit]"
-2. Emphasize this is a PHOTO EDIT, not creating a new image
-3. Demand EXACT preservation of the original's structure, composition, lighting, colors, and all elements except the ONE requested change
-4. The edit must look professionally done and photorealistic
-5. Do NOT use creative language that could trigger content filters`
-          },
-          {
-            role: "user", 
-            content: [
-              {
-                type: "text",
-                text: `This is a real home photo. I need to show my client what it would look like with this ONE specific change: ${prompt}
-
-Please create a DALL-E prompt that will produce a realistic photo edit showing ONLY this change while keeping everything else exactly the same.`
-              },
-              {
-                type: "image_url",
-                image_url: {
-                  url: imageUrl
-                }
-              }
-            ]
-          }
-        ],
-        max_tokens: 500
+        imageUrl,
+        userRequest: prompt
       })
     });
 
-    const gptData = await gptResponse.json();
-    
-    if (!gptResponse.ok) {
-      console.error("GPT-4o vision API error:", gptData);
-      throw new Error(`GPT-4o API error: ${gptData.error?.message || "Unknown error"}`);
+    const enhanceData = await enhanceResponse.json();
+
+    if (!enhanceResponse.ok) {
+      console.error("Enhance prompt error:", enhanceData);
+      console.log("Falling back to default prompt structure");
+      
+      // Default prompt if enhancement fails
+      enhanceData.enhancedPrompt = `IMAGE EDITING TASK: Using the original image as a direct reference, show exactly how it would look with this ONE specific modification: ${prompt}
+
+CRITICAL REQUIREMENTS:
+- This is a professional photo edit, not a new image creation
+- EXACT PRESERVATION of the original image's structure, layout, perspective, and all other elements
+- Only apply the requested modification: ${prompt}
+- Keep the exact same building, landscape, angles, lighting style, colors, and composition
+- Result must be photorealistic and match the exact properties of the original
+- The edit must be seamless and look like a professional photo edit made by a skilled designer
+- Ensure 100% accuracy in preserving all unchanged elements`;
     }
 
-    const enhancedPrompt = gptData.choices[0].message.content.trim();
-    console.log("Optimized DALL-E prompt:", enhancedPrompt);
+    // Use the enhanced prompt or fallback
+    const enhancedPrompt = enhanceData.enhancedPrompt;
+    console.log("Using prompt for DALL-E:", enhancedPrompt);
 
-    // Step 2: Download the image from the URL
-    console.log("Downloading image from URL...");
-    const imageResponse = await fetch(imageUrl);
-    if (!imageResponse.ok) {
-      throw new Error(`Failed to download image: ${imageResponse.status} ${imageResponse.statusText}`);
-    }
-    
-    // Get the image data as an ArrayBuffer
-    const imageBuffer = await imageResponse.arrayBuffer();
-    
-    // Step 3: Call DALL-E 2 with the image and enhanced prompt
-    // For DALL-E 2 edits endpoint, we need to use multipart/form-data
-    console.log("Calling DALL-E 2 API for image editing...");
-    
-    // Create a FormData object for multipart/form-data request
-    const formData = new FormData();
-    
-    // Use the raw ArrayBuffer instead of trying to encode/decode base64
-    const blob = new Blob([new Uint8Array(imageBuffer)], { type: 'image/jpeg' });
-    
-    // Add parts to the form data
-    formData.append('image', blob, 'image.jpg');
-    formData.append('prompt', enhancedPrompt);
-    formData.append('n', '1');
-    formData.append('size', '1024x1024');
-    
-    const dalleResponse = await fetch('https://api.openai.com/v1/images/edits', {
+    // Call DALL-E 3 with the enhanced prompt
+    console.log("Calling DALL-E 3 API with enhanced prompt");
+    const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${openaiApiKey}`
       },
-      body: formData
+      body: JSON.stringify({
+        model: "dall-e-3",
+        prompt: enhancedPrompt,
+        n: 1,
+        size: "1024x1024",
+        quality: "hd",
+        response_format: "url",
+      })
     });
 
-    const dalleData = await dalleResponse.json();
+    const data = await response.json();
     
-    console.log("DALL-E API response status:", dalleResponse.status);
+    console.log("DALL-E API response status:", response.status);
 
-    if (!dalleResponse.ok) {
-      console.error("DALL-E API error:", dalleData);
+    if (!response.ok) {
+      console.error("DALL-E API error:", data);
       return new Response(
         JSON.stringify({ 
-          error: dalleData.error?.message || "Error generating image",
-          details: dalleData
+          error: data.error?.message || "Error generating image",
+          details: data
         }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     // Extract the generated image URL
-    const generatedImageUrl = dalleData.data?.[0]?.url;
+    const generatedImageUrl = data.data?.[0]?.url;
     
     if (!generatedImageUrl) {
-      console.error("No image URL in response:", dalleData);
+      console.error("No image URL in response:", data);
       return new Response(
-        JSON.stringify({ error: "No image was generated", details: dalleData }),
+        JSON.stringify({ error: "No image was generated", details: data }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }

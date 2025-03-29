@@ -1,168 +1,110 @@
 
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Separator } from "@/components/ui/separator";
-import { ArrowRight, Download, Info, RefreshCcw } from "lucide-react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Download, Share2, PlusCircle } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 interface ImageComparisonProps {
   originalImage: string;
-  generatedImage: string;
+  generatedImage: string | null;
   prompt: string;
-  enhancedPrompt: string;
-  onStartNew: () => void;
+  onStartNew: () => void; // New prop to handle creating a new image
 }
 
-export const ImageComparison = ({
-  originalImage,
+export const ImageComparison = ({ 
+  originalImage, 
   generatedImage,
   prompt,
-  enhancedPrompt,
-  onStartNew,
+  onStartNew
 }: ImageComparisonProps) => {
-  const [position, setPosition] = useState(50);
-  const [showAIPrompt, setShowAIPrompt] = useState(false);
+  const { toast } = useToast();
+  const [showOriginal, setShowOriginal] = useState(false);
 
-  const handleDownload = async () => {
-    try {
-      const response = await fetch(generatedImage);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.style.display = "none";
-      a.href = url;
-      a.download = "mockingbird-edit.jpg";
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Error downloading image:", error);
-    }
+  const handleDownload = () => {
+    if (!generatedImage) return;
+    
+    const link = document.createElement('a');
+    link.href = generatedImage;
+    link.download = `mockingbird-${Date.now()}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    toast({
+      title: "Image downloaded!",
+      description: "The generated image has been downloaded to your device.",
+    });
   };
 
-  return (
-    <div className="space-y-8">
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold tracking-tight">Visualization Result</h2>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={onStartNew}>
-              <RefreshCcw className="mr-2 h-4 w-4" />
-              Start New
-            </Button>
-            <Button size="sm" onClick={handleDownload}>
-              <Download className="mr-2 h-4 w-4" />
-              Download
-            </Button>
-          </div>
-        </div>
-        <p className="text-muted-foreground">
-          See how your changes would look in reality.
-        </p>
-      </div>
+  const handleShare = () => {
+    if (!generatedImage) return;
+    
+    // Mock share functionality (would use Web Share API in production)
+    toast({
+      title: "Share feature",
+      description: "The sharing feature will be available soon!",
+    });
+  };
 
-      <div className="space-y-4">
-        <div className="flex items-center gap-4 text-sm">
-          <div className="flex items-center gap-1 font-medium">
-            <span>Your Request:</span>
-            <span className="text-muted-foreground">{prompt}</span>
-          </div>
-          <Separator orientation="vertical" className="h-4" />
+  if (!generatedImage) return null;
+
+  return (
+    <div className="space-y-6 animate-fade-in">
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-medium">Result</h3>
+        <div className="flex items-center gap-2">
           <Button 
-            variant="ghost" 
-            size="sm" 
-            className="h-6 gap-1 text-xs font-normal" 
-            onClick={() => setShowAIPrompt(!showAIPrompt)}
+            variant="outline" 
+            size="sm"
+            className="bg-secondary/60"
+            onClick={() => setShowOriginal(!showOriginal)}
           >
-            <Info className="h-3 w-3" />
-            {showAIPrompt ? "Hide AI Prompt" : "Show AI Prompt"}
+            Show {showOriginal ? "After" : "Before"}
           </Button>
         </div>
-
-        {showAIPrompt && (
-          <div className="rounded-md bg-muted p-3 text-xs text-muted-foreground">
-            <p className="font-medium text-foreground mb-1">AI-Enhanced Prompt:</p>
-            <p>{enhancedPrompt}</p>
+      </div>
+      
+      <div className="relative rounded-lg overflow-hidden border border-border aspect-video">
+        <img
+          src={showOriginal ? originalImage : generatedImage}
+          alt={showOriginal ? "Original image" : "Generated image"}
+          className="w-full h-full object-cover transition-opacity"
+        />
+        {!showOriginal && (
+          <div className="absolute bottom-3 left-3 right-3 bg-background/80 backdrop-blur-sm p-3 rounded-md">
+            <p className="text-sm line-clamp-2">
+              <span className="font-medium">Prompt:</span> {prompt}
+            </p>
           </div>
         )}
       </div>
-
-      <div className="relative h-[500px] w-full overflow-hidden rounded-lg border">
-        <Dialog>
-          <DialogTrigger asChild>
-            <div
-              className="group absolute inset-0 flex cursor-pointer items-center justify-center bg-black/50 opacity-0 transition-opacity hover:opacity-100"
-              style={{ zIndex: 10 }}
-            >
-              <div className="rounded-full bg-white/10 p-4 backdrop-blur-sm">
-                <ArrowRight className="h-6 w-6 text-white" />
-              </div>
-              <p className="absolute bottom-4 text-sm font-medium text-white">
-                Click to view full-size images
-              </p>
-            </div>
-          </DialogTrigger>
-          <DialogContent className="max-w-6xl">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <h3 className="font-medium">Original Photo</h3>
-                <img
-                  src={originalImage}
-                  alt="Original"
-                  className="w-full rounded-md object-cover"
-                />
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-medium">Modified Photo</h3>
-                <img
-                  src={generatedImage}
-                  alt="Generated"
-                  className="w-full rounded-md object-cover"
-                />
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-
-        <div className="relative h-full w-full">
-          <img
-            src={originalImage}
-            alt="Original"
-            className="absolute h-full w-full object-cover"
-          />
-          <div
-            className="absolute h-full overflow-hidden"
-            style={{ width: `${position}%` }}
+      
+      <div className="flex justify-between gap-2">
+        <Button 
+          variant="outline" 
+          className="bg-secondary/60"
+          onClick={onStartNew}
+        >
+          <PlusCircle className="mr-2 h-4 w-4" />
+          Create New
+        </Button>
+        
+        <div className="flex gap-2">
+          <Button 
+            variant="outline" 
+            className="bg-secondary/60"
+            onClick={handleShare}
           >
-            <img
-              src={generatedImage}
-              alt="Generated"
-              className="h-full w-full object-cover"
-              style={{ width: `${100 / (position / 100)}%` }}
-            />
-          </div>
-          <div
-            className="absolute top-0 bottom-0 w-1 cursor-ew-resize bg-white"
-            style={{ left: `calc(${position}% - 2px)` }}
-            onMouseDown={(e) => {
-              const handleMouseMove = (e: MouseEvent) => {
-                const container = e.currentTarget as HTMLDivElement;
-                const rect = container.getBoundingClientRect();
-                const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-                setPosition((x / rect.width) * 100);
-              };
-
-              const handleMouseUp = () => {
-                document.removeEventListener("mousemove", handleMouseMove);
-                document.removeEventListener("mouseup", handleMouseUp);
-              };
-
-              document.addEventListener("mousemove", handleMouseMove);
-              document.addEventListener("mouseup", handleMouseUp);
-            }}
+            <Share2 className="mr-2 h-4 w-4" />
+            Share
+          </Button>
+          <Button 
+            className="bg-primary text-primary-foreground"
+            onClick={handleDownload}
           >
-            <div className="absolute top-1/2 left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-black" />
-          </div>
+            <Download className="mr-2 h-4 w-4" />
+            Download
+          </Button>
         </div>
       </div>
     </div>
