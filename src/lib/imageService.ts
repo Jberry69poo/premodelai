@@ -33,42 +33,53 @@ export async function uploadImage(file: File): Promise<string | null> {
 
 export async function generateImageWithExternalAPI(file: File, prompt: string): Promise<string> {
   try {
-    console.log("Calling external API with:", { prompt, file: file.name });
+    console.log("Starting image generation with Supabase Edge Function");
     
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('prompt', prompt);
+    // First upload the image to get a public URL
+    const imageUrl = await uploadImage(file);
+    if (!imageUrl) {
+      throw new Error("Failed to upload image");
+    }
     
-    // Adding error handling with timeout
+    console.log("Image uploaded, calling generate-image function with:", { prompt, imageUrl });
+    
+    // Adding timeout handling
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
     
-    const response = await fetch('https://mockingbird.fly.dev/generate-image-fast', {
-      method: 'POST',
-      body: formData,
-      signal: controller.signal
-    }).finally(() => clearTimeout(timeoutId));
-    
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('API error response:', errorText);
-      throw new Error(`API error: ${response.status} ${response.statusText}. The image generation service might be temporarily unavailable.`);
+    try {
+      // Call the Supabase Edge Function
+      const { data, error } = await supabase.functions.invoke('generate-image', {
+        body: { prompt, imageUrl },
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeoutId);
+      
+      if (error) {
+        console.error('Error from generate-image function:', error);
+        throw new Error(`Generation failed: ${error.message || "Unknown error"}`);
+      }
+      
+      if (!data || !data.generatedImageUrl) {
+        console.error('No image URL in response:', data);
+        throw new Error('No image URL returned from generation function. Please try again with a different prompt.');
+      }
+      
+      console.log("Image generated successfully:", data.generatedImageUrl);
+      return data.generatedImageUrl;
+    } catch (error) {
+      clearTimeout(timeoutId);
+      console.error('Error in generateImageWithExternalAPI:', error);
+      
+      if (error.name === "AbortError") {
+        throw new Error("Generation request timed out. The service might be busy or temporarily unavailable.");
+      }
+      
+      throw error;
     }
-    
-    const data = await response.json();
-    
-    if (!data || !data.image_url) {
-      console.error('No image URL in response:', data);
-      throw new Error('No image URL returned from generation API. Please try again with a different prompt.');
-    }
-    
-    console.log("Image generated successfully:", data.image_url);
-    return data.image_url;
   } catch (error) {
     console.error('Error in generateImageWithExternalAPI:', error);
-    if (error.name === "AbortError") {
-      throw new Error("Generation request timed out. The service might be busy or temporarily unavailable.");
-    }
     throw error;
   }
 }

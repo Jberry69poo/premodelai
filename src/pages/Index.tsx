@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Hero } from "@/components/Hero";
@@ -10,7 +9,7 @@ import { Footer } from "@/components/Footer";
 import { useToast } from "@/components/ui/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { generateImageWithExternalAPI, saveMockup } from "@/lib/imageService";
-import { uploadImage } from "@/lib/supabase";
+import { uploadImage } from "@/lib/imageService";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
@@ -60,57 +59,29 @@ const Index = () => {
     setError(null);
     
     try {
-      // Upload the image to Supabase for persistence
-      let imageUrl;
-      try {
-        imageUrl = await uploadImage(selectedFile);
-        if (!imageUrl) {
-          throw new Error("Failed to upload image: No URL returned");
-        }
-        setProgressValue(30);
-        setProgressText("Image uploaded successfully, generating visualization...");
-        console.log("Image uploaded successfully:", imageUrl);
-      } catch (uploadError) {
-        console.error("Image upload failed:", uploadError);
-        throw new Error(`Failed to upload image: ${uploadError.message}`);
-      }
+      setProgressValue(30);
+      setProgressText("Uploading image and generating visualization...");
+      console.log("Calling image generation with prompt:", promptText);
       
-      let generatedUrl;
-      try {
-        // Use the external API to generate the image
-        generatedUrl = await generateImageWithExternalAPI(selectedFile, promptText);
-        if (!generatedUrl) {
-          throw new Error("No image URL returned from generation service");
-        }
-        setProgressValue(90);
-        setProgressText("Visualization created successfully, finalizing...");
-        console.log("Image generated successfully:", generatedUrl);
-      } catch (generationError) {
-        console.error("Image generation failed:", generationError);
-        throw new Error(`Failed to generate image: ${generationError.message}`);
-      }
+      const generatedUrl = await generateImageWithExternalAPI(selectedFile, promptText);
+      
+      setProgressValue(90);
+      setProgressText("Visualization created successfully, finalizing...");
+      console.log("Image generated successfully:", generatedUrl);
       
       setGeneratedImage(generatedUrl);
       setApiRetries(0); // Reset retries on success
       
-      // Save the mockup to Supabase
+      const imageUrl = await uploadImage(selectedFile);
+      
       if (imageUrl) {
-        try {
-          await saveMockup(
-            user?.id,
-            imageUrl,
-            generatedUrl,
-            promptText
-          );
-          console.log("Mockup saved to database");
-        } catch (saveError) {
-          console.error("Failed to save mockup to database:", saveError);
-          toast({
-            variant: "default",
-            title: "Image generated successfully",
-            description: "But we couldn't save it to your history.",
-          });
-        }
+        await saveMockup(
+          user?.id,
+          imageUrl,
+          generatedUrl,
+          promptText
+        );
+        console.log("Mockup saved to database");
       }
       
       toast({
