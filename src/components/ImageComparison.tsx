@@ -1,24 +1,28 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, Share2, PlusCircle } from "lucide-react";
+import { Download, Share2, PlusCircle, Info } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface ImageComparisonProps {
   originalImage: string;
   generatedImage: string | null;
   prompt: string;
-  onStartNew: () => void; // New prop to handle creating a new image
+  enhancedPrompt?: string;
+  onStartNew: () => void;
 }
 
 export const ImageComparison = ({ 
   originalImage, 
   generatedImage,
   prompt,
+  enhancedPrompt,
   onStartNew
 }: ImageComparisonProps) => {
   const { toast } = useToast();
   const [showOriginal, setShowOriginal] = useState(false);
+  const [showPromptDialog, setShowPromptDialog] = useState(false);
 
   const handleDownload = () => {
     if (!generatedImage) return;
@@ -72,9 +76,22 @@ export const ImageComparison = ({
         />
         {!showOriginal && (
           <div className="absolute bottom-3 left-3 right-3 bg-background/80 backdrop-blur-sm p-3 rounded-md">
-            <p className="text-sm line-clamp-2">
-              <span className="font-medium">Prompt:</span> {prompt}
-            </p>
+            <div className="flex justify-between items-center">
+              <p className="text-sm line-clamp-2">
+                <span className="font-medium">Prompt:</span> {prompt}
+              </p>
+              {enhancedPrompt && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-6 w-6"
+                  onClick={() => setShowPromptDialog(true)}
+                  title="View AI-optimized prompt"
+                >
+                  <Info className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
           </div>
         )}
       </div>
@@ -107,6 +124,21 @@ export const ImageComparison = ({
           </Button>
         </div>
       </div>
+
+      {/* Dialog to show the enhanced prompt */}
+      <Dialog open={showPromptDialog} onOpenChange={setShowPromptDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>AI-Optimized Prompt</DialogTitle>
+            <DialogDescription className="pt-4">
+              This is the prompt that was automatically generated to optimize the image generation:
+            </DialogDescription>
+          </DialogHeader>
+          <div className="bg-secondary/30 p-4 rounded-md text-sm max-h-[300px] overflow-y-auto whitespace-pre-wrap">
+            {enhancedPrompt}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

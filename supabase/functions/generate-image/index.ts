@@ -37,10 +37,10 @@ serve(async (req) => {
       );
     }
 
-    // First, optimize the prompt with GPT-4o vision
+    // Step 1: Generate optimized DALL-E prompt with GPT-4 Vision
     console.log("Creating optimized DALL-E prompt with GPT-4o...");
     
-    const visionResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+    const gptResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -82,17 +82,17 @@ Please create a DALL-E prompt that will produce a realistic photo edit showing O
       })
     });
 
-    const visionData = await visionResponse.json();
+    const gptData = await gptResponse.json();
     
-    if (!visionResponse.ok) {
-      console.error("GPT-4o vision API error:", visionData);
-      throw new Error(`GPT-4o API error: ${visionData.error?.message || "Unknown error"}`);
+    if (!gptResponse.ok) {
+      console.error("GPT-4o vision API error:", gptData);
+      throw new Error(`GPT-4o API error: ${gptData.error?.message || "Unknown error"}`);
     }
 
-    const enhancedPrompt = visionData.choices[0].message.content.trim();
+    const enhancedPrompt = gptData.choices[0].message.content.trim();
     console.log("Optimized DALL-E prompt:", enhancedPrompt);
 
-    // Now call DALL-E 3 with the enhanced prompt
+    // Step 2: Call DALL-E 3 with the enhanced prompt
     console.log("Calling DALL-E 3 API with optimized prompt...");
     const dalleResponse = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',

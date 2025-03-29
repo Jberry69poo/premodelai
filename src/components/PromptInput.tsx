@@ -26,12 +26,12 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
     }
   };
 
-  // Examples that focus on very specific edits for realistic photo modifications
+  // Refined examples that focus on very specific edits for realistic photo modifications
   const examples = [
     "change the shutters from blue to dark gray",
-    "replace the white front door with a rich mahogany door",
-    "change the roof to dark gray slate tiles",
-    "add black wrought iron railing to the front steps"
+    "paint the front door bright red",
+    "change the roof to terra cotta tiles",
+    "replace the siding with natural stone"
   ];
 
   return (
@@ -59,7 +59,7 @@ export const PromptInput = ({ onSubmit, isLoading, isImageSelected }: PromptInpu
       {isImageSelected && (
         <div className="space-y-2">
           <p className="text-xs text-muted-foreground">
-            For best results, describe a <span className="font-medium">single specific change</span> while keeping everything else exactly the same:
+            For best results, describe a <span className="font-medium">single specific change</span> using clear, detailed language:
           </p>
           <div className="flex flex-wrap gap-2">
             {examples.map((example, index) => (

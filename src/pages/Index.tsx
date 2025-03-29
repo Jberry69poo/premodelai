@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Hero } from "@/components/Hero";
@@ -19,6 +20,7 @@ const Index = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [prompt, setPrompt] = useState("");
+  const [enhancedPrompt, setEnhancedPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("create");
   const [progressValue, setProgressValue] = useState(0);
@@ -76,6 +78,7 @@ const Index = () => {
         if (!result || !result.generatedImageUrl) {
           throw new Error("No image URL returned from generation service");
         }
+        setEnhancedPrompt(result.enhancedPrompt || "");
         setProgressValue(90);
         setProgressText("Visualization created successfully, finalizing...");
         console.log("Image generated successfully:", result);
@@ -92,7 +95,8 @@ const Index = () => {
             user.id,
             imageUrl,
             result.generatedImageUrl,
-            promptText
+            promptText,
+            result.enhancedPrompt || ""
           );
           console.log("Image saved to database");
         } catch (saveError) {
@@ -135,6 +139,7 @@ const Index = () => {
     setSelectedFile(null);
     setGeneratedImage(null);
     setPrompt("");
+    setEnhancedPrompt("");
     setError(null);
     setActiveTab("create");
     
@@ -201,6 +206,7 @@ const Index = () => {
                       originalImage={selectedImage} 
                       generatedImage={generatedImage}
                       prompt={prompt}
+                      enhancedPrompt={enhancedPrompt}
                       onStartNew={handleStartNew}
                     />
                   )
