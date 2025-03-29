@@ -1,10 +1,11 @@
+
 import { useState, useEffect } from "react";
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Hero } from "@/components/Hero";
 import { ImageUpload } from "@/components/ImageUpload";
 import { PromptInput } from "@/components/PromptInput";
 import { ImageComparison } from "@/components/ImageComparison";
-import { LoadingState } from "@/components/LoadingState";
+import { LoadingState, ProcessStep } from "@/components/LoadingState";
 import { Footer } from "@/components/Footer";
 import { useToast } from "@/components/ui/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,6 +14,37 @@ import { uploadImage } from "@/lib/imageService";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
+
+const DEFAULT_STEPS: ProcessStep[] = [
+  {
+    id: "upload",
+    title: "Preparing your image",
+    description: "Uploading your image and preparing it for processing",
+    isActive: false,
+    isCompleted: false
+  },
+  {
+    id: "enhance",
+    title: "Enhancing your prompt",
+    description: "Our AI is analyzing your request to optimize results",
+    isActive: false,
+    isCompleted: false
+  },
+  {
+    id: "generate",
+    title: "Generating visualization",
+    description: "Creating your image based on the specified changes",
+    isActive: false,
+    isCompleted: false
+  },
+  {
+    id: "finalize",
+    title: "Finalizing result",
+    description: "Applying finishing touches and preparing display",
+    isActive: false,
+    isCompleted: false
+  }
+];
 
 const Index = () => {
   const { toast } = useToast();
@@ -27,6 +59,19 @@ const Index = () => {
   const [progressText, setProgressText] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [apiRetries, setApiRetries] = useState(0);
+  const [processSteps, setProcessSteps] = useState<ProcessStep[]>(DEFAULT_STEPS);
+
+  const updateStep = (stepId: string, updates: Partial<ProcessStep>) => {
+    setProcessSteps(currentSteps => 
+      currentSteps.map(step => 
+        step.id === stepId ? { ...step, ...updates } : step
+      )
+    );
+  };
+  
+  const resetSteps = () => {
+    setProcessSteps(DEFAULT_STEPS);
+  };
 
   const handleImageSelect = async (file: File | null) => {
     if (!file) {
@@ -40,6 +85,7 @@ const Index = () => {
     setSelectedImage(imageUrl);
     setGeneratedImage(null);
     setError(null);
+    resetSteps();
   };
 
   const handlePromptSubmit = async (promptText: string) => {
@@ -57,17 +103,48 @@ const Index = () => {
     setProgressValue(10);
     setProgressText("Processing your request...");
     setError(null);
+    resetSteps();
     
     try {
-      setProgressValue(30);
-      setProgressText("Uploading image and generating visualization...");
-      console.log("Calling image generation with prompt:", promptText);
+      // Step 1: Upload image
+      updateStep("upload", { isActive: true });
+      setProgressValue(20);
+      setProgressText("Uploading your image...");
+      console.log("Beginning the image generation process");
       
+      // Wait a moment to show the first step animation
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      updateStep("upload", { isCompleted: true, isActive: false });
+      
+      // Step 2: Enhance prompt
+      updateStep("enhance", { isActive: true });
+      setProgressValue(35);
+      setProgressText("Enhancing your prompt with AI...");
+      
+      // Wait a moment to show the second step animation
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      updateStep("enhance", { isCompleted: true, isActive: false });
+      
+      // Step 3: Generate image
+      updateStep("generate", { isActive: true });
+      setProgressValue(50);
+      setProgressText("Generating your visualization...");
+      
+      console.log("Calling image generation with prompt:", promptText);
       const generatedUrl = await generateImageWithExternalAPI(selectedFile, promptText);
       
-      setProgressValue(90);
-      setProgressText("Visualization created successfully, finalizing...");
+      updateStep("generate", { isCompleted: true, isActive: false });
+      
+      // Step 4: Finalize
+      updateStep("finalize", { isActive: true });
+      setProgressValue(85);
+      setProgressText("Finalizing your visualization...");
+      
       console.log("Image generated successfully:", generatedUrl);
+      
+      // Wait a moment to show the final step animation
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      updateStep("finalize", { isCompleted: true, isActive: false });
       
       setGeneratedImage(generatedUrl);
       setApiRetries(0); // Reset retries on success
@@ -127,6 +204,7 @@ const Index = () => {
     setError(null);
     setActiveTab("create");
     setApiRetries(0);
+    resetSteps();
     
     toast({
       title: "Starting new creation",
@@ -198,7 +276,11 @@ const Index = () => {
               
               <TabsContent value="result">
                 {isLoading ? (
-                  <LoadingState progressValue={progressValue} progressText={progressText} />
+                  <LoadingState 
+                    progressValue={progressValue} 
+                    progressText={progressText}
+                    steps={processSteps}
+                  />
                 ) : (
                   generatedImage && selectedImage && (
                     <ImageComparison 

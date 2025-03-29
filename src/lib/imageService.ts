@@ -1,4 +1,3 @@
-
 import { supabase } from "@/integrations/supabase/client";
 
 export async function uploadImage(file: File): Promise<string | null> {
@@ -43,15 +42,14 @@ export async function generateImageWithExternalAPI(file: File, prompt: string): 
     
     console.log("Image uploaded, calling generate-image function with:", { prompt, imageUrl });
     
-    // Adding timeout handling
+    // Adding timeout handling with AbortController
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
     
     try {
-      // Call the Supabase Edge Function
+      // Call the Supabase Edge Function - remove the signal property from options
       const { data, error } = await supabase.functions.invoke('generate-image', {
-        body: { prompt, imageUrl },
-        signal: controller.signal
+        body: { prompt, imageUrl }
       });
       
       clearTimeout(timeoutId);
