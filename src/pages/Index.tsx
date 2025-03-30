@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
@@ -6,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import { BeforeAfterExamples } from "@/components/BeforeAfterExamples";
 import { ArrowRight, CheckCircle2, Wand2, Clock, CameraIcon, SmartphoneIcon, PresentationIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,10 +38,8 @@ const Index = () => {
   const onSubmit = async (values: BetaFormValues) => {
     setIsSubmitting(true);
     try {
-      // This would be replaced with your actual API call to save the beta signup
       console.log("Form values:", values);
       
-      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
       
       toast({
@@ -126,7 +124,7 @@ const Index = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="flex flex-col items-center space-y-4 p-6 border rounded-lg bg-card/60 shadow-sm">
                 <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <CameraIcon className="h-6 w-6 text-primary" />
+                  CameraIcon className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold">1. Snap a Photo</h3>
                 <p className="text-muted-foreground text-center">
@@ -136,7 +134,7 @@ const Index = () => {
               
               <div className="flex flex-col items-center space-y-4 p-6 border rounded-lg bg-card/60 shadow-sm">
                 <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <SmartphoneIcon className="h-6 w-6 text-primary" />
+                  SmartphoneIcon className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold">2. Describe the Change</h3>
                 <p className="text-muted-foreground text-center">
@@ -146,7 +144,7 @@ const Index = () => {
               
               <div className="flex flex-col items-center space-y-4 p-6 border rounded-lg bg-card/60 shadow-sm">
                 <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <PresentationIcon className="h-6 w-6 text-primary" />
+                  PresentationIcon className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold">3. Show Your Client</h3>
                 <p className="text-muted-foreground text-center">
@@ -219,7 +217,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Before & After Examples - Placeholder until you supply the actual images */}
+        {/* Before & After Examples - Updated with actual images */}
         <section className="py-16 md:py-24 bg-card/30">
           <div className="container px-4 md:px-6">
             <div className="text-center mb-12">
@@ -229,53 +227,7 @@ const Index = () => {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-              {/* Example 1 - Replace with actual image pairs when available */}
-              <div className="space-y-4">
-                <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
-                  <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">Before</div>
-                  <img 
-                    src="/placeholder.svg" 
-                    alt="Before renovation" 
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
-                  <div className="absolute top-2 left-2 bg-primary/70 text-white text-xs px-2 py-1 rounded">After (AI Visualization)</div>
-                  <img 
-                    src="/placeholder.svg" 
-                    alt="After visualization" 
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                <p className="text-sm text-muted-foreground italic">
-                  "Changed the siding color from beige to navy blue with white trim accents"
-                </p>
-              </div>
-              
-              {/* Example 2 - Replace with actual image pairs when available */}
-              <div className="space-y-4">
-                <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
-                  <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">Before</div>
-                  <img 
-                    src="/placeholder.svg" 
-                    alt="Before renovation" 
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
-                  <div className="absolute top-2 left-2 bg-primary/70 text-white text-xs px-2 py-1 rounded">After (AI Visualization)</div>
-                  <img 
-                    src="/placeholder.svg" 
-                    alt="After visualization" 
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                <p className="text-sm text-muted-foreground italic">
-                  "Added stone veneer to the front entrance and updated the landscaping"
-                </p>
-              </div>
-            </div>
+            <BeforeAfterExamples />
           </div>
         </section>
 
