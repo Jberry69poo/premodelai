@@ -55,28 +55,68 @@ export const MockingBirdLogo = ({ size = "md", showText = true }: MockingBirdLog
         
         {/* Logo icon with hexagonal shape */}
         <div className={`relative ${sizeClasses[size]} bg-background p-1 rounded-full border-2 border-primary flex items-center justify-center`}>
-          {/* Tech-looking mockingbird silhouette SVG */}
+          {/* Improved tech-looking mockingbird silhouette SVG */}
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-primary">
+            {/* Body */}
             <path 
-              d="M18 3C17.4 3 17 3.4 17 4C17 4.6 17.4 5 18 5C18.6 5 19 4.6 19 4C19 3.4 18.6 3 18 3Z" 
+              d="M12 5L16 3L19 5L21 8L19 11L16 12L14 15L12 18L10 15L8 12L5 11L3 8L5 5L8 3L12 5Z" 
+              stroke="currentColor" 
+              strokeWidth="1.5" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+            />
+            
+            {/* Beak */}
+            <path 
+              d="M12 5L13 3L12 1L11 3L12 5Z" 
+              stroke="currentColor" 
+              strokeWidth="1.5" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+            />
+            
+            {/* Wings */}
+            <path 
+              d="M16 12L20 14L19 17L17 19L15 20" 
+              stroke="currentColor" 
+              strokeWidth="1.5" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+            />
+            
+            <path 
+              d="M8 12L4 14L5 17L7 19L9 20" 
+              stroke="currentColor" 
+              strokeWidth="1.5" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+            />
+            
+            {/* Tech details */}
+            <path 
+              d="M12 5L12 3" 
+              stroke="currentColor" 
+              strokeWidth="1.5" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+            />
+            
+            <circle 
+              cx="19" 
+              cy="5" 
+              r="1" 
               fill="currentColor" 
             />
-            <path 
-              d="M12 9.5L14 6.5L17.5 3.5L18.5 5L16 8.5L14 12.5L15 17.5L13 19.5L11 18.5L9 19.5L7 17.5L8 12.5L6 8.5L3.5 5L4.5 3.5L8 6.5L10 9.5L12 9.5Z" 
-              stroke="currentColor" 
-              strokeWidth="1.5" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
+            
+            <circle 
+              cx="5" 
+              cy="5" 
+              r="1" 
+              fill="currentColor" 
             />
+            
             <path 
-              d="M7 15L5 18L6 20" 
-              stroke="currentColor" 
-              strokeWidth="1.5" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-            />
-            <path 
-              d="M17 15L19 18L18 20" 
+              d="M12 18L12 21" 
               stroke="currentColor" 
               strokeWidth="1.5" 
               strokeLinecap="round" 

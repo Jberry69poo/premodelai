@@ -51,14 +51,14 @@ export const Hero = () => {
             <MockingBirdLogo size="xl" showText={false} />
           </motion.div>
           
-          {/* Main heading with animated reveal */}
+          {/* Main heading with animated reveal - UPDATED TEXT HERE */}
           <motion.h1 
             className="text-4xl font-bold tracking-tighter md:text-5xl lg:text-6xl xl:text-7xl max-w-5xl bg-clip-text text-transparent bg-gradient-to-r from-white via-primary-foreground to-primary"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Transform Client Imagination Into Reality In Minutes
+            Show customers the after photos before you even start
           </motion.h1>
           
           {/* Subheading */}
