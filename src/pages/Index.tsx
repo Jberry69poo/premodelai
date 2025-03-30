@@ -3,15 +3,14 @@ import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { BeforeAfterExamples } from "@/components/BeforeAfterExamples";
-import { ArrowRight, CheckCircle2, Wand2, Clock, CameraIcon, MessageSquareText, ImageIcon, ArrowRightIcon } from "lucide-react";
+import { ArrowRight, CheckCircle2, Wand2, Clock, CameraIcon, MessageSquareText, ImageIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Card } from "@/components/ui/card";
+import { Hero } from "@/components/Hero";
 
 const betaFormSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -69,50 +68,10 @@ const Index = () => {
       <CustomNavbar />
       
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="py-16 md:py-24 lg:py-32 bg-gradient-to-b from-background to-secondary/10">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-              <div className="flex-1 space-y-4">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter">
-                  Show Clients Their Finished Home <span className="text-primary">Before You Start</span>
-                </h1>
-                <p className="text-muted-foreground md:text-xl max-w-[700px]">
-                  MockingBird helps home improvement professionals increase close rates by showing clients photorealistic visualizations of completed projects in minutes, not weeks.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                  <Button size="lg" className="bg-primary text-primary-foreground" onClick={scrollToSignup}>
-                    Join the Free Beta
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="lg" onClick={scrollToSignup}>
-                    See Examples
-                  </Button>
-                </div>
-              </div>
-              <div className="flex-1">
-                <div className="rounded-lg overflow-hidden shadow-2xl bg-card">
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-background/50 z-10"></div>
-                    <img 
-                      src="/placeholder.svg" 
-                      alt="MockingBird Home Visualization" 
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-                  <div className="p-4 bg-card/95 backdrop-blur-sm">
-                    <div className="flex items-center gap-2">
-                      <div className="h-2 w-2 rounded-full bg-primary"></div>
-                      <p className="text-sm font-medium">Before & After Preview</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Use the new Hero component */}
+        <Hero />
 
-        {/* How It Works Section - Completely redesigned */}
+        {/* How It Works Section */}
         <section className="py-16 md:py-24 bg-card/30">
           <div className="container px-4 md:px-6">
             <div className="text-center mb-12">

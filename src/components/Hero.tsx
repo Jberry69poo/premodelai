@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { MockingBirdLogo } from "@/components/MockingBirdLogo";
-import { ArrowRight, Wand2, Eye, Zap, Building, Rocket } from "lucide-react";
+import { ArrowRight, Eye, Zap, Building, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
 
 export const Hero = () => {
@@ -78,13 +78,6 @@ export const Hero = () => {
             initial="hidden"
             animate="visible"
           >
-            <motion.div variants={fadeIn} className="flex items-center gap-2">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/20">
-                <Wand2 className="h-5 w-5 text-primary" />
-              </div>
-              <span className="text-lg font-medium">AI-Powered Visualizations</span>
-            </motion.div>
-            
             <motion.div variants={fadeIn} className="flex items-center gap-2">
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/20">
                 <Zap className="h-5 w-5 text-primary" />
