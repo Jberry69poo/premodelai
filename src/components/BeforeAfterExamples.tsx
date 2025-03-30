@@ -43,9 +43,9 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
   ],
   bathroom: [
     {
-      before: "/placeholder.svg",
-      after: "/placeholder.svg",
-      description: "Completely renovated the bathroom with new fixtures, tile, and modern design."
+      before: "/lovable-uploads/d06a1ddf-ee7c-47b0-9cd6-88c08d1f11bc.png",
+      after: "/lovable-uploads/eca719e2-97e0-4719-9085-3626dcef15bf.png",
+      description: "Completely renovated this bathroom by replacing the basic tub/shower combo with a modern walk-in shower featuring designer black and white hexagon tile flooring, black fixtures, and glass enclosure."
     }
   ]
 };
