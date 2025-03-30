@@ -46,7 +46,7 @@ export const MockingBirdLogo = ({ size = "md", showText = true }: MockingBirdLog
         {/* Logo container */}
         <div className={`relative ${sizeClasses[size]} bg-gradient-to-br from-indigo-600 via-primary to-purple-700 p-0.5 rounded-full flex items-center justify-center shadow-lg shadow-primary/20 border border-primary/30`}>
           <div className="w-full h-full bg-background/90 rounded-full p-1 backdrop-blur-sm flex items-center justify-center">
-            {/* Tech-inspired bird logo */}
+            {/* Bird logo */}
             <motion.svg 
               viewBox="0 0 24 24" 
               fill="none" 
@@ -56,21 +56,33 @@ export const MockingBirdLogo = ({ size = "md", showText = true }: MockingBirdLog
               animate={{ opacity: 1, rotateY: 0 }}
               transition={{ duration: 1, ease: "easeOut" }}
             >
-              {/* Geometric body with cool tech effect */}
+              {/* Bird body */}
               <motion.path 
-                d="M12 3L18 7L18 15L12 19L6 15V7L12 3Z" 
-                stroke="url(#techGradient)" 
+                d="M12 19C8 19 5 16 5 12C5 8 8 5 12 5C16 5 19 8 19 12C19 13 18.5 14 18 15L21 18L19 19L17 17C15.5 18 13.5 19 12 19Z"
+                stroke="url(#birdBodyGradient)" 
                 strokeWidth="1.5"
                 strokeLinejoin="round"
-                fill="url(#meshGradient)"
+                fill="url(#birdFillGradient)"
                 initial={{ pathLength: 0, fillOpacity: 0 }}
                 animate={{ pathLength: 1, fillOpacity: 1 }}
                 transition={{ duration: 1.5, ease: "easeInOut" }}
               />
               
-              {/* Wings */}
+              {/* Bird head */}
               <motion.path 
-                d="M18 10L21 7V14L18 12" 
+                d="M12 5C13 5 14 5.5 14.5 6L17 3L18 5L15.5 7C16 8 16 9 16 10"
+                stroke="url(#birdHeadGradient)" 
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.2, delay: 0.3 }}
+              />
+              
+              {/* Bird wings */}
+              <motion.path 
+                d="M5 12C5 12 7 14 9 11M19 12C19 12 17 14 15 11"
                 stroke="url(#wingGradient)" 
                 strokeWidth="1.5" 
                 strokeLinecap="round" 
@@ -81,22 +93,10 @@ export const MockingBirdLogo = ({ size = "md", showText = true }: MockingBirdLog
                 transition={{ duration: 1.2, delay: 0.3 }}
               />
               
+              {/* Bird tail feathers */}
               <motion.path 
-                d="M6 10L3 7V14L6 12" 
-                stroke="url(#wingGradient)" 
-                strokeWidth="1.5" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-                fill="none"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1.2, delay: 0.3 }}
-              />
-              
-              {/* Tech details - circuit lines */}
-              <motion.path 
-                d="M12 3V1M12 19V21M9 4L8 2.5M15 4L16 2.5" 
-                stroke="url(#detailGradient)" 
+                d="M12 19C12 19 11 21 10 22M12 19C12 19 12 21 12 22M12 19C12 19 13 21 14 22"
+                stroke="url(#tailGradient)" 
                 strokeWidth="1" 
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
@@ -104,9 +104,9 @@ export const MockingBirdLogo = ({ size = "md", showText = true }: MockingBirdLog
                 transition={{ duration: 1, delay: 0.6 }}
               />
               
-              {/* Head/beak */}
+              {/* Beak */}
               <motion.path 
-                d="M12 7L13.5 8.5L12 10L10.5 8.5L12 7Z" 
+                d="M14.5 6L15.5 7L14 8L13 7L14.5 6Z" 
                 fill="url(#beakGradient)"
                 stroke="url(#detailGradient)" 
                 strokeWidth="1"
@@ -115,10 +115,10 @@ export const MockingBirdLogo = ({ size = "md", showText = true }: MockingBirdLog
                 transition={{ duration: 0.5, delay: 0.8 }}
               />
               
-              {/* Eye with glow effect */}
+              {/* Eye */}
               <motion.circle 
-                cx="12" 
-                cy="8.5" 
+                cx="14" 
+                cy="6.5" 
                 r="0.5" 
                 fill="#ffffff" 
                 initial={{ scale: 0 }}
@@ -126,9 +126,9 @@ export const MockingBirdLogo = ({ size = "md", showText = true }: MockingBirdLog
                 transition={{ duration: 0.8, delay: 1 }}
               />
               
-              {/* Circuit board pattern */}
+              {/* Tech details - circuit lines */}
               <motion.path 
-                d="M10 12H8V14H10M14 12H16V14H14M12 14V16" 
+                d="M8 12H7M12 14V15M16 12H17" 
                 stroke="url(#circuitGradient)" 
                 strokeWidth="0.75" 
                 strokeLinecap="round" 
@@ -174,9 +174,29 @@ export const MockingBirdLogo = ({ size = "md", showText = true }: MockingBirdLog
               
               {/* Gradient definitions */}
               <defs>
-                <linearGradient id="techGradient" x1="6" y1="3" x2="18" y2="19" gradientUnits="userSpaceOnUse">
+                <linearGradient id="birdBodyGradient" x1="5" y1="5" x2="21" y2="19" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#4F46E5" />
                   <stop offset="1" stopColor="#8B5CF6" />
+                </linearGradient>
+                
+                <linearGradient id="birdHeadGradient" x1="12" y1="3" x2="18" y2="10" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#60A5FA" />
+                  <stop offset="1" stopColor="#7C3AED" />
+                </linearGradient>
+                
+                <linearGradient id="wingGradient" x1="5" y1="11" x2="19" y2="14" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#6366F1" />
+                  <stop offset="1" stopColor="#9333EA" />
+                </linearGradient>
+                
+                <linearGradient id="tailGradient" x1="10" y1="19" x2="14" y2="22" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#A78BFA" />
+                  <stop offset="1" stopColor="#C084FC" />
+                </linearGradient>
+                
+                <linearGradient id="beakGradient" x1="13" y1="6" x2="15.5" y2="8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#F472B6" />
+                  <stop offset="1" stopColor="#EC4899" />
                 </linearGradient>
                 
                 <linearGradient id="detailGradient" x1="12" y1="1" x2="12" y2="21" gradientUnits="userSpaceOnUse">
@@ -184,22 +204,12 @@ export const MockingBirdLogo = ({ size = "md", showText = true }: MockingBirdLog
                   <stop offset="1" stopColor="#7C3AED" />
                 </linearGradient>
                 
-                <linearGradient id="wingGradient" x1="3" y1="7" x2="21" y2="14" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#6366F1" />
-                  <stop offset="1" stopColor="#9333EA" />
-                </linearGradient>
-                
-                <linearGradient id="beakGradient" x1="10.5" y1="7" x2="13.5" y2="10" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#F472B6" />
-                  <stop offset="1" stopColor="#EC4899" />
-                </linearGradient>
-                
-                <linearGradient id="circuitGradient" x1="8" y1="12" x2="16" y2="16" gradientUnits="userSpaceOnUse">
+                <linearGradient id="circuitGradient" x1="7" y1="12" x2="17" y2="15" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#38BDF8" />
                   <stop offset="1" stopColor="#818CF8" />
                 </linearGradient>
                 
-                <radialGradient id="meshGradient" cx="12" cy="11" r="8" gradientUnits="userSpaceOnUse">
+                <radialGradient id="birdFillGradient" cx="12" cy="12" r="7" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#312E81" stopOpacity="0.8" />
                   <stop offset="1" stopColor="#1E1B4B" stopOpacity="0.2" />
                 </radialGradient>
