@@ -1,8 +1,8 @@
 
 import { Button } from "@/components/ui/button";
 import { AuthButton } from "@/components/AuthButton";
-import { Wand2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { MockingBirdLogo } from "@/components/MockingBirdLogo";
 
 export function CustomNavbar() {
   return (
@@ -10,8 +10,7 @@ export function CustomNavbar() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center">
-            <Wand2 className="h-6 w-6 text-primary mr-2" />
-            <span className="font-bold text-xl">MockingBird</span>
+            <MockingBirdLogo />
           </Link>
         </div>
 
