@@ -29,9 +29,9 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
   ],
   lighting: [
     {
-      before: "/placeholder.svg",
-      after: "/placeholder.svg",
-      description: "Enhanced the home's appearance with strategic holiday lighting installation."
+      before: "/lovable-uploads/2f377b23-3987-4bb3-812c-5fd632fb301b.png",
+      after: "/lovable-uploads/264ac72a-feab-441c-be3f-b850fb19b534.png",
+      description: "Transformed this elegant home with warm holiday lighting outlining the roof, illuminated palm trees, and festive wreaths on the gates for a magical nighttime display."
     }
   ],
   roofing: [
