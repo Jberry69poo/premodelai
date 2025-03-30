@@ -163,39 +163,6 @@ const Index = () => {
               </div>
             </div>
             
-            <div className="mt-16 max-w-3xl mx-auto">
-              <Card className="p-6 bg-card border shadow-sm">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <CheckCircle2 className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold">Simple, Fast, Effective</h4>
-                    <p className="text-muted-foreground">No design skills or complex software required</p>
-                  </div>
-                </div>
-                
-                <ul className="space-y-3 mt-4">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary mt-1 shrink-0" />
-                    <p>Create unlimited visualizations for your clients</p>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary mt-1 shrink-0" />
-                    <p>Compare before and after views side-by-side</p>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary mt-1 shrink-0" />
-                    <p>Show options with different styles, colors, and materials</p>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary mt-1 shrink-0" />
-                    <p>Close more deals by helping clients visualize the final result</p>
-                  </li>
-                </ul>
-              </Card>
-            </div>
-
             <div className="mt-10 text-center">
               <Button onClick={scrollToSignup} className="bg-primary text-primary-foreground">
                 Try it yourself
