@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { MockingbirdFlow } from "@/components/MockingbirdFlow";
 
 const betaFormSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -111,46 +112,23 @@ const Index = () => {
           </div>
         </section>
 
-        {/* How It Works Section */}
+        {/* How It Works Section - Completely redesigned */}
         <section className="py-16 md:py-24 bg-card/30">
           <div className="container px-4 md:px-6">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
               <h2 className="text-3xl font-bold tracking-tighter">How MockingBird Works</h2>
               <p className="text-muted-foreground md:text-lg mt-2 max-w-[700px] mx-auto">
-                Three simple steps to create stunning visualizations of your projects
+                From photo to visualization in minutes, not weeks
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center space-y-4 p-6 border rounded-lg bg-card/60 shadow-sm">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  CameraIcon className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold">1. Snap a Photo</h3>
-                <p className="text-muted-foreground text-center">
-                  Use your phone to take a photo of the home or area that needs improvement
-                </p>
-              </div>
-              
-              <div className="flex flex-col items-center space-y-4 p-6 border rounded-lg bg-card/60 shadow-sm">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  SmartphoneIcon className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold">2. Describe the Change</h3>
-                <p className="text-muted-foreground text-center">
-                  Enter a brief description of the modification you want to visualize
-                </p>
-              </div>
-              
-              <div className="flex flex-col items-center space-y-4 p-6 border rounded-lg bg-card/60 shadow-sm">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  PresentationIcon className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold">3. Show Your Client</h3>
-                <p className="text-muted-foreground text-center">
-                  Present a photorealistic visualization of the completed project to your client
-                </p>
-              </div>
+            <MockingbirdFlow />
+            
+            <div className="mt-10 text-center">
+              <Button onClick={scrollToSignup} className="bg-primary text-primary-foreground">
+                Try it yourself
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </div>
           </div>
         </section>
@@ -217,7 +195,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Before & After Examples - Updated with actual images */}
+        {/* Before & After Examples */}
         <section className="py-16 md:py-24 bg-card/30">
           <div className="container px-4 md:px-6">
             <div className="text-center mb-12">
