@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
-type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom";
+type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring";
 
 interface ExampleImage {
   before: string;
@@ -47,6 +47,13 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
       after: "/lovable-uploads/eca719e2-97e0-4719-9085-3626dcef15bf.png",
       description: "Completely renovated this bathroom by replacing the basic tub/shower combo with a modern walk-in shower featuring designer black and white hexagon tile flooring, black fixtures, and glass enclosure."
     }
+  ],
+  flooring: [
+    {
+      before: "/lovable-uploads/050a5e67-c885-4dfc-ac5a-b0db52af5e11.png",
+      after: "/lovable-uploads/5bfce9ae-348b-43c7-a3f6-010f0d2ab1c8.png",
+      description: "Completely transformed this living space by replacing outdated terra cotta tile with modern gray wood-look plank flooring, creating a more contemporary aesthetic while maintaining the open, airy feel."
+    }
   ]
 };
 
@@ -62,6 +69,7 @@ export function BeforeAfterExamples() {
           <TabsTrigger value="lighting">Holiday Lighting</TabsTrigger>
           <TabsTrigger value="roofing">Roofing</TabsTrigger>
           <TabsTrigger value="bathroom">Bathroom Remodeling</TabsTrigger>
+          <TabsTrigger value="flooring">Flooring</TabsTrigger>
         </TabsList>
         
         {Object.entries(examplesByCategory).map(([category, examples]) => (
