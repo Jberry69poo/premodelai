@@ -22,9 +22,9 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
   ],
   exterior: [
     {
-      before: "/placeholder.svg",
-      after: "/placeholder.svg",
-      description: "Updated the home exterior with new siding and architectural details."
+      before: "/lovable-uploads/046973f7-e283-412e-8561-190f30c598bc.png",
+      after: "/lovable-uploads/29ac98f1-8c98-4c46-8307-367478a7e6c5.png",
+      description: "Enhanced this home's curb appeal by replacing the plain concrete driveway with a decorative stone pattern with green pavers, adding visual interest and elegance."
     }
   ],
   lighting: [
@@ -51,14 +51,14 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
 };
 
 export function BeforeAfterExamples() {
-  const [activeCategory, setActiveCategory] = useState<Category>("painting");
+  const [activeCategory, setActiveCategory] = useState<Category>("exterior");
 
   return (
     <div className="w-full">
-      <Tabs defaultValue="painting" onValueChange={(value) => setActiveCategory(value as Category)}>
+      <Tabs defaultValue="exterior" onValueChange={(value) => setActiveCategory(value as Category)}>
         <TabsList className="flex flex-wrap justify-center gap-2 mb-6">
-          <TabsTrigger value="painting">Painting</TabsTrigger>
           <TabsTrigger value="exterior">Exterior Remodeling</TabsTrigger>
+          <TabsTrigger value="painting">Painting</TabsTrigger>
           <TabsTrigger value="lighting">Holiday Lighting</TabsTrigger>
           <TabsTrigger value="roofing">Roofing</TabsTrigger>
           <TabsTrigger value="bathroom">Bathroom Remodeling</TabsTrigger>
