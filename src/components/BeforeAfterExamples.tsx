@@ -36,9 +36,9 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
   ],
   roofing: [
     {
-      before: "/placeholder.svg",
-      after: "/placeholder.svg",
-      description: "Replaced old asphalt shingles with stylish architectural ones that enhance curb appeal."
+      before: "/lovable-uploads/547a69e5-4ff9-4f5a-a069-2d50de625f03.png",
+      after: "/lovable-uploads/d8655611-3067-467d-b950-4eb817feb350.png",
+      description: "Modernized this brick colonial home by replacing the aging tan shingles with contemporary charcoal gray architectural roofing, adding contrast and enhancing the home's overall appearance."
     }
   ],
   bathroom: [
