@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
@@ -5,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { BeforeAfterExamples } from "@/components/BeforeAfterExamples";
-import { ArrowRight, CheckCircle2, Wand2, Clock, CameraIcon, MessageSquareText, ImageIcon } from "lucide-react";
+import { ArrowRight, CameraIcon, MessageSquareText, ImageIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -131,70 +132,8 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Benefits Section */}
-        <section className="py-16 md:py-24">
-          <div className="container px-4 md:px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tighter">Why Contractors Love MockingBird</h2>
-              <p className="text-muted-foreground md:text-lg mt-2 max-w-[700px] mx-auto">
-                Boost your business with these powerful advantages
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="flex gap-4 p-6 border rounded-lg shadow-sm">
-                <div className="shrink-0">
-                  <CheckCircle2 className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold">Increase Close Rates</h3>
-                  <p className="text-muted-foreground mt-2">
-                    When clients can visualize the end result, they're more likely to approve your proposal
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex gap-4 p-6 border rounded-lg shadow-sm">
-                <div className="shrink-0">
-                  <Clock className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold">Save Time</h3>
-                  <p className="text-muted-foreground mt-2">
-                    Create visualizations in minutes instead of hours spent with design software
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex gap-4 p-6 border rounded-lg shadow-sm">
-                <div className="shrink-0">
-                  <Wand2 className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold">Stand Out From Competition</h3>
-                  <p className="text-muted-foreground mt-2">
-                    Provide a premium experience that differentiates your service from other contractors
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex gap-4 p-6 border rounded-lg shadow-sm">
-                <div className="shrink-0">
-                  <CheckCircle2 className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold">Reduce Revisions</h3>
-                  <p className="text-muted-foreground mt-2">
-                    Aligning expectations visually means fewer change orders and clearer communication
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Before & After Examples */}
-        <section className="py-16 md:py-24 bg-card/30">
+        <section className="py-16 md:py-24">
           <div className="container px-4 md:px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold tracking-tighter">Before & After Examples</h2>
