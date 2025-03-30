@@ -1,10 +1,6 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ImageUpload } from "@/components/ImageUpload";
-import { PromptInput } from "@/components/PromptInput";
-import { ImageComparison } from "@/components/ImageComparison";
 import { 
   Camera, 
   MessageSquareText, 
@@ -12,136 +8,171 @@ import {
   ArrowRight, 
   CheckCircle
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ImageUpload } from "@/components/ImageUpload";
+import { PromptInput } from "@/components/PromptInput";
+import { ImageComparison } from "@/components/ImageComparison";
 
 export function MockingbirdFlow() {
+  const [activeStep, setActiveStep] = useState(1);
+  const [selectedImage, setSelectedImage] = useState("/lovable-uploads/19e02c58-4397-44bc-9d7d-b449c6496c0b.png");
+  const [prompt, setPrompt] = useState("");
+  const [generatedImage, setGeneratedImage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleImageSelect = (file: File) => {
+    setSelectedImage("/lovable-uploads/19e02c58-4397-44bc-9d7d-b449c6496c0b.png");
+    setActiveStep(2);
+  };
+
+  const handlePromptSubmit = (userPrompt: string) => {
+    setPrompt(userPrompt);
+    setIsLoading(true);
+    
+    // Simulate API call delay
+    setTimeout(() => {
+      setGeneratedImage("/lovable-uploads/18ac9548-10f5-4903-bada-a04dc21df965.png");
+      setIsLoading(false);
+      setActiveStep(3);
+    }, 800);
+  };
+
+  const handleStartNew = () => {
+    setSelectedImage(null);
+    setPrompt("");
+    setGeneratedImage(null);
+    setActiveStep(1);
+  };
+
+  const handleRegenerate = () => {
+    setIsLoading(true);
+    // Simulate API call delay
+    setTimeout(() => {
+      setGeneratedImage("/lovable-uploads/18ac9548-10f5-4903-bada-a04dc21df965.png");
+      setIsLoading(false);
+    }, 800);
+  };
+
   return (
-    <div className="space-y-16">
+    <div className="w-full max-w-6xl mx-auto">
       {/* Step indicators */}
-      <div className="hidden md:flex justify-center items-center gap-4 mb-8">
-        <StepIndicator number={1} title="Snap a Photo" icon={<Camera className="h-5 w-5" />} active={true} />
+      <div className="hidden md:flex justify-center items-center gap-4 mb-12">
+        <StepIndicator 
+          number={1} 
+          title="Snap a Photo" 
+          icon={<Camera className="h-5 w-5" />} 
+          active={activeStep >= 1} 
+          complete={activeStep > 1}
+        />
         <ArrowRight className="h-4 w-4 text-muted-foreground" />
-        <StepIndicator number={2} title="Describe Changes" icon={<MessageSquareText className="h-5 w-5" />} active={true} />
+        <StepIndicator 
+          number={2} 
+          title="Describe Changes" 
+          icon={<MessageSquareText className="h-5 w-5" />} 
+          active={activeStep >= 2} 
+          complete={activeStep > 2}
+        />
         <ArrowRight className="h-4 w-4 text-muted-foreground" />
-        <StepIndicator number={3} title="Get Results" icon={<ImageIcon className="h-5 w-5" />} active={true} />
+        <StepIndicator 
+          number={3} 
+          title="View Result" 
+          icon={<ImageIcon className="h-5 w-5" />} 
+          active={activeStep >= 3} 
+          complete={activeStep > 3}
+        />
       </div>
 
-      {/* Interactive app demo */}
-      <Tabs defaultValue="upload" className="w-full">
-        <div className="md:hidden">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="upload">
-              <div className="flex flex-col items-center">
-                <span className="text-xs">Step 1</span>
-                <span>Upload</span>
-              </div>
-            </TabsTrigger>
-            <TabsTrigger value="prompt">
-              <div className="flex flex-col items-center">
-                <span className="text-xs">Step 2</span>
-                <span>Describe</span>
-              </div>
-            </TabsTrigger>
-            <TabsTrigger value="result">
-              <div className="flex flex-col items-center">
-                <span className="text-xs">Step 3</span>
-                <span>Result</span>
-              </div>
-            </TabsTrigger>
-          </TabsList>
+      {/* Application mockup */}
+      <div className="bg-background rounded-xl shadow-xl border overflow-hidden">
+        {/* App header */}
+        <div className="bg-card px-4 py-3 border-b flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-3 rounded-full bg-red-500"></div>
+            <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
+            <div className="h-3 w-3 rounded-full bg-green-500"></div>
+          </div>
+          <div className="text-sm font-medium">MockingBird</div>
+          <div className="w-20"></div>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <TabsContent value="upload" className="mt-0">
-            <AppScreenCard title="Step 1: Upload a Photo">
-              <div className="aspect-[9/16] rounded-lg overflow-hidden bg-black/80 p-3">
-                <div className="h-full rounded flex flex-col">
-                  <div className="flex-grow">
-                    <ImageUpload 
-                      onImageSelect={() => {}} 
-                      selectedImage="/lovable-uploads/19e02c58-4397-44bc-9d7d-b449c6496c0b.png" 
-                      isLoading={false}
-                    />
-                  </div>
-                  <div className="mt-6">
-                    <p className="text-sm text-center text-white/70">
-                      Take a photo or upload an existing one from your gallery
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </AppScreenCard>
-          </TabsContent>
+        {/* App content */}
+        <div className="grid md:grid-cols-3 divide-x">
+          {/* Left panel - Photo upload */}
+          <div className="p-6 bg-background">
+            <h3 className="text-lg font-medium mb-4">1. Upload Photo</h3>
+            <ImageUpload 
+              onImageSelect={handleImageSelect}
+              selectedImage={selectedImage}
+              isLoading={isLoading}
+            />
+            <div className="mt-4">
+              <p className="text-sm text-muted-foreground">
+                Take a photo or upload an image of the area you want to visualize changes for
+              </p>
+            </div>
+          </div>
 
-          <TabsContent value="prompt" className="mt-0">
-            <AppScreenCard title="Step 2: Describe the Change">
-              <div className="aspect-[9/16] rounded-lg overflow-hidden bg-black/80 p-3">
-                <div className="h-full rounded flex flex-col">
-                  <div className="h-1/2 mb-4">
-                    <div className="relative h-full rounded-lg overflow-hidden border border-muted">
-                      <img 
-                        src="/lovable-uploads/19e02c58-4397-44bc-9d7d-b449c6496c0b.png" 
-                        alt="Selected home" 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="bg-background/80 backdrop-blur-sm rounded-lg p-3 border border-border">
-                      <p className="text-sm mb-2 font-medium">Describe what to change:</p>
-                      <div className="text-xs p-2 bg-muted/50 rounded-md">
-                        Change the white walls to a sophisticated navy blue color
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-4">
-                    <p className="text-sm text-center text-white/70">
-                      Be specific about the changes you want to visualize
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </AppScreenCard>
-          </TabsContent>
+          {/* Middle panel - Prompt input */}
+          <div className="p-6 bg-background">
+            <h3 className="text-lg font-medium mb-4">2. Describe the Change</h3>
+            <PromptInput
+              onSubmit={handlePromptSubmit}
+              isLoading={isLoading}
+              isImageSelected={!!selectedImage}
+            />
+          </div>
 
-          <TabsContent value="result" className="mt-0">
-            <AppScreenCard title="Step 3: Show Your Client">
-              <div className="aspect-[9/16] rounded-lg overflow-hidden bg-black/80 p-3">
-                <div className="h-full rounded flex flex-col">
-                  <div className="flex-1">
-                    <div className="h-full rounded-lg overflow-hidden border border-muted">
-                      <img 
-                        src="/lovable-uploads/18ac9548-10f5-4903-bada-a04dc21df965.png" 
-                        alt="Generated result" 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-4">
-                    <div className="flex items-center justify-center gap-2 text-primary bg-primary/10 py-2 px-3 rounded-full">
-                      <CheckCircle className="h-4 w-4" />
-                      <span className="text-xs font-medium">Result ready to share</span>
-                    </div>
-                  </div>
+          {/* Right panel - Results */}
+          <div className="p-6 bg-background">
+            <h3 className="text-lg font-medium mb-4">3. Results</h3>
+            {isLoading ? (
+              <div className="flex flex-col items-center justify-center h-64 animate-pulse">
+                <div className="mb-4">
+                  <svg className="animate-spin h-10 w-10 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
                 </div>
+                <p className="text-sm text-muted-foreground">Creating visualization...</p>
               </div>
-            </AppScreenCard>
-          </TabsContent>
+            ) : (
+              generatedImage ? (
+                <ImageComparison
+                  originalImage={selectedImage}
+                  generatedImage={generatedImage}
+                  prompt={prompt}
+                  onStartNew={handleStartNew}
+                  onRegenerate={handleRegenerate}
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center h-64 border-2 border-dashed border-muted rounded-lg">
+                  <ImageIcon className="h-12 w-12 text-muted-foreground mb-4" />
+                  <p className="text-muted-foreground text-center">
+                    Upload a photo and describe your changes<br />to see the results here
+                  </p>
+                </div>
+              )
+            )}
+          </div>
         </div>
-      </Tabs>
+      </div>
 
       {/* Features callouts */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16">
         <FeatureCard 
-          title="Photorealistic Quality" 
-          description="Our AI generates high-fidelity visualizations that look just like professional photos"
+          icon={<Camera className="h-5 w-5 text-primary" />}
+          title="Snap a Photo" 
+          description="Use your smartphone to take a picture of any space you want to visualize"
         />
         <FeatureCard 
-          title="Fast Generation" 
-          description="Get results in under a minute - perfect for showing clients during consultations"
+          icon={<MessageSquareText className="h-5 w-5 text-primary" />}
+          title="Describe Changes" 
+          description="Tell MockingBird what changes you want to make with simple descriptions"
         />
         <FeatureCard 
-          title="Unlimited Variations" 
-          description="Try different colors, materials and designs until you find the perfect look"
+          icon={<CheckCircle className="h-5 w-5 text-primary" />}
+          title="Share Results" 
+          description="Download or share the visualization with your clients in seconds"
         />
       </div>
     </div>
@@ -152,16 +183,18 @@ function StepIndicator({
   number, 
   title, 
   icon, 
-  active 
+  active,
+  complete
 }: { 
   number: number; 
   title: string; 
   icon: React.ReactNode; 
   active: boolean;
+  complete?: boolean;
 }) {
   return (
     <div className={`flex items-center gap-3 ${active ? "opacity-100" : "opacity-50"}`}>
-      <div className={`h-10 w-10 rounded-full ${active ? "bg-primary" : "bg-muted"} text-white flex items-center justify-center`}>
+      <div className={`h-10 w-10 rounded-full ${complete ? "bg-green-500" : active ? "bg-primary" : "bg-muted"} text-white flex items-center justify-center`}>
         {icon}
       </div>
       <div>
@@ -171,21 +204,13 @@ function StepIndicator({
   );
 }
 
-function AppScreenCard({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="flex flex-col h-full">
-      <h3 className="text-lg font-medium mb-4 text-center md:text-left">{title}</h3>
-      <div className="flex-1 flex justify-center items-center bg-gradient-to-b from-muted/30 to-muted/10 rounded-xl p-4 shadow-md">
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function FeatureCard({ title, description }: { title: string; description: string }) {
+function FeatureCard({ title, description, icon }: { title: string; description: string; icon: React.ReactNode }) {
   return (
     <Card className="p-6 bg-card/60 border shadow-sm hover:shadow transition-all">
-      <h4 className="text-lg font-semibold mb-2">{title}</h4>
+      <div className="flex items-center gap-3 mb-3">
+        {icon}
+        <h4 className="text-lg font-semibold">{title}</h4>
+      </div>
       <p className="text-muted-foreground text-sm">{description}</p>
     </Card>
   );
