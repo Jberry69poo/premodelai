@@ -58,7 +58,7 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            The next big thing in Home Improvement
+            The next big thing in Home Service Sales
           </motion.h1>
           
           {/* Subheading */}
