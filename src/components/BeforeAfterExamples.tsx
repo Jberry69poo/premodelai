@@ -26,7 +26,7 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
     {
       before: "/lovable-uploads/046973f7-e283-412e-8561-190f30c598bc.png",
       after: "/lovable-uploads/29ac98f1-8c98-4c46-8307-367478a7e6c5.png",
-      prompt: "Replace the plain concrete driveway with a decorative stone pattern with green pavers"
+      prompt: "Replace the plain concrete driveway with a decorative stone pattern and add artificial turf strips"
     }
   ],
   lighting: [
