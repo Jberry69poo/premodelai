@@ -84,7 +84,7 @@ export function BeforeAfterExamples() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
-                      <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded z-10">
+                      <div className="absolute top-2 left-2 bg-black/80 text-white text-xs px-3 py-1.5 rounded font-medium shadow-md backdrop-blur-sm z-10">
                         Before
                       </div>
                       <img 
@@ -94,12 +94,15 @@ export function BeforeAfterExamples() {
                         loading="lazy"
                       />
                     </div>
+                    {isMobile && (
+                      <p className="text-xs text-muted-foreground">Tap image to enlarge</p>
+                    )}
                   </div>
                   
                   <div className="space-y-2">
                     <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
-                      <div className="absolute top-2 left-2 bg-primary/70 text-white text-xs px-2 py-1 rounded z-10">
-                        After
+                      <div className="absolute top-2 left-2 bg-primary/90 text-white text-xs px-3 py-1.5 rounded font-medium shadow-md backdrop-blur-sm z-10">
+                        After (MockingBird)
                       </div>
                       <img 
                         src={example.after} 
@@ -108,11 +111,14 @@ export function BeforeAfterExamples() {
                         loading="lazy"
                       />
                     </div>
+                    {isMobile && (
+                      <p className="text-xs text-muted-foreground">Tap image to enlarge</p>
+                    )}
                   </div>
                 </div>
                 
-                <Card className="p-3 sm:p-4 bg-card/60">
-                  <p className="text-xs sm:text-sm italic">
+                <Card className="p-4 bg-card/80 shadow-sm border-border/80">
+                  <p className="text-xs md:text-sm italic text-foreground font-medium">
                     "{example.description}"
                   </p>
                 </Card>
