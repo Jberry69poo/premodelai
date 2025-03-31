@@ -73,21 +73,21 @@ const Index = () => {
         <Hero />
 
         {/* How It Works Section */}
-        <section className="py-16 md:py-24 bg-card/30">
-          <div className="container px-4 md:px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tighter">How MockingBird Works</h2>
+        <section className="py-12 md:py-24 bg-card/30 px-4">
+          <div className="container">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">How MockingBird Works</h2>
               <p className="text-muted-foreground md:text-lg mt-2 max-w-[700px] mx-auto">
                 From photo to visualization in minutes, not weeks
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mt-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mt-6 md:mt-10">
               <div className="flex flex-col items-center text-center">
-                <div className="bg-primary/10 p-5 rounded-full mb-4">
-                  <CameraIcon className="h-10 w-10 text-primary" />
+                <div className="bg-primary/10 p-4 md:p-5 rounded-full mb-3 md:mb-4">
+                  <CameraIcon className="h-8 w-8 md:h-10 md:w-10 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">1. Snap a Photo</h3>
+                <h3 className="text-lg md:text-xl font-semibold mb-2">1. Snap a Photo</h3>
                 <p className="text-muted-foreground">
                   Take a picture or upload an existing photo of the space you want to renovate. 
                   Works with kitchens, bathrooms, exteriors, landscaping, and more.
@@ -98,10 +98,10 @@ const Index = () => {
                 <div className="absolute left-0 top-10 hidden md:block">
                   <ArrowRight className="h-6 w-6 text-muted-foreground" />
                 </div>
-                <div className="bg-primary/10 p-5 rounded-full mb-4">
-                  <MessageSquareText className="h-10 w-10 text-primary" />
+                <div className="bg-primary/10 p-4 md:p-5 rounded-full mb-3 md:mb-4">
+                  <MessageSquareText className="h-8 w-8 md:h-10 md:w-10 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">2. Describe Your Vision</h3>
+                <h3 className="text-lg md:text-xl font-semibold mb-2">2. Describe Your Vision</h3>
                 <p className="text-muted-foreground">
                   Explain what changes you want to make in plain English. For example: 
                   "Paint the walls light blue, add white trim, and install hardwood flooring."
@@ -112,10 +112,10 @@ const Index = () => {
                 <div className="absolute left-0 top-10 hidden md:block">
                   <ArrowRight className="h-6 w-6 text-muted-foreground" />
                 </div>
-                <div className="bg-primary/10 p-5 rounded-full mb-4">
-                  <ImageIcon className="h-10 w-10 text-primary" />
+                <div className="bg-primary/10 p-4 md:p-5 rounded-full mb-3 md:mb-4">
+                  <ImageIcon className="h-8 w-8 md:h-10 md:w-10 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">3. Get Visualizations</h3>
+                <h3 className="text-lg md:text-xl font-semibold mb-2">3. Get Visualizations</h3>
                 <p className="text-muted-foreground">
                   MockingBird AI instantly generates photorealistic visualizations of your 
                   space with the changes applied. Share with clients to help them see your vision.
@@ -123,7 +123,7 @@ const Index = () => {
               </div>
             </div>
             
-            <div className="mt-10 text-center">
+            <div className="mt-8 md:mt-10 text-center">
               <Button onClick={scrollToSignup} className="bg-primary text-primary-foreground">
                 Try it yourself
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -133,10 +133,10 @@ const Index = () => {
         </section>
 
         {/* Before & After Examples */}
-        <section className="py-16 md:py-24">
-          <div className="container px-4 md:px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tighter">Before & After Examples</h2>
+        <section className="py-12 md:py-24 px-4">
+          <div className="container">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">Before & After Examples</h2>
               <p className="text-muted-foreground md:text-lg mt-2 max-w-[700px] mx-auto">
                 See the transformative power of MockingBird visualizations
               </p>
@@ -147,20 +147,20 @@ const Index = () => {
         </section>
 
         {/* Beta Signup Section */}
-        <section id="beta-signup" className="py-16 md:py-24 lg:py-32 bg-gradient-to-t from-background to-secondary/10">
-          <div className="container px-4 md:px-6">
+        <section id="beta-signup" className="py-12 md:py-24 lg:py-32 bg-gradient-to-t from-background to-secondary/10 px-4">
+          <div className="container">
             <div className="max-w-2xl mx-auto">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold tracking-tighter">Join Our Free Beta</h2>
+              <div className="text-center mb-6 md:mb-8">
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">Join Our Free Beta</h2>
                 <p className="text-muted-foreground md:text-lg mt-2">
                   Be among the first contractors to use MockingBird and transform your sales process
                 </p>
               </div>
               
-              <div className="p-6 md:p-8 border rounded-lg shadow-lg bg-card">
+              <div className="p-5 md:p-8 border rounded-lg shadow-lg bg-card">
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4">
                       <FormField
                         control={form.control}
                         name="name"
@@ -188,9 +188,7 @@ const Index = () => {
                           </FormItem>
                         )}
                       />
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      
                       <FormField
                         control={form.control}
                         name="email"

@@ -3,8 +3,8 @@ import { Bird, Github, Twitter } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="border-t border-border/40 py-6 md:py-0">
-      <div className="container flex flex-col md:flex-row items-center justify-between gap-4 md:h-16">
+    <footer className="border-t border-border/40 py-6">
+      <div className="container px-4 flex flex-col md:flex-row items-center justify-between gap-4 md:h-16">
         <div className="flex items-center gap-2">
           <Bird className="h-5 w-5 text-primary" />
           <span className="text-sm font-medium">
@@ -12,7 +12,7 @@ export const Footer = () => {
           </span>
         </div>
         
-        <div className="text-sm text-muted-foreground">
+        <div className="text-sm text-muted-foreground text-center">
           AI-powered home improvement visualizations
         </div>
         
