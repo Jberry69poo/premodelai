@@ -42,3 +42,10 @@ export const responsiveGrid = {
   cols3: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3",
   cols4: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
 }
+
+export const mobileClasses = {
+  hideOnMobile: "hidden md:block",
+  showOnlyOnMobile: "block md:hidden",
+  touchTarget: "min-h-[44px] min-w-[44px]", // Accessibility standard
+  scrollContainer: "overflow-x-auto -mx-4 px-4" // For horizontal scrolling with proper padding
+}

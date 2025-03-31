@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { responsiveWidth } from "@/lib/utils";
 
 type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring";
 
@@ -65,20 +66,22 @@ export function BeforeAfterExamples() {
   return (
     <div className="w-full">
       <Tabs defaultValue="exterior" onValueChange={(value) => setActiveCategory(value as Category)}>
-        <TabsList className="flex flex-wrap justify-center gap-1 mb-6 overflow-x-auto px-1 py-1.5">
-          <TabsTrigger value="exterior" className="text-xs sm:text-sm whitespace-nowrap">Exterior</TabsTrigger>
-          <TabsTrigger value="painting" className="text-xs sm:text-sm whitespace-nowrap">Painting</TabsTrigger>
-          <TabsTrigger value="lighting" className="text-xs sm:text-sm whitespace-nowrap">Lighting</TabsTrigger>
-          <TabsTrigger value="roofing" className="text-xs sm:text-sm whitespace-nowrap">Roofing</TabsTrigger>
-          <TabsTrigger value="bathroom" className="text-xs sm:text-sm whitespace-nowrap">Bathroom</TabsTrigger>
-          <TabsTrigger value="flooring" className="text-xs sm:text-sm whitespace-nowrap">Flooring</TabsTrigger>
-        </TabsList>
+        <div className="overflow-x-auto pb-3">
+          <TabsList className="flex w-max min-w-full justify-start gap-1 px-1 py-1.5 md:justify-center md:flex-wrap">
+            <TabsTrigger value="exterior" className="text-xs sm:text-sm whitespace-nowrap">Exterior</TabsTrigger>
+            <TabsTrigger value="painting" className="text-xs sm:text-sm whitespace-nowrap">Painting</TabsTrigger>
+            <TabsTrigger value="lighting" className="text-xs sm:text-sm whitespace-nowrap">Lighting</TabsTrigger>
+            <TabsTrigger value="roofing" className="text-xs sm:text-sm whitespace-nowrap">Roofing</TabsTrigger>
+            <TabsTrigger value="bathroom" className="text-xs sm:text-sm whitespace-nowrap">Bathroom</TabsTrigger>
+            <TabsTrigger value="flooring" className="text-xs sm:text-sm whitespace-nowrap">Flooring</TabsTrigger>
+          </TabsList>
+        </div>
         
         {Object.entries(examplesByCategory).map(([category, examples]) => (
           <TabsContent key={category} value={category} className="space-y-6">
             {examples.map((example, index) => (
               <div key={index} className="flex flex-col space-y-4">
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
                       <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded z-10">
