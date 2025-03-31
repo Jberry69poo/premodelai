@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring";
 
@@ -59,53 +60,60 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
 
 export function BeforeAfterExamples() {
   const [activeCategory, setActiveCategory] = useState<Category>("exterior");
+  const isMobile = useIsMobile();
 
   return (
     <div className="w-full">
       <Tabs defaultValue="exterior" onValueChange={(value) => setActiveCategory(value as Category)}>
-        <TabsList className="flex flex-wrap justify-center gap-2 mb-6">
-          <TabsTrigger value="exterior">Exterior Remodeling</TabsTrigger>
-          <TabsTrigger value="painting">Painting</TabsTrigger>
-          <TabsTrigger value="lighting">Holiday Lighting</TabsTrigger>
-          <TabsTrigger value="roofing">Roofing</TabsTrigger>
-          <TabsTrigger value="bathroom">Bathroom Remodeling</TabsTrigger>
-          <TabsTrigger value="flooring">Flooring</TabsTrigger>
+        <TabsList className="flex flex-wrap justify-center gap-1 mb-6 overflow-x-auto px-1 py-1.5">
+          <TabsTrigger value="exterior" className="text-xs sm:text-sm whitespace-nowrap">Exterior</TabsTrigger>
+          <TabsTrigger value="painting" className="text-xs sm:text-sm whitespace-nowrap">Painting</TabsTrigger>
+          <TabsTrigger value="lighting" className="text-xs sm:text-sm whitespace-nowrap">Lighting</TabsTrigger>
+          <TabsTrigger value="roofing" className="text-xs sm:text-sm whitespace-nowrap">Roofing</TabsTrigger>
+          <TabsTrigger value="bathroom" className="text-xs sm:text-sm whitespace-nowrap">Bathroom</TabsTrigger>
+          <TabsTrigger value="flooring" className="text-xs sm:text-sm whitespace-nowrap">Flooring</TabsTrigger>
         </TabsList>
         
         {Object.entries(examplesByCategory).map(([category, examples]) => (
-          <TabsContent key={category} value={category} className="space-y-8">
+          <TabsContent key={category} value={category} className="space-y-6">
             {examples.map((example, index) => (
-              <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
-                    <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded z-10">Before</div>
-                    <img 
-                      src={example.before} 
-                      alt={`Before ${category}`} 
-                      className="object-cover w-full h-full"
-                    />
+              <div key={index} className="flex flex-col space-y-4">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div className="space-y-2">
+                    <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
+                      <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded z-10">
+                        Before
+                      </div>
+                      <img 
+                        src={example.before} 
+                        alt={`Before ${category}`} 
+                        className="object-cover w-full h-full"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
+                      <div className="absolute top-2 left-2 bg-primary/70 text-white text-xs px-2 py-1 rounded z-10">
+                        After
+                      </div>
+                      <img 
+                        src={example.after} 
+                        alt={`After ${category}`} 
+                        className="object-cover w-full h-full"
+                        loading="lazy"
+                      />
+                    </div>
                   </div>
                 </div>
                 
-                <div className="space-y-4">
-                  <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
-                    <div className="absolute top-2 left-2 bg-primary/70 text-white text-xs px-2 py-1 rounded z-10">After (MockingBird)</div>
-                    <img 
-                      src={example.after} 
-                      alt={`After ${category}`} 
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-                </div>
+                <Card className="p-3 sm:p-4 bg-card/60">
+                  <p className="text-xs sm:text-sm italic">
+                    "{example.description}"
+                  </p>
+                </Card>
               </div>
-            ))}
-            
-            {examples.map((example, index) => (
-              <Card key={`description-${index}`} className="p-4 bg-card/60">
-                <p className="text-sm italic">
-                  "{example.description}"
-                </p>
-              </Card>
             ))}
           </TabsContent>
         ))}

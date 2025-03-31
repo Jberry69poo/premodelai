@@ -29,3 +29,16 @@ export const responsiveText = {
   small: "text-sm",
   tiny: "text-xs"
 }
+
+export const responsiveSpacing = {
+  sm: "gap-2 sm:gap-4",
+  md: "gap-3 sm:gap-5 md:gap-6",
+  lg: "gap-4 sm:gap-6 md:gap-8 lg:gap-10"
+}
+
+export const responsiveGrid = {
+  autoFit: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
+  cols2: "grid grid-cols-1 sm:grid-cols-2",
+  cols3: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3",
+  cols4: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+}
