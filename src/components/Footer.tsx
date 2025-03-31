@@ -2,17 +2,19 @@
 import { Bird, Github, Twitter } from "lucide-react";
 
 export const Footer = () => {
+  const currentYear = new Date().getFullYear();
+  
   return (
     <footer className="border-t border-border/40 py-6">
       <div className="container px-4 flex flex-col md:flex-row items-center justify-between gap-4 md:h-16">
         <div className="flex items-center gap-2">
           <Bird className="h-5 w-5 text-primary" />
           <span className="text-sm font-medium">
-            MockingBird AI © {new Date().getFullYear()}
+            MockingBird AI © {currentYear}
           </span>
         </div>
         
-        <div className="text-sm text-muted-foreground text-center">
+        <div className="text-sm text-muted-foreground text-center my-2 md:my-0">
           AI-powered home improvement visualizations
         </div>
         
