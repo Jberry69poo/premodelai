@@ -11,7 +11,7 @@ type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | 
 interface ExampleImage {
   before: string;
   after: string;
-  description: string;
+  prompt: string;  // Renamed from description to prompt
 }
 
 const examplesByCategory: Record<Category, ExampleImage[]> = {
@@ -19,42 +19,42 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
     {
       before: "/lovable-uploads/19e02c58-4397-44bc-9d7d-b449c6496c0b.png",
       after: "/lovable-uploads/18ac9548-10f5-4903-bada-a04dc21df965.png",
-      description: "Transformed this living room by changing white walls to sophisticated navy blue, creating a dramatic modern space."
+      prompt: "Change the white walls to sophisticated navy blue for a dramatic modern look"
     }
   ],
   exterior: [
     {
       before: "/lovable-uploads/046973f7-e283-412e-8561-190f30c598bc.png",
       after: "/lovable-uploads/29ac98f1-8c98-4c46-8307-367478a7e6c5.png",
-      description: "Enhanced this home's curb appeal by replacing the plain concrete driveway with a decorative stone pattern with green pavers, adding visual interest and elegance."
+      prompt: "Replace the plain concrete driveway with a decorative stone pattern with green pavers"
     }
   ],
   lighting: [
     {
       before: "/lovable-uploads/2f377b23-3987-4bb3-812c-5fd632fb301b.png",
       after: "/lovable-uploads/264ac72a-feab-441c-be3f-b850fb19b534.png",
-      description: "Transformed this elegant home with warm holiday lighting outlining the roof, illuminated palm trees, and festive wreaths on the gates for a magical nighttime display."
+      prompt: "Add warm holiday lighting along the roof line, illuminate the palm trees, and add festive wreaths on the gates"
     }
   ],
   roofing: [
     {
       before: "/lovable-uploads/547a69e5-4ff9-4f5a-a069-2d50de625f03.png",
       after: "/lovable-uploads/d8655611-3067-467d-b950-4eb817feb350.png",
-      description: "Modernized this brick colonial home by replacing the aging tan shingles with contemporary charcoal gray architectural roofing, adding contrast and enhancing the home's overall appearance."
+      prompt: "Replace the tan shingles with contemporary charcoal gray architectural roofing"
     }
   ],
   bathroom: [
     {
       before: "/lovable-uploads/d06a1ddf-ee7c-47b0-9cd6-88c08d1f11bc.png",
       after: "/lovable-uploads/eca719e2-97e0-4719-9085-3626dcef15bf.png",
-      description: "Completely renovated this bathroom by replacing the basic tub/shower combo with a modern walk-in shower featuring designer black and white hexagon tile flooring, black fixtures, and glass enclosure."
+      prompt: "Replace the basic tub/shower combo with a modern walk-in shower with black and white hexagon tile flooring and glass enclosure"
     }
   ],
   flooring: [
     {
       before: "/lovable-uploads/050a5e67-c885-4dfc-ac5a-b0db52af5e11.png",
       after: "/lovable-uploads/5bfce9ae-348b-43c7-a3f6-010f0d2ab1c8.png",
-      description: "Completely transformed this living space by replacing outdated terra cotta tile with modern gray wood-look plank flooring, creating a more contemporary aesthetic while maintaining the open, airy feel."
+      prompt: "Replace the terra cotta tile flooring with modern gray wood-look plank flooring"
     }
   ]
 };
@@ -118,8 +118,9 @@ export function BeforeAfterExamples() {
                 </div>
                 
                 <Card className="p-4 bg-card/80 shadow-sm border-border/80">
-                  <p className="text-xs md:text-sm italic text-foreground font-medium">
-                    "{example.description}"
+                  <p className="text-xs md:text-sm text-foreground font-medium flex items-center">
+                    <span className="inline-flex px-2 py-1 mr-2 bg-primary/10 text-primary rounded text-xs font-bold">USER PROMPT</span>
+                    "{example.prompt}"
                   </p>
                 </Card>
               </div>
