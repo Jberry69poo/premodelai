@@ -3,10 +3,8 @@ import { MockingBirdLogo } from "@/components/MockingBirdLogo";
 import { ArrowRight, Eye, Zap, Building, Rocket, Bird } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
-
 export const Hero = () => {
   const isMobile = useIsMobile();
-  
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -15,13 +13,11 @@ export const Hero = () => {
       });
     }
   };
-  
   const scrollToSignup = () => {
     document.getElementById("beta-signup")?.scrollIntoView({
       behavior: "smooth"
     });
   };
-  
   const fadeIn = {
     hidden: {
       opacity: 0,
@@ -35,7 +31,6 @@ export const Hero = () => {
       }
     }
   };
-  
   const staggerChildren = {
     hidden: {
       opacity: 0
@@ -47,7 +42,6 @@ export const Hero = () => {
       }
     }
   };
-  
   return <section className="relative overflow-hidden bg-gradient-to-b from-background via-background/90 to-primary/5 pt-24 pb-16 md:pt-32 md:pb-24 px-4">
       {/* Background Elements */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
@@ -74,12 +68,16 @@ export const Hero = () => {
           </motion.div>
           
           {/* Bird logo */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mb-6"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.6,
+          delay: 0.3
+        }} className="mb-6">
             <Bird className="h-12 w-12 md:h-16 md:w-16 text-primary" />
           </motion.div>
           
@@ -93,9 +91,7 @@ export const Hero = () => {
         }} transition={{
           duration: 0.8,
           delay: 0.2
-        }}>
-            The next big thing in Home Service Sales
-          </motion.h1>
+        }}>The next big thing in Home Improvement</motion.h1>
           
           {/* Subheading */}
           <motion.p className="mt-4 md:mt-6 text-lg md:text-2xl text-muted-foreground max-w-2xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">MockingBird Shows clients exactly what their renovated space will look like before you even start the work.</motion.p>
