@@ -1,11 +1,9 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { AuthButton } from "@/components/AuthButton";
 import { Link } from "react-router-dom";
 import { MockingBirdLogo } from "@/components/MockingBirdLogo";
 import { Menu, X } from "lucide-react";
-
 export function CustomNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
@@ -14,15 +12,15 @@ export function CustomNavbar() {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
-
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+      section.scrollIntoView({
+        behavior: "smooth"
+      });
       closeMenu();
     }
   };
-
   return <header className="fixed top-0 z-50 w-full border-b border-border/10 bg-background/80 backdrop-blur-xl">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-2">
@@ -45,7 +43,7 @@ export function CustomNavbar() {
             Examples
           </Button>
           <Button variant="ghost" asChild>
-            <Link to="/admin">Admin</Link>
+            
           </Button>
           <AuthButton />
         </div>
