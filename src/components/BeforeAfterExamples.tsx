@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { responsiveWidth } from "@/lib/utils";
 
-type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring" | "cabinet";
+type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring" | "cabinet" | "landscaping";
 
 interface ExampleImage {
   before: string;
@@ -63,6 +63,13 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
       after: "/lovable-uploads/95e4acf3-b58d-46c4-b5cd-5db9d2d64a31.png",
       prompt: "Change the white kitchen cabinets to a sophisticated gray color and add gold hardware accents for a modern luxury look"
     }
+  ],
+  landscaping: [
+    {
+      before: "/lovable-uploads/74685434-27c8-4086-9968-2cc4b44b825a.png",
+      after: "/lovable-uploads/7afdb8a0-2559-4da6-99ac-a66a544623a5.png",
+      prompt: "Transform the sparse front yard with vibrant flower beds featuring pink, purple, and orange blooms, add lush green lawn, and enhance with colorful potted plants by the entrance"
+    }
   ]
 };
 
@@ -82,6 +89,7 @@ export function BeforeAfterExamples() {
             <TabsTrigger value="roofing" className="text-xs sm:text-sm whitespace-nowrap">Roofing</TabsTrigger>
             <TabsTrigger value="bathroom" className="text-xs sm:text-sm whitespace-nowrap">Bathroom</TabsTrigger>
             <TabsTrigger value="flooring" className="text-xs sm:text-sm whitespace-nowrap">Flooring</TabsTrigger>
+            <TabsTrigger value="landscaping" className="text-xs sm:text-sm whitespace-nowrap">Landscaping</TabsTrigger>
           </TabsList>
         </div>
         
