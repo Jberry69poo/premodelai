@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { responsiveWidth } from "@/lib/utils";
 
-type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring";
+type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring" | "cabinet";
 
 interface ExampleImage {
   before: string;
@@ -56,18 +56,26 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
       after: "/lovable-uploads/5bfce9ae-348b-43c7-a3f6-010f0d2ab1c8.png",
       prompt: "Replace the terra cotta tile flooring with modern gray wood-look plank flooring"
     }
+  ],
+  cabinet: [
+    {
+      before: "/lovable-uploads/37a9d935-1e20-4c52-8b4e-09bd1920d83f.png",
+      after: "/lovable-uploads/95e4acf3-b58d-46c4-b5cd-5db9d2d64a31.png",
+      prompt: "Change the white kitchen cabinets to a sophisticated gray color and add gold hardware accents for a modern luxury look"
+    }
   ]
 };
 
 export function BeforeAfterExamples() {
-  const [activeCategory, setActiveCategory] = useState<Category>("exterior");
+  const [activeCategory, setActiveCategory] = useState<Category>("cabinet");
   const isMobile = useIsMobile();
 
   return (
     <div className="w-full">
-      <Tabs defaultValue="exterior" onValueChange={(value) => setActiveCategory(value as Category)}>
+      <Tabs defaultValue="cabinet" onValueChange={(value) => setActiveCategory(value as Category)}>
         <div className="overflow-x-auto pb-3">
           <TabsList className="flex w-max min-w-full justify-start gap-1 px-1 py-1.5 md:justify-center md:flex-wrap">
+            <TabsTrigger value="cabinet" className="text-xs sm:text-sm whitespace-nowrap">Cabinet Painting</TabsTrigger>
             <TabsTrigger value="exterior" className="text-xs sm:text-sm whitespace-nowrap">Exterior</TabsTrigger>
             <TabsTrigger value="painting" className="text-xs sm:text-sm whitespace-nowrap">Painting</TabsTrigger>
             <TabsTrigger value="lighting" className="text-xs sm:text-sm whitespace-nowrap">Lighting</TabsTrigger>
