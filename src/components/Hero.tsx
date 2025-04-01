@@ -131,9 +131,7 @@ export const Hero = () => {
           duration: 1,
           delay: 1.2
         }}>
-            <p className="text-xs md:text-sm text-muted-foreground font-medium">
-              TRUSTED BY HOME IMPROVEMENT PROFESSIONALS ACROSS NORTH AMERICA
-            </p>
+            
             
             <div className="mt-4 flex flex-wrap justify-center gap-x-8 md:gap-x-12 gap-y-4 opacity-70">
               {/* You can replace these with actual company logos */}
