@@ -8,6 +8,14 @@ import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, Download, RefreshCw } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 type BetaSignup = Tables<"beta_signups">;
 
@@ -30,6 +38,7 @@ const Admin = () => {
         throw error;
       }
 
+      console.log("Fetched data:", data);
       setSignups(data || []);
     } catch (error) {
       console.error("Error fetching beta signups:", error);
@@ -149,30 +158,30 @@ const Admin = () => {
                 <p className="text-center py-8 text-muted-foreground">No beta signup entries found.</p>
               ) : (
                 <div className="overflow-x-auto">
-                  <table className="w-full border-collapse">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="py-2 px-4 text-left">Name</th>
-                        <th className="py-2 px-4 text-left">Company</th>
-                        <th className="py-2 px-4 text-left">Email</th>
-                        <th className="py-2 px-4 text-left">Phone</th>
-                        <th className="py-2 px-4 text-left">Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Company</TableHead>
+                        <TableHead>Email</TableHead>
+                        <TableHead>Phone</TableHead>
+                        <TableHead>Date</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
                       {signups.map((signup) => (
-                        <tr key={signup.id} className="border-b hover:bg-muted/50">
-                          <td className="py-2 px-4">{signup.name}</td>
-                          <td className="py-2 px-4">{signup.company}</td>
-                          <td className="py-2 px-4">{signup.email}</td>
-                          <td className="py-2 px-4">{signup.phone}</td>
-                          <td className="py-2 px-4">
+                        <TableRow key={signup.id} className="hover:bg-muted/50">
+                          <TableCell>{signup.name}</TableCell>
+                          <TableCell>{signup.company}</TableCell>
+                          <TableCell>{signup.email}</TableCell>
+                          <TableCell>{signup.phone}</TableCell>
+                          <TableCell>
                             {new Date(signup.created_at).toLocaleDateString()}
-                          </td>
-                        </tr>
+                          </TableCell>
+                        </TableRow>
                       ))}
-                    </tbody>
-                  </table>
+                    </TableBody>
+                  </Table>
                 </div>
               )}
               
