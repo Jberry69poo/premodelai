@@ -1,7 +1,6 @@
-
 import { Button } from "@/components/ui/button";
 import { MockingBirdLogo } from "@/components/MockingBirdLogo";
-import { ArrowRight, Eye, Zap, Building, Rocket } from "lucide-react";
+import { ArrowRight, Eye, Zap, Building, Rocket, Bird } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -72,6 +71,16 @@ export const Hero = () => {
           duration: 0.5
         }} className="mb-6 md:mb-10">
             <MockingBirdLogo size={isMobile ? "md" : "xl"} showText={false} />
+          </motion.div>
+          
+          {/* Bird logo */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mb-6"
+          >
+            <Bird className="h-12 w-12 md:h-16 md:w-16 text-primary" />
           </motion.div>
           
           {/* Main heading with animated reveal */}
