@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
@@ -50,24 +49,19 @@ const Index = () => {
     try {
       console.log("Submitting form values:", values);
       
-      // Insert data into the beta_signups table
-      const { data, error } = await supabase
-        .from('beta_signups')
-        .insert([
-          { 
-            name: values.name,
-            company: values.company,
-            email: values.email,
-            phone: values.phone
-          }
-        ]);
+      const { error } = await supabase.from('beta_signups').insert({
+        name: values.name,
+        company: values.company,
+        email: values.email,
+        phone: values.phone
+      });
         
       if (error) {
         console.error("Error saving to Supabase:", error);
         throw error;
       }
       
-      console.log("Successfully saved to Supabase:", data);
+      console.log("Successfully saved to Supabase");
       
       toast({
         title: "Successfully joined the beta!",
@@ -96,10 +90,8 @@ const Index = () => {
       <CustomNavbar />
       
       <main className="flex-1">
-        {/* Use the new Hero component */}
         <Hero />
 
-        {/* How It Works Section */}
         <section id="how-it-works" className="py-12 md:py-24 bg-card/30 px-4">
           <div className="container">
             <div className="text-center mb-8 md:mb-12">
@@ -158,7 +150,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Before & After Examples */}
         <section id="examples" className="py-12 md:py-24 px-4">
           <div className="container">
             <div className="text-center mb-8 md:mb-12">
@@ -172,7 +163,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Beta Signup Section */}
         <section id="beta-signup" className="py-12 md:py-24 lg:py-32 bg-gradient-to-t from-background to-secondary/10 px-4">
           <div className="container">
             <div className="max-w-2xl mx-auto">
