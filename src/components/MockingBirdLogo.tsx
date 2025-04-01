@@ -11,7 +11,7 @@ export const MockingBirdLogo = ({ size = "md", showText = true }: MockingBirdLog
   const sizeClasses = {
     sm: "h-6 w-6",
     md: "h-8 w-8",
-    lg: "h-10 w-10",
+    lg: "h-12 w-12",
     xl: "h-16 w-16"
   };
 
@@ -26,248 +26,288 @@ export const MockingBirdLogo = ({ size = "md", showText = true }: MockingBirdLog
   return (
     <div className="flex items-center gap-3">
       <div className="relative">
-        {/* Animated glowing background */}
+        {/* Animated logo background */}
         <motion.div 
-          className={`absolute inset-0 rounded-full blur-xl ${sizeClasses[size]}`}
+          className={`absolute inset-0 rounded-full blur-lg ${sizeClasses[size]}`}
           style={{ 
-            background: "radial-gradient(circle, rgba(138,58,226,1) 0%, rgba(86,91,245,0.8) 100%)" 
+            background: "radial-gradient(circle, rgba(138,58,226,0.8) 0%, rgba(86,91,245,0.6) 100%)" 
           }}
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.7, 1, 0.7],
+            opacity: [0.5, 0.8, 0.5],
           }}
           transition={{
-            duration: 3,
+            duration: 4,
             repeat: Infinity,
             ease: "easeInOut"
           }}
         />
         
         {/* Logo container */}
-        <div className={`relative ${sizeClasses[size]} bg-gradient-to-br from-indigo-600 via-primary to-purple-700 p-0.5 rounded-full flex items-center justify-center shadow-lg shadow-primary/20 border border-primary/30`}>
-          <div className="w-full h-full bg-background/90 rounded-full p-1 backdrop-blur-sm flex items-center justify-center">
-            {/* Advanced Bird logo */}
+        <div className={`relative ${sizeClasses[size]} bg-gradient-to-b from-indigo-600 to-purple-700 rounded-full p-0.5 shadow-lg shadow-primary/20 border border-primary/30`}>
+          <div className="w-full h-full bg-background/90 rounded-full flex items-center justify-center overflow-hidden">
+            {/* Mechanical Bird Logo */}
             <motion.svg 
-              viewBox="0 0 24 24" 
+              viewBox="0 0 100 100" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg" 
               className="w-full h-full"
-              initial={{ opacity: 0, rotateY: -30 }}
-              animate={{ opacity: 1, rotateY: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.2 }}
             >
-              {/* Bird Wings Spread */}
-              <motion.path 
-                d="M4 11C6 9 9 10 10 12C11 14 12 15 14 15C14 15 14 13 12 12C10 11 13 6 20 9"
-                stroke="url(#wingGradient)" 
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1.3, delay: 0.1 }}
+              {/* Background perch */}
+              <motion.path
+                d="M20 75 L80 75 Q85 75 85 70 L85 65 Q85 60 80 60 L20 60 Q15 60 15 65 L15 70 Q15 75 20 75 Z"
+                fill="url(#perchGradient)"
+                stroke="#6B21A8"
+                strokeWidth="1"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
               />
               
-              {/* Bird Body */}
-              <motion.path 
-                d="M10 12C10 8 13 7 15 8C17 9 18 12 17 15C16 18 14 19 12 19C10 19 9 18 8 16"
-                stroke="url(#bodyGradient)" 
-                strokeWidth="1.8"
-                strokeLinejoin="round"
-                fill="url(#bodyFillGradient)"
-                initial={{ pathLength: 0, fillOpacity: 0 }}
-                animate={{ pathLength: 1, fillOpacity: 0.8 }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
-              />
-              
-              {/* Bird Head */}
-              <motion.path 
-                d="M15 8C15.5 7.5 16.5 6.5 18 7C19.5 7.5 19.5 9 19 10C18.5 11 17 11.5 16 11C15 10.5 14.5 9 15 8Z"
-                stroke="url(#headGradient)" 
-                strokeWidth="1.5"
-                fill="url(#headFillGradient)"
-                initial={{ pathLength: 0, fillOpacity: 0 }}
-                animate={{ pathLength: 1, fillOpacity: 0.9 }}
-                transition={{ duration: 1.2, delay: 0.3 }}
-              />
-              
-              {/* Bird Eye */}
-              <motion.circle 
-                cx="17.5" 
-                cy="8.5" 
-                r="0.6" 
-                fill="#ffffff" 
-                initial={{ scale: 0 }}
-                animate={{ scale: [0, 1.5, 1] }}
-                transition={{ duration: 0.8, delay: 1 }}
-              />
-              
-              {/* Beak */}
-              <motion.path 
-                d="M18 9L19.5 9.5L18.5 10.5L17 10L18 9Z" 
-                fill="url(#beakGradient)"
-                stroke="#6c2e9c" 
+              {/* Mechanical gear decorations */}
+              <motion.circle
+                cx="25"
+                cy="63"
+                r="3"
+                fill="url(#gearGradient)"
+                stroke="#6B21A8"
                 strokeWidth="0.5"
+                initial={{ rotate: 0 }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              />
+              
+              <motion.circle
+                cx="75"
+                cy="63"
+                r="3"
+                fill="url(#gearGradient)"
+                stroke="#6B21A8"
+                strokeWidth="0.5"
+                initial={{ rotate: 0 }}
+                animate={{ rotate: -360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              />
+              
+              {/* Bird body */}
+              <motion.path
+                d="M50 55 Q55 53 58 45 Q64 40 62 34 Q60 30 56 30 Q52 30 50 33 Q48 30 44 30 Q40 30 38 34 Q36 40 42 45 Q45 53 50 55 Z"
+                fill="url(#bodyGradient)"
+                stroke="#7C3AED"
+                strokeWidth="1.2"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              />
+              
+              {/* Bird head */}
+              <motion.path
+                d="M50 33 Q52 25 56 24 Q60 23 62 28 Q63 32 60 34 Q56 36 50 33 Z"
+                fill="url(#headGradient)"
+                stroke="#7C3AED"
+                strokeWidth="1.2"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+              />
+              
+              {/* Bird eye */}
+              <motion.circle
+                cx="58"
+                cy="28"
+                r="1.5"
+                fill="white"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+              />
+              
+              <motion.circle
+                cx="58"
+                cy="28"
+                r="0.7"
+                fill="#111111"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.8 }}
               />
               
-              {/* Tail Feathers */}
-              <motion.path 
-                d="M8 16C7 17 5 19 3 17M8 16C7.5 17.5 6 20 4.5 18.5M8 16C8 17.5 7 20.5 6 19"
-                stroke="url(#tailGradient)" 
-                strokeWidth="1.2" 
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1.2, delay: 0.6, staggerChildren: 0.2 }}
+              {/* Beak */}
+              <motion.path
+                d="M62 28 L68 29 L64 32 L62 28 Z"
+                fill="#FF8A00"
+                stroke="#7C3AED"
+                strokeWidth="0.5"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
               />
               
-              {/* Decorative crest feathers */}
-              <motion.path 
-                d="M15 8C15.5 7 16 5 17 4M15.5 7.5C16 6.5 17 5 17.5 4.5M16 7C16.5 6 17.5 5 18 4.5"
-                stroke="url(#crestGradient)" 
-                strokeWidth="0.8" 
-                strokeLinecap="round"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1, delay: 0.9, staggerChildren: 0.15 }}
+              {/* Left wing */}
+              <motion.path
+                d="M44 30 Q38 24 28 26 Q20 28 18 35 Q17 42 25 45 Q34 47 42 45"
+                fill="url(#wingGradient)"
+                stroke="#7C3AED"
+                strokeWidth="1"
+                initial={{ rotate: 15, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 0.4 }}
               />
               
-              {/* Tech details and highlights */}
-              <motion.path 
-                d="M14 15C14.5 15.5 15 17 15 18M12 19C12.5 19.5 13 20 13 21M10 12C10.5 13 10 14 9 14.5"
-                stroke="url(#detailGradient)" 
-                strokeWidth="0.7" 
+              {/* Right wing */}
+              <motion.path
+                d="M56 30 Q62 24 72 26 Q80 28 82 35 Q83 42 75 45 Q66 47 58 45"
+                fill="url(#wingGradient)"
+                stroke="#7C3AED"
+                strokeWidth="1"
+                initial={{ rotate: -15, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 0.4 }}
+              />
+              
+              {/* Wing details - mechanical pattern left */}
+              <motion.path
+                d="M30 28 L42 33 M28 32 L40 35 M26 36 L38 38"
+                stroke="#9F7AEA"
+                strokeWidth="0.6"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 0.8 }}
+                transition={{ duration: 1.2, delay: 0.7 }}
+              />
+              
+              {/* Wing details - mechanical pattern right */}
+              <motion.path
+                d="M70 28 L58 33 M72 32 L60 35 M74 36 L62 38"
+                stroke="#9F7AEA"
+                strokeWidth="0.6"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 0.8 }}
+                transition={{ duration: 1.2, delay: 0.7 }}
+              />
+              
+              {/* Gear decorations on wings */}
+              <motion.circle
+                cx="28"
+                cy="30"
+                r="2"
+                fill="url(#smallGearGradient)"
+                stroke="#6B21A8"
+                strokeWidth="0.5"
+                initial={{ rotate: 0 }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              />
+              
+              <motion.circle
+                cx="72"
+                cy="30"
+                r="2"
+                fill="url(#smallGearGradient)"
+                stroke="#6B21A8"
+                strokeWidth="0.5"
+                initial={{ rotate: 0 }}
+                animate={{ rotate: -360 }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              />
+              
+              {/* Tail feathers */}
+              <motion.path
+                d="M50 55 Q48 60 45 62 M50 55 Q50 61 50 65 M50 55 Q52 60 55 62"
+                stroke="#9F7AEA"
+                strokeWidth="1"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.9 }}
+              />
+              
+              {/* Bird legs */}
+              <motion.path
+                d="M45 55 L40 63 M55 55 L60 63"
+                stroke="#9F7AEA"
+                strokeWidth="1"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 1 }}
+              />
+              
+              {/* Bird feet */}
+              <motion.path
+                d="M40 63 L38 63 M40 63 L40 65 M40 63 L42 63"
+                stroke="#9F7AEA"
+                strokeWidth="0.8"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 1.1 }}
+              />
+              
+              <motion.path
+                d="M60 63 L58 63 M60 63 L60 65 M60 63 L62 63"
+                stroke="#9F7AEA"
+                strokeWidth="0.8"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 1.1 }}
+              />
+              
+              {/* Decorative glow */}
+              <motion.path
+                d="M50 26 L50 22"
+                stroke="white"
+                strokeWidth="0.5"
                 strokeLinecap="round"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 1.2 }}
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
               />
               
-              {/* Animated energy particles */}
-              <motion.circle 
-                cx="18" 
-                cy="7" 
-                r="0.4" 
-                fill="#ffffff"
-                animate={{
-                  opacity: [0, 1, 0],
-                  scale: [0, 1, 0],
-                  y: [-1, -2, -1]
-                }}
-                transition={{
-                  duration: 2.2,
-                  repeat: Infinity,
-                  repeatDelay: 0.8
-                }}
-              />
-              
-              <motion.circle 
-                cx="16" 
-                cy="6" 
-                r="0.3" 
-                fill="#ffffff"
-                animate={{
-                  opacity: [0, 1, 0],
-                  scale: [0, 1, 0],
-                  y: [-0.5, -1.5, -0.5]
-                }}
-                transition={{
-                  duration: 1.8,
-                  repeat: Infinity,
-                  repeatDelay: 0.5,
-                  delay: 0.7
-                }}
-              />
-              
-              <motion.circle 
-                cx="7" 
-                cy="15" 
-                r="0.3" 
-                fill="#ffffff"
-                animate={{
-                  opacity: [0, 1, 0],
-                  scale: [0, 1, 0]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatDelay: 1.1,
-                  delay: 1.3
-                }}
-              />
-              
-              {/* Gradient definitions */}
+              {/* Gradients */}
               <defs>
-                <linearGradient id="wingGradient" x1="4" y1="9" x2="20" y2="12" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#8B5CF6" />
-                  <stop offset="1" stopColor="#4F46E5" />
-                </linearGradient>
-                
-                <linearGradient id="bodyGradient" x1="8" y1="12" x2="17" y2="19" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#6366F1" />
+                <linearGradient id="bodyGradient" x1="38" y1="30" x2="62" y2="55" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#9F7AEA" />
                   <stop offset="1" stopColor="#7C3AED" />
                 </linearGradient>
                 
-                <linearGradient id="headGradient" x1="14" y1="7" x2="19" y2="11" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#8B5CF6" />
-                  <stop offset="1" stopColor="#6D28D9" />
-                </linearGradient>
-                
-                <linearGradient id="tailGradient" x1="3" y1="16" x2="8" y2="20" gradientUnits="userSpaceOnUse">
+                <linearGradient id="headGradient" x1="50" y1="24" x2="62" y2="34" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#A78BFA" />
-                  <stop offset="1" stopColor="#7C3AED" />
+                  <stop offset="1" stopColor="#8B5CF6" />
                 </linearGradient>
                 
-                <linearGradient id="beakGradient" x1="17" y1="9" x2="19.5" y2="10.5" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#FFAA00" />
-                  <stop offset="1" stopColor="#FF7700" />
-                </linearGradient>
-                
-                <linearGradient id="crestGradient" x1="15" y1="4" x2="18" y2="8" gradientUnits="userSpaceOnUse">
+                <linearGradient id="wingGradient" x1="18" y1="26" x2="82" y2="45" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#C4B5FD" />
                   <stop offset="1" stopColor="#8B5CF6" />
                 </linearGradient>
                 
-                <linearGradient id="detailGradient" x1="9" y1="12" x2="15" y2="21" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#818CF8" />
-                  <stop offset="1" stopColor="#4F46E5" />
+                <linearGradient id="perchGradient" x1="15" y1="60" x2="85" y2="75" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#6B21A8" />
+                  <stop offset="1" stopColor="#4C1D95" />
                 </linearGradient>
                 
-                <radialGradient id="bodyFillGradient" cx="13" cy="13" r="5" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#4C1D95" stopOpacity="0.7" />
-                  <stop offset="1" stopColor="#2E1065" stopOpacity="0.2" />
-                </radialGradient>
+                <linearGradient id="gearGradient" x1="22" y1="60" x2="28" y2="66" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#9F7AEA" />
+                  <stop offset="1" stopColor="#6D28D9" />
+                </linearGradient>
                 
-                <radialGradient id="headFillGradient" cx="17" cy="9" r="2" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#5B21B6" stopOpacity="0.7" />
-                  <stop offset="1" stopColor="#4C1D95" stopOpacity="0.3" />
-                </radialGradient>
+                <linearGradient id="smallGearGradient" x1="26" y1="28" x2="30" y2="32" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#9F7AEA" />
+                  <stop offset="1" stopColor="#6D28D9" />
+                </linearGradient>
               </defs>
             </motion.svg>
-            
-            {/* Animated pulse around logo */}
-            <motion.div 
-              className="absolute inset-0 rounded-full border border-primary/40"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.7, 0, 0.7]
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
           </div>
         </div>
         
         {/* Spark effects */}
         <motion.span 
-          className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-blue-400"
+          className="absolute -top-1 -right-1 h-1.5 w-1.5 rounded-full bg-blue-400"
           animate={{
             scale: [1, 1.5, 1],
             opacity: [0.7, 1, 0.7],
@@ -280,7 +320,7 @@ export const MockingBirdLogo = ({ size = "md", showText = true }: MockingBirdLog
         />
         
         <motion.span 
-          className="absolute bottom-0 -left-0.5 h-1.5 w-1.5 rounded-full bg-purple-400"
+          className="absolute bottom-0 -left-0.5 h-1 w-1 rounded-full bg-purple-400"
           animate={{
             scale: [1, 1.5, 1],
             opacity: [0.7, 1, 0.7],
