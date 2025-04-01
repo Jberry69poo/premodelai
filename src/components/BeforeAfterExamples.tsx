@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
@@ -17,9 +16,9 @@ interface ExampleImage {
 const examplesByCategory: Record<Category, ExampleImage[]> = {
   painting: [
     {
-      before: "/lovable-uploads/19e02c58-4397-44bc-9d7d-b449c6496c0b.png",
-      after: "/lovable-uploads/18ac9548-10f5-4903-bada-a04dc21df965.png",
-      prompt: "Change the white walls to sophisticated navy blue for a dramatic modern look"
+      before: "/lovable-uploads/50ac2ced-7a22-427c-b40c-f6bb9b58befe.png",
+      after: "/lovable-uploads/0c75e39d-c2e9-4bef-9381-a242ce901b6f.png",
+      prompt: "Transform the white bedroom walls to a calming sage green color with panel molding details"
     }
   ],
   exterior: [
