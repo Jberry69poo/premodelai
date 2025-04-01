@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
@@ -11,6 +12,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Hero } from "@/components/Hero";
+import { supabase } from "@/integrations/supabase/client";
+
 const betaFormSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters."
@@ -25,12 +28,13 @@ const betaFormSchema = z.object({
     message: "Please enter a valid phone number."
   })
 });
+
 type BetaFormValues = z.infer<typeof betaFormSchema>;
+
 const Index = () => {
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const form = useForm<BetaFormValues>({
     resolver: zodResolver(betaFormSchema),
     defaultValues: {
@@ -40,17 +44,38 @@ const Index = () => {
       phone: ""
     }
   });
+
   const onSubmit = async (values: BetaFormValues) => {
     setIsSubmitting(true);
     try {
-      console.log("Form values:", values);
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      console.log("Submitting form values:", values);
+      
+      // Insert data into the beta_signups table
+      const { data, error } = await supabase
+        .from('beta_signups')
+        .insert([
+          { 
+            name: values.name,
+            company: values.company,
+            email: values.email,
+            phone: values.phone
+          }
+        ]);
+        
+      if (error) {
+        console.error("Error saving to Supabase:", error);
+        throw error;
+      }
+      
+      console.log("Successfully saved to Supabase:", data);
+      
       toast({
         title: "Successfully joined the beta!",
         description: "We'll be in touch soon with access details."
       });
       form.reset();
     } catch (error) {
+      console.error("Form submission error:", error);
       toast({
         variant: "destructive",
         title: "Submission failed",
@@ -60,11 +85,13 @@ const Index = () => {
       setIsSubmitting(false);
     }
   };
+
   const scrollToSignup = () => {
     document.getElementById("beta-signup")?.scrollIntoView({
       behavior: "smooth"
     });
   };
+
   return <div className="flex flex-col min-h-screen">
       <CustomNavbar />
       
@@ -220,4 +247,5 @@ const Index = () => {
       <Footer />
     </div>;
 };
+
 export default Index;
