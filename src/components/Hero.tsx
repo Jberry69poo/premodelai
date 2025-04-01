@@ -1,15 +1,28 @@
+
 import { Button } from "@/components/ui/button";
 import { MockingBirdLogo } from "@/components/MockingBirdLogo";
 import { ArrowRight, Eye, Zap, Building, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+
 export const Hero = () => {
   const isMobile = useIsMobile();
+  
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+  };
+  
   const scrollToSignup = () => {
     document.getElementById("beta-signup")?.scrollIntoView({
       behavior: "smooth"
     });
   };
+  
   const fadeIn = {
     hidden: {
       opacity: 0,
@@ -23,6 +36,7 @@ export const Hero = () => {
       }
     }
   };
+  
   const staggerChildren = {
     hidden: {
       opacity: 0
@@ -34,6 +48,7 @@ export const Hero = () => {
       }
     }
   };
+  
   return <section className="relative overflow-hidden bg-gradient-to-b from-background via-background/90 to-primary/5 pt-24 pb-16 md:pt-32 md:pb-24 px-4">
       {/* Background Elements */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
@@ -112,9 +127,7 @@ export const Hero = () => {
               </span>
             </Button>
             
-            <Button variant="outline" size={isMobile ? "default" : "lg"} className={`${isMobile ? 'text-base px-5 py-2' : 'text-lg px-8 py-6'} border-primary/30 hover:bg-primary/10`} onClick={() => document.querySelector('.examples-section')?.scrollIntoView({
-            behavior: 'smooth'
-          })}>
+            <Button variant="outline" size={isMobile ? "default" : "lg"} className={`${isMobile ? 'text-base px-5 py-2' : 'text-lg px-8 py-6'} border-primary/30 hover:bg-primary/10`} onClick={() => scrollToSection("examples")}>
               <span className="flex items-center">
                 See Examples
                 <Eye className="ml-2 h-4 w-4 md:h-5 md:w-5" />

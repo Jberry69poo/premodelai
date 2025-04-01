@@ -73,7 +73,7 @@ const Index = () => {
         <Hero />
 
         {/* How It Works Section */}
-        <section className="py-12 md:py-24 bg-card/30 px-4">
+        <section id="how-it-works" className="py-12 md:py-24 bg-card/30 px-4">
           <div className="container">
             <div className="text-center mb-8 md:mb-12">
               <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">How MockingBird Works</h2>
@@ -124,7 +124,7 @@ const Index = () => {
             </div>
             
             <div className="mt-8 md:mt-10 text-center">
-              <Button onClick={scrollToSignup} className="bg-primary text-primary-foreground">
+              <Button onClick={() => document.getElementById("beta-signup")?.scrollIntoView({ behavior: "smooth" })} className="bg-primary text-primary-foreground">
                 Try it yourself
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -133,7 +133,7 @@ const Index = () => {
         </section>
 
         {/* Before & After Examples */}
-        <section className="py-12 md:py-24 px-4">
+        <section id="examples" className="py-12 md:py-24 px-4">
           <div className="container">
             <div className="text-center mb-8 md:mb-12">
               <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">Before & After Examples</h2>
