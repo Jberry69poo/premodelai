@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { responsiveWidth } from "@/lib/utils";
 
-type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring" | "cabinet" | "landscaping";
+type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring" | "landscaping";
 
 interface ExampleImage {
   before: string;
@@ -57,13 +57,6 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
       prompt: "Replace the terra cotta tile flooring with modern gray wood-look plank flooring"
     }
   ],
-  cabinet: [
-    {
-      before: "/lovable-uploads/37a9d935-1e20-4c52-8b4e-09bd1920d83f.png",
-      after: "/lovable-uploads/95e4acf3-b58d-46c4-b5cd-5db9d2d64a31.png",
-      prompt: "Change the white kitchen cabinets to a sophisticated gray color and add gold hardware accents for a modern luxury look"
-    }
-  ],
   landscaping: [
     {
       before: "/lovable-uploads/74685434-27c8-4086-9968-2cc4b44b825a.png",
@@ -74,17 +67,16 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
 };
 
 export function BeforeAfterExamples() {
-  const [activeCategory, setActiveCategory] = useState<Category>("cabinet");
+  const [activeCategory, setActiveCategory] = useState<Category>("painting");
   const isMobile = useIsMobile();
 
   return (
     <div className="w-full">
-      <Tabs defaultValue="cabinet" onValueChange={(value) => setActiveCategory(value as Category)}>
+      <Tabs defaultValue="painting" onValueChange={(value) => setActiveCategory(value as Category)}>
         <div className="overflow-x-auto pb-3">
           <TabsList className="flex w-max min-w-full justify-start gap-1 px-1 py-1.5 md:justify-center md:flex-wrap">
-            <TabsTrigger value="cabinet" className="text-xs sm:text-sm whitespace-nowrap">Cabinet Painting</TabsTrigger>
-            <TabsTrigger value="exterior" className="text-xs sm:text-sm whitespace-nowrap">Exterior</TabsTrigger>
             <TabsTrigger value="painting" className="text-xs sm:text-sm whitespace-nowrap">Painting</TabsTrigger>
+            <TabsTrigger value="exterior" className="text-xs sm:text-sm whitespace-nowrap">Exterior</TabsTrigger>
             <TabsTrigger value="lighting" className="text-xs sm:text-sm whitespace-nowrap">Lighting</TabsTrigger>
             <TabsTrigger value="roofing" className="text-xs sm:text-sm whitespace-nowrap">Roofing</TabsTrigger>
             <TabsTrigger value="bathroom" className="text-xs sm:text-sm whitespace-nowrap">Bathroom</TabsTrigger>
