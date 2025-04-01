@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
@@ -12,60 +11,61 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Hero } from "@/components/Hero";
-
 const betaFormSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  company: z.string().min(2, { message: "Company name is required." }),
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  phone: z.string().min(10, { message: "Please enter a valid phone number." }),
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters."
+  }),
+  company: z.string().min(2, {
+    message: "Company name is required."
+  }),
+  email: z.string().email({
+    message: "Please enter a valid email address."
+  }),
+  phone: z.string().min(10, {
+    message: "Please enter a valid phone number."
+  })
 });
-
 type BetaFormValues = z.infer<typeof betaFormSchema>;
-
 const Index = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const form = useForm<BetaFormValues>({
     resolver: zodResolver(betaFormSchema),
     defaultValues: {
       name: "",
       company: "",
       email: "",
-      phone: "",
-    },
+      phone: ""
+    }
   });
-
   const onSubmit = async (values: BetaFormValues) => {
     setIsSubmitting(true);
     try {
       console.log("Form values:", values);
-      
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      
+      await new Promise(resolve => setTimeout(resolve, 1500));
       toast({
         title: "Successfully joined the beta!",
-        description: "We'll be in touch soon with access details.",
+        description: "We'll be in touch soon with access details."
       });
-      
       form.reset();
     } catch (error) {
       toast({
         variant: "destructive",
         title: "Submission failed",
-        description: "Please try again later.",
+        description: "Please try again later."
       });
     } finally {
       setIsSubmitting(false);
     }
   };
-
   const scrollToSignup = () => {
-    document.getElementById("beta-signup")?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("beta-signup")?.scrollIntoView({
+      behavior: "smooth"
+    });
   };
-
-  return (
-    <div className="flex flex-col min-h-screen">
+  return <div className="flex flex-col min-h-screen">
       <CustomNavbar />
       
       <main className="flex-1">
@@ -116,15 +116,14 @@ const Index = () => {
                   <ImageIcon className="h-8 w-8 md:h-10 md:w-10 text-primary" />
                 </div>
                 <h3 className="text-lg md:text-xl font-semibold mb-2">3. Get Visualizations</h3>
-                <p className="text-muted-foreground">
-                  MockingBird AI instantly generates photorealistic visualizations of your 
-                  space with the changes applied. Share with clients to help them see your vision.
-                </p>
+                <p className="text-muted-foreground">MockingBird AI instantly generates photorealistic visualizations of your space with the changes applied. Show your potential customers their dream home and close the deal.</p>
               </div>
             </div>
             
             <div className="mt-8 md:mt-10 text-center">
-              <Button onClick={() => document.getElementById("beta-signup")?.scrollIntoView({ behavior: "smooth" })} className="bg-primary text-primary-foreground">
+              <Button onClick={() => document.getElementById("beta-signup")?.scrollIntoView({
+              behavior: "smooth"
+            })} className="bg-primary text-primary-foreground">
                 Try it yourself
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -161,61 +160,45 @@ const Index = () => {
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <div className="grid grid-cols-1 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                          <FormItem>
+                      <FormField control={form.control} name="name" render={({
+                      field
+                    }) => <FormItem>
                             <FormLabel>Full Name</FormLabel>
                             <FormControl>
                               <Input placeholder="John Smith" {...field} />
                             </FormControl>
                             <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                          </FormItem>} />
                       
-                      <FormField
-                        control={form.control}
-                        name="company"
-                        render={({ field }) => (
-                          <FormItem>
+                      <FormField control={form.control} name="company" render={({
+                      field
+                    }) => <FormItem>
                             <FormLabel>Company Name</FormLabel>
                             <FormControl>
                               <Input placeholder="Smith Contractors" {...field} />
                             </FormControl>
                             <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                          </FormItem>} />
                       
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
+                      <FormField control={form.control} name="email" render={({
+                      field
+                    }) => <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
                               <Input placeholder="john@example.com" {...field} />
                             </FormControl>
                             <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                          </FormItem>} />
                       
-                      <FormField
-                        control={form.control}
-                        name="phone"
-                        render={({ field }) => (
-                          <FormItem>
+                      <FormField control={form.control} name="phone" render={({
+                      field
+                    }) => <FormItem>
                             <FormLabel>Phone Number</FormLabel>
                             <FormControl>
                               <Input placeholder="(555) 123-4567" {...field} />
                             </FormControl>
                             <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                          </FormItem>} />
                     </div>
                     
                     <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
@@ -235,8 +218,6 @@ const Index = () => {
       </main>
       
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
