@@ -5,6 +5,7 @@ import { AuthButton } from "@/components/AuthButton";
 import { Link } from "react-router-dom";
 import { MockingBirdLogo } from "@/components/MockingBirdLogo";
 import { Menu, X } from "lucide-react";
+
 export function CustomNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
@@ -44,7 +45,7 @@ export function CustomNavbar() {
             Examples
           </Button>
           <Button variant="ghost" asChild>
-            
+            <Link to="/admin">Admin</Link>
           </Button>
           <AuthButton />
         </div>
@@ -60,7 +61,7 @@ export function CustomNavbar() {
               Examples
             </Button>
             <Button variant="ghost" className="justify-start" asChild>
-              <Link to="/" onClick={closeMenu}>Pricing</Link>
+              <Link to="/admin" onClick={closeMenu}>Admin</Link>
             </Button>
             <div className="pt-2">
               <AuthButton />

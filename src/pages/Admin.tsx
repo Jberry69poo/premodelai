@@ -8,6 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, Download, RefreshCw } from "lucide-react";
+import { ensureStorageBucket } from "@/lib/ensureStorageBucket";
 import {
   Table,
   TableBody,
@@ -29,12 +30,16 @@ const Admin = () => {
   const fetchSignups = async () => {
     setLoading(true);
     try {
+      // Add additional debugging
+      console.log("Fetching beta signups...");
+      
       const { data, error } = await supabase
         .from("beta_signups")
         .select("*")
         .order("created_at", { ascending: false });
 
       if (error) {
+        console.error("Supabase error:", error);
         throw error;
       }
 
@@ -62,6 +67,9 @@ const Admin = () => {
 
     setExporting(true);
     try {
+      // Ensure bucket exists
+      await ensureStorageBucket("beta-signups-data");
+      
       // Convert signups to CSV
       const headers = ["name", "company", "email", "phone", "created_at"];
       const csvContent = [
@@ -90,6 +98,7 @@ const Admin = () => {
         });
 
       if (error) {
+        console.error("Storage error:", error);
         throw error;
       }
 
@@ -117,7 +126,12 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    fetchSignups();
+    const initPage = async () => {
+      await ensureStorageBucket("beta-signups-data");
+      fetchSignups();
+    };
+    
+    initPage();
   }, []);
 
   return (

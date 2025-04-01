@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
@@ -49,31 +50,32 @@ const Index = () => {
     try {
       console.log("Submitting form values:", values);
       
-      const { error } = await supabase.from('beta_signups').insert({
+      // Better error handling with detailed logs
+      const response = await supabase.from('beta_signups').insert({
         name: values.name,
         company: values.company,
         email: values.email,
         phone: values.phone
       });
-        
-      if (error) {
-        console.error("Error saving to Supabase:", error);
-        throw error;
+      
+      if (response.error) {
+        console.error("Error saving to Supabase:", response.error);
+        throw response.error;
       }
       
-      console.log("Successfully saved to Supabase");
+      console.log("Successfully saved to Supabase:", response);
       
       toast({
         title: "Successfully joined the beta!",
         description: "We'll be in touch soon with access details."
       });
       form.reset();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Form submission error:", error);
       toast({
         variant: "destructive",
         title: "Submission failed",
-        description: "Please try again later."
+        description: error.message || "Please try again later."
       });
     } finally {
       setIsSubmitting(false);
