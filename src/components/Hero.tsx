@@ -124,13 +124,7 @@ export const Hero = () => {
           duration: 0.6,
           delay: 0.8
         }}>
-            <Button size={isMobile ? "default" : "lg"} className={`${isMobile ? 'text-base px-5 py-2' : 'text-lg px-8 py-6'} bg-primary text-primary-foreground hover:bg-primary/90 relative overflow-hidden group`} onClick={scrollToSignup}>
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary/0 via-primary-foreground/20 to-primary/0 -translate-x-full group-hover:animate-shimmer"></span>
-              <span className="relative z-10 flex items-center">
-                Join Free Beta
-                <Rocket className="ml-2 h-4 w-4 md:h-5 md:w-5 animate-pulse" />
-              </span>
-            </Button>
+            
             
             <Button variant="outline" size={isMobile ? "default" : "lg"} className={`${isMobile ? 'text-base px-5 py-2' : 'text-lg px-8 py-6'} border-primary/30 hover:bg-primary/10`} onClick={() => scrollToSection("examples")}>
               <span className="flex items-center">
