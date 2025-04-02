@@ -75,7 +75,7 @@ export const FounderSection = () => {
                 <Separator className="my-4 bg-border/50" />
                 
                 <div>
-                  <p className="normal text-2xl">The only way to become a MockingBird user is to text or call my personal cell phone. There is no sales funnel or any of that bullshit. I look forward to blabbing with you. I love you so much</p>
+                  <p className="normal text-2xl">The only way to become a MockingBird user is to text or call my personal cell phone. There is no sales funnel or any of that bullshit. Give me a call and lets talk about Lamar Jackson or software. I don't give a shit either way honestly. I love you so much.</p>
                   <p className="font-bold text-xl mt-4">- JB</p>
                 </div>
               </CardContent>
