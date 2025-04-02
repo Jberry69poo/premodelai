@@ -1,89 +1,15 @@
 
-import { useState } from "react";
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
 import { BeforeAfterExamples } from "@/components/BeforeAfterExamples";
 import { ArrowRight, CameraIcon, MessageSquareText, ImageIcon } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Hero } from "@/components/Hero";
-import { supabase } from "@/integrations/supabase/client";
-
-const betaFormSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters."
-  }),
-  company: z.string().min(2, {
-    message: "Company name is required."
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address."
-  }),
-  phone: z.string().min(10, {
-    message: "Please enter a valid phone number."
-  })
-});
-
-type BetaFormValues = z.infer<typeof betaFormSchema>;
+import { FounderSection } from "@/components/FounderSection";
 
 const Index = () => {
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const form = useForm<BetaFormValues>({
-    resolver: zodResolver(betaFormSchema),
-    defaultValues: {
-      name: "",
-      company: "",
-      email: "",
-      phone: ""
-    }
-  });
-
-  const onSubmit = async (values: BetaFormValues) => {
-    setIsSubmitting(true);
-    try {
-      console.log("Submitting form values:", values);
-      
-      // Better error handling with detailed logs
-      const response = await supabase.from('beta_signups').insert({
-        name: values.name,
-        company: values.company,
-        email: values.email,
-        phone: values.phone
-      });
-      
-      if (response.error) {
-        console.error("Error saving to Supabase:", response.error);
-        throw response.error;
-      }
-      
-      console.log("Successfully saved to Supabase:", response);
-      
-      toast({
-        title: "Successfully joined the beta!",
-        description: "We'll be in touch soon with access details."
-      });
-      form.reset();
-    } catch (error: any) {
-      console.error("Form submission error:", error);
-      toast({
-        variant: "destructive",
-        title: "Submission failed",
-        description: error.message || "Please try again later."
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const scrollToSignup = () => {
-    document.getElementById("beta-signup")?.scrollIntoView({
+  const scrollToSection = (sectionId: string) => {
+    document.getElementById(sectionId)?.scrollIntoView({
       behavior: "smooth"
     });
   };
@@ -142,10 +68,10 @@ const Index = () => {
             </div>
             
             <div className="mt-8 md:mt-10 text-center">
-              <Button onClick={() => document.getElementById("beta-signup")?.scrollIntoView({
+              <Button onClick={() => document.getElementById("founder-section")?.scrollIntoView({
               behavior: "smooth"
             })} className="bg-primary text-primary-foreground">
-                Try it yourself
+                Contact Josh
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
@@ -165,74 +91,8 @@ const Index = () => {
           </div>
         </section>
 
-        <section id="beta-signup" className="py-12 md:py-24 lg:py-32 bg-gradient-to-t from-background to-secondary/10 px-4">
-          <div className="container">
-            <div className="max-w-2xl mx-auto">
-              <div className="text-center mb-6 md:mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">Join Our Free Beta</h2>
-                <p className="text-muted-foreground md:text-lg mt-2">
-                  Be among the first contractors to use MockingBird and transform your sales process
-                </p>
-              </div>
-              
-              <div className="p-5 md:p-8 border rounded-lg shadow-lg bg-card">
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                    <div className="grid grid-cols-1 gap-4">
-                      <FormField control={form.control} name="name" render={({
-                      field
-                    }) => <FormItem>
-                            <FormLabel>Full Name</FormLabel>
-                            <FormControl>
-                              <Input placeholder="John Smith" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>} />
-                      
-                      <FormField control={form.control} name="company" render={({
-                      field
-                    }) => <FormItem>
-                            <FormLabel>Company Name</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Smith Contractors" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>} />
-                      
-                      <FormField control={form.control} name="email" render={({
-                      field
-                    }) => <FormItem>
-                            <FormLabel>Email</FormLabel>
-                            <FormControl>
-                              <Input placeholder="john@example.com" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>} />
-                      
-                      <FormField control={form.control} name="phone" render={({
-                      field
-                    }) => <FormItem>
-                            <FormLabel>Phone Number</FormLabel>
-                            <FormControl>
-                              <Input placeholder="(555) 123-4567" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>} />
-                    </div>
-                    
-                    <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
-                      {isSubmitting ? "Submitting..." : "Join the Beta"}
-                    </Button>
-                    
-                    <p className="text-xs text-center text-muted-foreground mt-4">
-                      By signing up, you agree to our Terms of Service and Privacy Policy.
-                      We'll never share your information with third parties.
-                    </p>
-                  </form>
-                </Form>
-              </div>
-            </div>
-          </div>
+        <section id="founder-section">
+          <FounderSection />
         </section>
       </main>
       
