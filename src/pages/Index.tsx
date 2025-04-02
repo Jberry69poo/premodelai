@@ -68,9 +68,7 @@ const Index = () => {
             </div>
             
             <div className="mt-8 md:mt-10 text-center">
-              <Button onClick={() => document.getElementById("founder-section")?.scrollIntoView({
-              behavior: "smooth"
-            })} className="bg-primary text-primary-foreground">
+              <Button onClick={() => scrollToSection("founder-section")} className="bg-primary text-primary-foreground">
                 Contact Josh
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -91,9 +89,7 @@ const Index = () => {
           </div>
         </section>
 
-        <section id="founder-section">
-          <FounderSection />
-        </section>
+        <FounderSection />
       </main>
       
       <Footer />
