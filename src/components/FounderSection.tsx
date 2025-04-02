@@ -68,20 +68,14 @@ export const FounderSection = () => {
                   
                   <div className="flex items-start gap-2">
                     
-                    <p>
-                      If you feel like shooting the shit drop me a line. We can talk about basketball or traveling or 
-                      software. I don't really give a shit which one you pick.
-                    </p>
+                    
                   </div>
                 </div>
                 
                 <Separator className="my-4 bg-border/50" />
                 
                 <div>
-                  <p className="italic text-2xl">
-                    "The only way to become a MockingBird user is to text or call my personal cell phone. 
-                    I look forward to blabbing with you either way. I love you so much."
-                  </p>
+                  <p className="normal">The only way to become a MockingBird user is to text or call my personal cell phone. I look forward to blabbing with you either way. I love you so much</p>
                   <p className="font-bold text-xl mt-4">- JB</p>
                 </div>
               </CardContent>
