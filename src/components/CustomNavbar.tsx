@@ -1,34 +1,20 @@
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { useAuth } from "@/hooks/use-auth";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AlignJustify, ChevronsUpDown } from "lucide-react";
-
 export const CustomNavbar = () => {
-  const { user, signOut } = useAuth();
+  const {
+    user,
+    signOut
+  } = useAuth();
   const [isMounted, setIsMounted] = useState(false);
-
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  return (
-    <nav className="bg-background border-b">
+  return <nav className="bg-background border-b">
       <div className="container flex items-center justify-between py-4">
         <Link to="/" className="font-bold text-2xl">
           MockingBird AI
@@ -38,7 +24,7 @@ export const CustomNavbar = () => {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Examples</NavigationMenuTrigger>
+                
                 <NavigationMenuContent>
                   <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] grid-cols-2">
                     {/*<li>
@@ -55,8 +41,8 @@ export const CustomNavbar = () => {
                           </p>
                         </Link>
                       </NavigationMenuLink>
-                    </li>
-                    <li>
+                     </li>
+                     <li>
                       <NavigationMenuLink asChild>
                         <Link
                           to="/#example2"
@@ -70,42 +56,26 @@ export const CustomNavbar = () => {
                           </p>
                         </Link>
                       </NavigationMenuLink>
-                    </li>*/}
+                     </li>*/}
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
 
-          <a
-            href="#how-it-works"
-            className="text-sm font-medium transition-colors hover:text-primary"
-          >
+          <a href="#how-it-works" className="text-sm font-medium transition-colors hover:text-primary">
             How it Works
           </a>
-          <a
-            href="#examples"
-            className="text-sm font-medium transition-colors hover:text-primary"
-          >
+          <a href="#examples" className="text-sm font-medium transition-colors hover:text-primary">
             Examples
           </a>
-          <a
-            href="#founder-section"
-            className="text-sm font-medium transition-colors hover:text-primary"
-          >
-            Meet Josh
-          </a>
+          
 
-          {isMounted &&
-            (user ? (
-              <Button size="sm" onClick={() => signOut()}>
+          {isMounted && (user ? <Button size="sm" onClick={() => signOut()}>
                 Sign Out
-              </Button>
-            ) : (
-              <Link to="/admin">
-                <Button size="sm">Admin</Button>
-              </Link>
-            ))}
+              </Button> : <Link to="/admin">
+                
+              </Link>)}
         </div>
 
         <Sheet>
@@ -126,35 +96,23 @@ export const CustomNavbar = () => {
               <Link to="/" className="block py-2 hover:text-primary">
                 Home
               </Link>
-              <a
-                href="#how-it-works"
-                className="block py-2 hover:text-primary"
-              >
+              <a href="#how-it-works" className="block py-2 hover:text-primary">
                 How it Works
               </a>
               <a href="#examples" className="block py-2 hover:text-primary">
                 Examples
               </a>
-              <a
-                href="#founder-section"
-                className="block py-2 hover:text-primary"
-              >
+              <a href="#founder-section" className="block py-2 hover:text-primary">
                 Meet Josh
               </a>
-              {isMounted &&
-                (user ? (
-                  <Button size="sm" onClick={() => signOut()}>
+              {isMounted && (user ? <Button size="sm" onClick={() => signOut()}>
                     Sign Out
-                  </Button>
-                ) : (
-                  <Link to="/admin">
+                  </Button> : <Link to="/admin">
                     <Button size="sm">Admin</Button>
-                  </Link>
-                ))}
+                  </Link>)}
             </div>
           </SheetContent>
         </Sheet>
       </div>
-    </nav>
-  );
+    </nav>;
 };
