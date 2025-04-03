@@ -16,7 +16,7 @@ export const CustomNavbar = () => {
   }, []);
   return <nav className="bg-background border-b">
       <div className="container flex items-center justify-between py-4">
-        <Link to="/" className="font-bold text-2xl">
+        <Link to="/" className="font-bold text-2xl py-0 my-0 mx-0 px-[21px]">
           MockingBird AI
         </Link>
 
