@@ -1,5 +1,6 @@
 
-import { Bird, Github, Twitter } from "lucide-react";
+import { Twitter, Github } from "lucide-react";
+import { MockingBirdIcon } from "./MockingBirdIcon";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -8,7 +9,7 @@ export const Footer = () => {
     <footer className="border-t border-border/40 py-6">
       <div className="container px-4 flex flex-col md:flex-row items-center justify-between gap-4 md:h-16">
         <div className="flex items-center gap-2">
-          <Bird className="h-5 w-5 text-primary" />
+          <MockingBirdIcon className="h-5 w-5 text-primary" />
           <span className="text-sm font-medium">
             MockingBird AI © {currentYear}
           </span>
