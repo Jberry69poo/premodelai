@@ -85,9 +85,7 @@ export function BeforeAfterExamples() {
                   
                   <div className="space-y-2">
                     <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
-                      <div className="absolute top-2 left-2 bg-primary/90 text-white text-xs px-3 py-1.5 rounded font-medium shadow-md backdrop-blur-sm z-10">
-                        After (MockingBird)
-                      </div>
+                      <div className="absolute top-2 left-2 bg-primary/90 text-white text-xs px-3 py-1.5 rounded font-medium shadow-md backdrop-blur-sm z-10">After (PreModel.ai)</div>
                       <img src={example.after} alt={`After ${category}`} className="object-cover w-full h-full" loading="lazy" />
                     </div>
                     {isMobile && <p className="text-xs text-muted-foreground">Tap image to enlarge</p>}
