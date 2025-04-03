@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { responsiveWidth } from "@/lib/utils";
 
-type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring" | "landscaping";
+type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring" | "landscaping" | "kitchen";
 
 interface ExampleImage {
   before: string;
@@ -63,6 +63,13 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
       after: "/lovable-uploads/7afdb8a0-2559-4da6-99ac-a66a544623a5.png",
       prompt: "Transform the sparse front yard with vibrant flower beds featuring pink, purple, and orange blooms, add lush green lawn, and enhance with colorful potted plants by the entrance"
     }
+  ],
+  kitchen: [
+    {
+      before: "/lovable-uploads/242491e5-163e-4171-99c0-432a9b7c39bf.png",
+      after: "/lovable-uploads/7f162b44-55b8-4854-8a33-34e3c5e6e1f7.png",
+      prompt: "Transform the dark wood kitchen cabinets to bright white shaker style cabinets with gold hardware, keep the same granite countertops, and update the stainless steel appliances"
+    }
   ]
 };
 
@@ -82,6 +89,7 @@ export function BeforeAfterExamples() {
             <TabsTrigger value="bathroom" className="text-xs sm:text-sm whitespace-nowrap">Bathroom</TabsTrigger>
             <TabsTrigger value="flooring" className="text-xs sm:text-sm whitespace-nowrap">Flooring</TabsTrigger>
             <TabsTrigger value="landscaping" className="text-xs sm:text-sm whitespace-nowrap">Landscaping</TabsTrigger>
+            <TabsTrigger value="kitchen" className="text-xs sm:text-sm whitespace-nowrap">Kitchen</TabsTrigger>
           </TabsList>
         </div>
         
@@ -125,11 +133,13 @@ export function BeforeAfterExamples() {
                   </div>
                 </div>
                 
-                <Card className="p-4 md:p-4 bg-primary/10 shadow-sm border-primary/20">
-                  <p className="text-sm md:text-base text-foreground font-medium flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
-                    <span className="inline-flex px-2 py-1 bg-primary/20 text-primary rounded text-xs font-bold">USER PROMPT</span>
-                    <span className="line-clamp-3">"{example.prompt}"</span>
-                  </p>
+                <Card className="bg-primary/10 shadow-sm border-primary/20">
+                  <div className="p-3 md:p-4 flex flex-col">
+                    <div className="inline-flex px-2 py-1 bg-primary/20 text-primary rounded text-xs font-bold self-start mb-2">
+                      USER PROMPT
+                    </div>
+                    <p className="text-sm md:text-base text-foreground">"{example.prompt}"</p>
+                  </div>
                 </Card>
               </div>
             ))}

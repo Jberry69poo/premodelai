@@ -1,76 +1,160 @@
-
-import { useState } from "react";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { AuthButton } from "@/components/AuthButton";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { useAuth } from "@/hooks/use-auth";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { MockingBirdLogo } from "@/components/MockingBirdLogo";
-import { Menu, X } from "lucide-react";
+import { AlignJustify, ChevronsUpDown } from "lucide-react";
 
-export function CustomNavbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-  
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
-  
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({
-        behavior: "smooth"
-      });
-      closeMenu();
-    }
-  };
-  
-  return <header className="fixed top-0 z-50 w-full border-b border-border/10 bg-background/80 backdrop-blur-xl">
-      <div className="container flex h-16 items-center justify-between px-4 md:px-6">
-        <div className="flex items-center gap-2">
-          <Link to="/" className="flex items-center" onClick={closeMenu}>
-            <MockingBirdLogo size="sm" />
-          </Link>
-        </div>
+export const CustomNavbar = () => {
+  const { user, signOut } = useAuth();
+  const [isMounted, setIsMounted] = useState(false);
 
-        {/* Mobile menu button */}
-        <Button variant="ghost" size="icon" className="md:hidden" onClick={toggleMenu} aria-label="Toggle menu">
-          {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </Button>
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-        {/* Desktop navigation */}
-        <div className="hidden md:flex items-center gap-4">
-          <Button variant="ghost" onClick={() => scrollToSection("how-it-works")}>
+  return (
+    <nav className="bg-background border-b">
+      <div className="container flex items-center justify-between py-4">
+        <Link to="/" className="font-bold text-2xl">
+          MockingBird AI
+        </Link>
+
+        <div className="hidden md:flex items-center space-x-6 navbar-links">
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Examples</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] grid-cols-2">
+                    {/*<li>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/#example1"
+                          className="block p-3 rounded-md hover:bg-accent hover:text-accent-foreground focus:shadow-md"
+                        >
+                          <div className="font-medium leading-none">
+                            Example 1
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            An example of a cool project.
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                    <li>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/#example2"
+                          className="block p-3 rounded-md hover:bg-accent hover:text-accent-foreground focus:shadow-md"
+                        >
+                          <div className="font-medium leading-none">
+                            Example 2
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            Another example of a cool project.
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>*/}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+
+          <a
+            href="#how-it-works"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
             How it Works
-          </Button>
-          <Button variant="ghost" onClick={() => scrollToSection("examples")}>
+          </a>
+          <a
+            href="#examples"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
             Examples
-          </Button>
-          <Button variant="ghost" onClick={() => scrollToSection("founder-section")}>
+          </a>
+          <a
+            href="#founder-section"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
             Meet Josh
-          </Button>
-          <AuthButton />
-        </div>
-      </div>
+          </a>
 
-      {/* Mobile Menu - Enhanced with smooth transition */}
-      {isMenuOpen && <div className="md:hidden py-4 px-4 bg-background border-b border-border/20 shadow-md animate-fade-in">
-          <nav className="flex flex-col space-y-3">
-            <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("how-it-works")}>
-              How it Works
+          {isMounted &&
+            (user ? (
+              <Button size="sm" onClick={() => signOut()}>
+                Sign Out
+              </Button>
+            ) : (
+              <Link to="/admin">
+                <Button size="sm">Admin</Button>
+              </Link>
+            ))}
+        </div>
+
+        <Sheet>
+          <SheetTrigger asChild className="md:hidden">
+            <Button variant="outline" size="icon">
+              <AlignJustify className="h-[1.2rem] w-[1.2rem] rotate-0 sm:rotate-0" />
+              <span className="sr-only">Open menu</span>
             </Button>
-            <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("examples")}>
-              Examples
-            </Button>
-            <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("founder-section")}>
-              Meet Josh
-            </Button>
-            <div className="pt-2">
-              <AuthButton />
+          </SheetTrigger>
+          <SheetContent side="left" className="w-full sm:w-64">
+            <SheetHeader className="text-left">
+              <SheetTitle>Menu</SheetTitle>
+              <SheetDescription>
+                Explore and manage your account settings.
+              </SheetDescription>
+            </SheetHeader>
+            <div className="mt-4 flex flex-col space-y-2">
+              <Link to="/" className="block py-2 hover:text-primary">
+                Home
+              </Link>
+              <a
+                href="#how-it-works"
+                className="block py-2 hover:text-primary"
+              >
+                How it Works
+              </a>
+              <a href="#examples" className="block py-2 hover:text-primary">
+                Examples
+              </a>
+              <a
+                href="#founder-section"
+                className="block py-2 hover:text-primary"
+              >
+                Meet Josh
+              </a>
+              {isMounted &&
+                (user ? (
+                  <Button size="sm" onClick={() => signOut()}>
+                    Sign Out
+                  </Button>
+                ) : (
+                  <Link to="/admin">
+                    <Button size="sm">Admin</Button>
+                  </Link>
+                ))}
             </div>
-          </nav>
-        </div>}
-    </header>;
-}
+          </SheetContent>
+        </Sheet>
+      </div>
+    </nav>
+  );
+};

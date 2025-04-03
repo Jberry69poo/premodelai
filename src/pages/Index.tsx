@@ -6,6 +6,7 @@ import { BeforeAfterExamples } from "@/components/BeforeAfterExamples";
 import { ArrowRight, CameraIcon, MessageSquareText, ImageIcon } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { FounderSection } from "@/components/FounderSection";
+import { useEffect } from "react";
 
 const Index = () => {
   const scrollToSection = (sectionId: string) => {
@@ -13,6 +14,42 @@ const Index = () => {
       behavior: "smooth"
     });
   };
+  
+  // Add "Meet Josh" link to the navigation
+  useEffect(() => {
+    const addMeetJoshLink = () => {
+      const navbarLinks = document.querySelector('.navbar-links');
+      if (navbarLinks) {
+        // Check if the link already exists
+        if (!document.querySelector('[data-nav-link="meet-josh"]')) {
+          const meetJoshLink = document.createElement('li');
+          meetJoshLink.innerHTML = '<a href="#founder-section" class="text-sm font-medium transition-colors hover:text-primary" data-nav-link="meet-josh">Meet Josh</a>';
+          meetJoshLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            scrollToSection('founder-section');
+          });
+          navbarLinks.appendChild(meetJoshLink);
+        }
+      }
+    };
+    
+    // Add the link on load and after any dynamic navbar changes
+    addMeetJoshLink();
+    
+    // Set up an observer to detect when the navbar might be loaded/modified
+    const observer = new MutationObserver(() => {
+      addMeetJoshLink();
+    });
+    
+    const navbar = document.querySelector('nav');
+    if (navbar) {
+      observer.observe(navbar, { childList: true, subtree: true });
+    }
+    
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return <div className="flex flex-col min-h-screen">
       <CustomNavbar />
