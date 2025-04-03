@@ -1,4 +1,3 @@
-
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
@@ -6,8 +5,6 @@ import { useAuth } from "@/hooks/use-auth";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AlignJustify, ChevronsUpDown } from "lucide-react";
-import { MockingBirdIcon } from "./MockingBirdIcon";
-
 export const CustomNavbar = () => {
   const {
     user,
@@ -19,8 +16,7 @@ export const CustomNavbar = () => {
   }, []);
   return <nav className="bg-background border-b">
       <div className="container flex items-center justify-between py-4">
-        <Link to="/" className="font-bold text-2xl flex items-center gap-2">
-          <MockingBirdIcon className="h-6 w-6" />
+        <Link to="/" className="font-bold text-2xl">
           MockingBird AI
         </Link>
 
@@ -73,9 +69,7 @@ export const CustomNavbar = () => {
           <a href="#examples" className="text-sm font-medium transition-colors hover:text-primary">
             Examples
           </a>
-          <a href="#founder-section" className="text-sm font-medium transition-colors hover:text-primary">
-            Meet Josh
-          </a>
+          
 
           {isMounted && (user ? <Button size="sm" onClick={() => signOut()}>
                 Sign Out

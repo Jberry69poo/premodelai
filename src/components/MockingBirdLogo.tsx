@@ -1,12 +1,8 @@
-
 import { motion } from "framer-motion";
-import { MockingBirdIcon } from "./MockingBirdIcon";
-
 interface MockingBirdLogoProps {
   size?: "sm" | "md" | "lg" | "xl";
   showText?: boolean;
 }
-
 export const MockingBirdLogo = ({
   size = "md",
   showText = true
@@ -26,7 +22,6 @@ export const MockingBirdLogo = ({
     lg: "text-2xl",
     xl: "text-4xl"
   };
-  
   return <div className="flex items-center gap-3">
       <div className="relative">
         {/* Animated logo background */}
@@ -42,7 +37,7 @@ export const MockingBirdLogo = ({
       }} />
         
         {/* Logo container */}
-        <MockingBirdIcon className={sizeClasses[size]} />
+        
         
         {/* Spark effects */}
         <motion.span className="absolute -top-1 -right-1 h-1.5 w-1.5 rounded-full bg-blue-400" animate={{
