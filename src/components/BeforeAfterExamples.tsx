@@ -133,12 +133,13 @@ export function BeforeAfterExamples() {
                   </div>
                 </div>
                 
-                <Card className="bg-primary/10 shadow-sm border-primary/20">
-                  <div className="p-3 md:p-4 flex flex-col">
-                    <div className="inline-flex px-2 py-1 bg-primary/20 text-primary rounded text-xs font-bold self-start mb-2">
+                {/* Fixed prompt card to ensure it's fully visible and doesn't overlap photos on mobile */}
+                <Card className="bg-primary/10 shadow-sm border border-primary/30 mt-6">
+                  <div className="p-4 flex flex-col">
+                    <div className="inline-flex px-2.5 py-1.5 bg-primary/20 text-primary rounded-md text-xs font-bold self-start mb-3">
                       USER PROMPT
                     </div>
-                    <p className="text-sm md:text-base text-foreground">"{example.prompt}"</p>
+                    <p className="text-sm md:text-base text-foreground leading-relaxed">"{example.prompt}"</p>
                   </div>
                 </Card>
               </div>
