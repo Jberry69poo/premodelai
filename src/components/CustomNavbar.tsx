@@ -1,3 +1,4 @@
+
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
@@ -5,6 +6,8 @@ import { useAuth } from "@/hooks/use-auth";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AlignJustify, ChevronsUpDown } from "lucide-react";
+import { PreModelLogo } from "./PreModelLogo";
+
 export const CustomNavbar = () => {
   const {
     user,
@@ -16,8 +19,9 @@ export const CustomNavbar = () => {
   }, []);
   return <nav className="bg-background border-b">
       <div className="container flex items-center justify-between py-4">
-        <Link to="/" className="font-bold text-2xl py-0 my-0 mx-0 px-[21px]">
-          MockingBird AI
+        <Link to="/" className="font-bold text-2xl py-0 my-0 mx-0 px-[21px] flex items-center">
+          <PreModelLogo size="sm" showText={false} />
+          <span className="ml-2">PreModel</span>
         </Link>
 
         <div className="hidden md:flex items-center space-x-6 navbar-links">

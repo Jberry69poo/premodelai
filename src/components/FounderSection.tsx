@@ -25,7 +25,7 @@ export const FounderSection = () => {
           {/* Left Column - Profile Info */}
           <div className="lg:col-span-4 flex flex-col items-center">
             <div className="rounded-xl overflow-hidden border-4 border-primary/20 shadow-lg shadow-primary/10 mb-6 w-48 h-48 md:w-56 md:h-56">
-              <img alt="Josh Berry, Founder of MockingBird" className="w-full h-full object-cover" src="/lovable-uploads/4be4c66e-951a-40ac-aca3-d9bee552ec6a.jpg" />
+              <img alt="Josh Berry, Founder of PreModel" className="w-full h-full object-cover" src="/lovable-uploads/4be4c66e-951a-40ac-aca3-d9bee552ec6a.jpg" />
             </div>
             
             <div className="text-center mt-2">
@@ -69,7 +69,7 @@ export const FounderSection = () => {
             <Card className="bg-card/40 backdrop-blur-sm border-primary/10 overflow-hidden shadow-lg">
               <CardContent className="p-6 md:p-8 space-y-6">
                 <div className="space-y-4">
-                  <p className="text-lg">Hello, My name is Josh. I am by all accounts a big giant ogre who likes farting and drinking tequila sodas (watching my figure). I am building MockingBird because I am a greedy capitalist pig who wants to help sales people close more deals.</p>
+                  <p className="text-lg">Hello, My name is Josh. I am by all accounts a big giant ogre who likes farting and drinking tequila sodas (watching my figure). I am building PreModel because I am a greedy capitalist pig who wants to help sales people close more deals.</p>
                   
                   <p className="text-lg">
                     Obviously being able to show customers their dream outcome during the sales process will 
@@ -94,7 +94,7 @@ export const FounderSection = () => {
                 <Separator className="my-4 bg-border/50" />
                 
                 <div>
-                  <p className="normal text-2xl">The only way to become a MockingBird user is to text or call my personal cell phone. There is no sales funnel or any of that bullshit. Give me a call and lets talk about Lamar Jackson or software. I don't give a shit either way honestly. I love you so much.</p>
+                  <p className="normal text-2xl">The only way to become a PreModel user is to text or call my personal cell phone. There is no sales funnel or any of that bullshit. Give me a call and lets talk about Lamar Jackson or software. I don't give a shit either way honestly. I love you so much.</p>
                   <p className="font-bold text-xl mt-4">- JB</p>
                 </div>
               </CardContent>

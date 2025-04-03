@@ -1,8 +1,9 @@
 
 import { Button } from "@/components/ui/button";
-import { Menu, Bird, Home, Settings, LogIn, BarChart3, X } from "lucide-react";
+import { Menu, Home, Settings, LogIn, BarChart3, X } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { PreModelLogo } from "./PreModelLogo";
 
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,8 +16,8 @@ export const Navbar = () => {
     <header className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center px-4">
         <div className="flex items-center gap-2 font-bold">
-          <Bird className="h-6 w-6 text-primary" />
-          <span className="text-xl">MockingBird</span>
+          <PreModelLogo size="sm" showText={false} />
+          <span className="text-xl">PreModel</span>
         </div>
         
         <nav className="ml-auto hidden md:flex items-center gap-6">

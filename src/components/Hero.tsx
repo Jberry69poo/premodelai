@@ -1,8 +1,10 @@
+
 import { Button } from "@/components/ui/button";
-import { MockingBirdLogo } from "@/components/MockingBirdLogo";
-import { ArrowRight, Eye, Zap, Building, Rocket, Bird } from "lucide-react";
+import { PreModelLogo } from "@/components/PreModelLogo";
+import { ArrowRight, Eye, Zap, Building, Rocket, Home } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+
 export const Hero = () => {
   const isMobile = useIsMobile();
   const scrollToSection = (sectionId: string) => {
@@ -13,11 +15,7 @@ export const Hero = () => {
       });
     }
   };
-  const scrollToSignup = () => {
-    document.getElementById("beta-signup")?.scrollIntoView({
-      behavior: "smooth"
-    });
-  };
+
   const fadeIn = {
     hidden: {
       opacity: 0,
@@ -31,6 +29,7 @@ export const Hero = () => {
       }
     }
   };
+  
   const staggerChildren = {
     hidden: {
       opacity: 0
@@ -42,6 +41,7 @@ export const Hero = () => {
       }
     }
   };
+  
   return <section className="relative overflow-hidden bg-gradient-to-b from-background via-background/90 to-primary/5 pt-24 pb-16 md:pt-32 md:pb-24 px-4">
       {/* Background Elements */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
@@ -55,49 +55,52 @@ export const Hero = () => {
       <div className="container">
         <div className="flex flex-col items-center text-center">
           {/* Logo animates in */}
-          <motion.div initial={{
-          opacity: 0,
-          scale: 0.8
-        }} animate={{
-          opacity: 1,
-          scale: 1
-        }} transition={{
-          duration: 0.5
-        }} className="mb-6 md:mb-10">
-            <MockingBirdLogo size={isMobile ? "md" : "xl"} showText={false} />
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6 md:mb-10"
+          >
+            <PreModelLogo size={isMobile ? "md" : "xl"} showText={false} />
           </motion.div>
           
-          {/* Bird logo */}
-          <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.6,
-          delay: 0.3
-        }} className="mb-6">
-            <Bird className="h-12 w-12 md:h-16 md:w-16 text-primary" />
+          {/* PreModel home logo */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mb-6"
+          >
+            <Home className="h-12 w-12 md:h-16 md:w-16 text-primary" />
           </motion.div>
           
           {/* Main heading with animated reveal */}
-          <motion.h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tighter max-w-5xl bg-clip-text text-transparent bg-gradient-to-r from-white via-primary-foreground to-primary" initial={{
-          opacity: 0,
-          y: 40
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.8,
-          delay: 0.2
-        }}>The next big thing in Home Improvement</motion.h1>
+          <motion.h1 
+            className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tighter max-w-5xl bg-clip-text text-transparent bg-gradient-to-r from-white via-primary-foreground to-primary"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            The next big thing in Home Improvement
+          </motion.h1>
           
           {/* Subheading */}
-          <motion.p className="mt-4 md:mt-6 text-lg md:text-2xl text-muted-foreground max-w-2xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">MockingBird Shows clients exactly what their renovated space will look like before you even start the work.</motion.p>
+          <motion.p 
+            className="mt-4 md:mt-6 text-lg md:text-2xl text-muted-foreground max-w-2xl mx-auto"
+            variants={fadeIn}
+            initial="hidden"
+            animate="visible"
+          >
+            PreModel Shows clients exactly what their renovated space will look like before you even start the work.
+          </motion.p>
 
           {/* Value props */}
-          <motion.div className="mt-8 md:mt-12 flex flex-col md:flex-row justify-center md:gap-x-12 gap-y-4" variants={staggerChildren} initial="hidden" animate="visible">
+          <motion.div 
+            className="mt-8 md:mt-12 flex flex-col md:flex-row justify-center md:gap-x-12 gap-y-4"
+            variants={staggerChildren}
+            initial="hidden"
+            animate="visible"
+          >
             <motion.div variants={fadeIn} className="flex items-center gap-2 justify-center">
               <div className="flex items-center justify-center w-8 md:w-10 h-8 md:h-10 rounded-full bg-primary/20">
                 <Zap className="h-4 w-4 md:h-5 md:w-5 text-primary" />
@@ -114,19 +117,18 @@ export const Hero = () => {
           </motion.div>
 
           {/* CTA section */}
-          <motion.div className="mt-8 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4" initial={{
-          opacity: 0,
-          y: 30
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.6,
-          delay: 0.8
-        }}>
-            
-            
-            <Button variant="outline" size={isMobile ? "default" : "lg"} className={`${isMobile ? 'text-base px-5 py-2' : 'text-lg px-8 py-6'} border-primary/30 hover:bg-primary/10`} onClick={() => scrollToSection("examples")}>
+          <motion.div 
+            className="mt-8 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
+            <Button 
+              variant="outline" 
+              size={isMobile ? "default" : "lg"} 
+              className={`${isMobile ? 'text-base px-5 py-2' : 'text-lg px-8 py-6'} border-primary/30 hover:bg-primary/10`} 
+              onClick={() => scrollToSection("examples")}
+            >
               <span className="flex items-center">
                 See Examples
                 <Eye className="ml-2 h-4 w-4 md:h-5 md:w-5" />
@@ -135,16 +137,12 @@ export const Hero = () => {
           </motion.div>
           
           {/* Social Proof */}
-          <motion.div className="mt-12 md:mt-16 border-t border-border/30 pt-6 md:pt-8 w-full" initial={{
-          opacity: 0
-        }} animate={{
-          opacity: 1
-        }} transition={{
-          duration: 1,
-          delay: 1.2
-        }}>
-            
-            
+          <motion.div 
+            className="mt-12 md:mt-16 border-t border-border/30 pt-6 md:pt-8 w-full"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.2 }}
+          >
             <div className="mt-4 flex flex-wrap justify-center gap-x-8 md:gap-x-12 gap-y-4 opacity-70">
               {/* You can replace these with actual company logos */}
               <div className="h-6 md:h-8 w-16 md:w-24 rounded-md bg-primary/20"></div>
