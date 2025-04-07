@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
@@ -5,12 +6,15 @@ import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { responsiveWidth } from "@/lib/utils";
 import { PreModelLogo } from "@/components/PreModelLogo";
+
 type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring" | "landscaping" | "kitchen";
+
 interface ExampleImage {
   before: string;
   after: string;
   prompt: string; // Renamed from description to prompt
 }
+
 const examplesByCategory: Record<Category, ExampleImage[]> = {
   painting: [{
     before: "/lovable-uploads/50ac2ced-7a22-427c-b40c-f6bb9b58befe.png",
@@ -53,9 +57,11 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
     prompt: "Transform the dark wood kitchen cabinets to bright white shaker style cabinets with gold hardware, keep the same granite countertops, and update the stainless steel appliances"
   }]
 };
+
 export function BeforeAfterExamples() {
   const [activeCategory, setActiveCategory] = useState<Category>("painting");
   const isMobile = useIsMobile();
+  
   return <div className="w-full">
       <Tabs defaultValue="painting" onValueChange={value => setActiveCategory(value as Category)}>
         <div className="overflow-x-auto pb-3">
@@ -95,13 +101,15 @@ export function BeforeAfterExamples() {
                   </div>
                 </div>
                 
-                {/* Fixed prompt card to ensure it's fully visible and doesn't overlap photos on mobile */}
-                <Card className="bg-primary/10 shadow-sm border border-primary/30 mt-6">
-                  <div className="p-4 flex flex-col">
+                {/* Fixed prompt card with better mobile styling */}
+                <Card className="bg-primary/10 shadow-sm border border-primary/30 mt-4 mb-8 mx-2 sm:mx-0">
+                  <div className="p-4">
                     <div className="inline-flex px-2.5 py-1.5 bg-primary/20 text-primary rounded-md text-xs font-bold self-start mb-3">
                       USER PROMPT
                     </div>
-                    <p className="text-sm md:text-base text-foreground leading-relaxed px-0 mx-0 text-center my-[47px]">"{example.prompt}"</p>
+                    <p className="text-sm md:text-base text-foreground leading-relaxed text-center my-4">
+                      "{example.prompt}"
+                    </p>
                   </div>
                 </Card>
               </div>)}
