@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
@@ -5,12 +6,15 @@ import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { responsiveWidth } from "@/lib/utils";
 import { PreModelLogo } from "@/components/PreModelLogo";
+
 type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring" | "landscaping" | "kitchen";
+
 interface ExampleImage {
   before: string;
   after: string;
   prompt: string; // Renamed from description to prompt
 }
+
 const examplesByCategory: Record<Category, ExampleImage[]> = {
   painting: [{
     before: "/lovable-uploads/50ac2ced-7a22-427c-b40c-f6bb9b58befe.png",
@@ -53,10 +57,13 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
     prompt: "Transform the dark wood kitchen cabinets to bright white shaker style cabinets with gold hardware, keep the same granite countertops, and update the stainless steel appliances"
   }]
 };
+
 export function BeforeAfterExamples() {
   const [activeCategory, setActiveCategory] = useState<Category>("painting");
   const isMobile = useIsMobile();
-  return <div className="w-full">
+  
+  return (
+    <div className="w-full">
       <Tabs defaultValue="painting" onValueChange={value => setActiveCategory(value as Category)}>
         <div className="overflow-x-auto pb-3">
           <TabsList className="flex w-max min-w-full justify-start gap-1 px-1 py-1.5 md:justify-center md:flex-wrap">
@@ -71,8 +78,10 @@ export function BeforeAfterExamples() {
           </TabsList>
         </div>
         
-        {Object.entries(examplesByCategory).map(([category, examples]) => <TabsContent key={category} value={category} className="space-y-6">
-            {examples.map((example, index) => <div key={index} className="flex flex-col space-y-4">
+        {Object.entries(examplesByCategory).map(([category, examples]) => (
+          <TabsContent key={category} value={category} className="space-y-6">
+            {examples.map((example, index) => (
+              <div key={index} className="flex flex-col space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
@@ -93,22 +102,25 @@ export function BeforeAfterExamples() {
                   </div>
                 </div>
                 
-                <div className="pt-6 pb-8">
-                  <Card className="shadow-sm border border-primary/30 bg-transparent mx-px py-0 px-[154px]">
-                    <div className="p-3 sm:p-4 py-0 px-[2px] mx-0 my-[72px] bg-transparent">
-                      <div className="inline-flex px-2 py-1 sm:px-2.5 sm:py-1.5 bg-primary/20 text-primary rounded-md text-xs font-bold self-start mb-2">
+                {/* Redesigned prompt card for better mobile display */}
+                <div className="mt-2 mb-8">
+                  <div className="relative bg-black/5 backdrop-blur-sm rounded-lg border border-primary/20 overflow-hidden p-4">
+                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-primary/20"></div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="inline-flex px-2 py-1 bg-primary/20 text-primary rounded-md text-xs font-bold">
                         USER PROMPT
-                      </div>
-                      <div className="py-3">
-                        <p className="text-sm text-foreground leading-relaxed text-center font-normal py-0 px-0 mx-0 my-0 md:text-xl">
-                          "{example.prompt}"
-                        </p>
-                      </div>
+                      </span>
                     </div>
-                  </Card>
+                    <p className="text-sm md:text-base text-foreground leading-relaxed">
+                      "{example.prompt}"
+                    </p>
+                  </div>
                 </div>
-              </div>)}
-          </TabsContent>)}
+              </div>
+            ))}
+          </TabsContent>
+        ))}
       </Tabs>
-    </div>;
+    </div>
+  );
 }
