@@ -100,7 +100,7 @@ export function BeforeAfterExamples() {
                         USER PROMPT
                       </div>
                       <div className="py-3">
-                        <p className="text-sm md:text-base text-foreground leading-relaxed text-center">
+                        <p className="text-sm text-foreground leading-relaxed text-center font-normal py-0 px-0 mx-0 my-0 md:text-xl">
                           "{example.prompt}"
                         </p>
                       </div>
