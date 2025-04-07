@@ -1,10 +1,13 @@
+
 import { Button } from "@/components/ui/button";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { ArrowRight, Eye, Zap, Building, Rocket, Home } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+
 export const Hero = () => {
   const isMobile = useIsMobile();
+  
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -13,6 +16,7 @@ export const Hero = () => {
       });
     }
   };
+  
   const fadeIn = {
     hidden: {
       opacity: 0,
@@ -26,6 +30,7 @@ export const Hero = () => {
       }
     }
   };
+  
   const staggerChildren = {
     hidden: {
       opacity: 0
@@ -37,6 +42,7 @@ export const Hero = () => {
       }
     }
   };
+  
   return <section className="relative overflow-hidden bg-gradient-to-b from-background via-background/90 to-primary/5 pt-24 pb-16 md:pt-32 md:pb-24 px-4">
       {/* Background Elements */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
@@ -49,32 +55,6 @@ export const Hero = () => {
 
       <div className="container">
         <div className="flex flex-col items-center text-center">
-          {/* Logo animates in */}
-          <motion.div initial={{
-          opacity: 0,
-          scale: 0.8
-        }} animate={{
-          opacity: 1,
-          scale: 1
-        }} transition={{
-          duration: 0.5
-        }} className="mb-6 md:mb-10">
-            <PreModelLogo size={isMobile ? "md" : "xl"} showText={false} />
-          </motion.div>
-          
-          {/* PreModel home logo */}
-          <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.6,
-          delay: 0.3
-        }} className="mb-6">
-            
-          </motion.div>
           
           {/* Main heading with animated reveal */}
           <motion.h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tighter max-w-5xl bg-clip-text text-transparent bg-gradient-to-r from-white via-primary-foreground to-primary" initial={{
@@ -112,7 +92,7 @@ export const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* CTA section */}
+          {/* CTA section with logo on the left of the button */}
           <motion.div className="mt-8 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4" initial={{
           opacity: 0,
           y: 30
@@ -123,6 +103,8 @@ export const Hero = () => {
           duration: 0.6,
           delay: 0.8
         }}>
+            <PreModelLogo size="sm" showText={false} />
+            
             <Button variant="outline" size={isMobile ? "default" : "lg"} className={`${isMobile ? 'text-base px-5 py-2' : 'text-lg px-8 py-6'} border-primary/30 hover:bg-primary/10`} onClick={() => scrollToSection("examples")}>
               <span className="flex items-center">
                 See Examples

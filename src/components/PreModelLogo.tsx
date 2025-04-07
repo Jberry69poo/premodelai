@@ -12,7 +12,7 @@ export const PreModelLogo = ({
 }: PreModelLogoProps) => {
   // Define the size classes
   const sizeClasses = {
-    sm: "h-10 w-auto",
+    sm: "h-10 w-auto", // Match button height
     md: "h-14 w-auto",
     lg: "h-20 w-auto",
     xl: "h-28 w-auto"
