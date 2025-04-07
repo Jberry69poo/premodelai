@@ -1,23 +1,19 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Phone, MessageSquare, ArrowRight, Twitter, Linkedin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-
 export const FounderSection = () => {
   const handlePhoneCall = () => {
     window.location.href = "tel:443-742-2100";
   };
-  
   const handleTextMessage = () => {
     window.location.href = "sms:443-742-2100";
   };
-  
   return <section id="founder-section" className="py-16 md:py-24 lg:py-32 bg-gradient-to-b from-background via-secondary/5 to-background">
       <div className="container px-4 md:px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Meet The Idiot Founder</h2>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Meet Our Idiot Founder</h2>
           
         </div>
         
@@ -42,20 +38,11 @@ export const FounderSection = () => {
               <CardContent className="p-4 space-y-2">
                 <h4 className="font-semibold text-lg mb-2">Get In Touch</h4>
                 <div className="space-y-3">
-                  <Button 
-                    size="sm" 
-                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-                    onClick={handlePhoneCall}
-                  >
+                  <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" onClick={handlePhoneCall}>
                     <Phone className="mr-2 h-4 w-4" />
                     Call: 443-742-2100
                   </Button>
-                  <Button 
-                    size="sm" 
-                    variant="outline" 
-                    className="w-full border-primary/30 hover:bg-primary/10"
-                    onClick={handleTextMessage}
-                  >
+                  <Button size="sm" variant="outline" className="w-full border-primary/30 hover:bg-primary/10" onClick={handleTextMessage}>
                     <MessageSquare className="mr-2 h-4 w-4" />
                     Text: 443-742-2100
                   </Button>
