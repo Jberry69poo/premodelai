@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
@@ -98,14 +99,14 @@ export function BeforeAfterExamples() {
                   </div>
                 </div>
                 
-                <div className="pt-6 pb-8">
-                  <Card className="shadow-sm border border-primary/30 bg-transparent mx-0">
-                    <div className="p-3 sm:p-4 py-0 px-[2px] mx-0 my-[72px] bg-transparent">
-                      <div className="inline-flex px-2 py-1 sm:px-2.5 sm:py-1.5 bg-primary/20 text-primary rounded-md text-xs font-bold self-start mb-2">
+                <div className="pt-2 pb-6">
+                  <Card className="shadow-sm border border-primary/30 bg-background/80 backdrop-blur-sm">
+                    <div className="p-4 relative">
+                      <div className="inline-flex px-2 py-1 sm:px-2.5 sm:py-1.5 bg-primary/20 text-primary rounded-md text-xs font-bold self-start mb-3">
                         USER PROMPT
                       </div>
-                      <div className="py-3">
-                        <p className="text-sm md:text-base text-foreground leading-relaxed text-center">
+                      <div className="py-1">
+                        <p className="text-sm md:text-base text-foreground leading-relaxed">
                           "{example.prompt}"
                         </p>
                       </div>
