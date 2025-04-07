@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AlignJustify, ChevronsUpDown } from "lucide-react";
 import { PreModelLogo } from "./PreModelLogo";
+
 export const CustomNavbar = () => {
   const {
     user,
@@ -17,9 +18,8 @@ export const CustomNavbar = () => {
   }, []);
   return <nav className="bg-background border-b">
       <div className="container flex items-center justify-between py-4">
-        <Link to="/" className="font-bold text-2xl py-0 my-0 mx-0 px-[21px] flex items-center">
-          <PreModelLogo size="sm" showText={false} />
-          <span className="ml-2">PreModel.ai</span>
+        <Link to="/" className="font-bold text-2xl flex items-center">
+          <PreModelLogo size="md" showText={false} />
         </Link>
 
         <div className="hidden md:flex items-center space-x-6 navbar-links">

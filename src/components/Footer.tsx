@@ -1,5 +1,4 @@
 
-import { Home } from "lucide-react";
 import { PreModelLogo } from "./PreModelLogo";
 
 export const Footer = () => {
