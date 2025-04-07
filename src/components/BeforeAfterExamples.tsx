@@ -1,9 +1,12 @@
+
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { responsiveWidth } from "@/lib/utils";
+import { PreModelLogo } from "@/components/PreModelLogo";
+
 type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring" | "landscaping" | "kitchen";
 interface ExampleImage {
   before: string;
@@ -85,7 +88,9 @@ export function BeforeAfterExamples() {
                   
                   <div className="space-y-2">
                     <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
-                      <div className="absolute top-2 left-2 bg-primary/90 text-white text-xs px-3 py-1.5 rounded font-medium shadow-md backdrop-blur-sm z-10">After )</div>
+                      <div className="absolute top-2 left-2 bg-primary/90 text-white text-xs px-3 py-1.5 rounded font-medium shadow-md backdrop-blur-sm z-10 flex items-center">
+                        <PreModelLogo size="sm" showText={false} />
+                      </div>
                       <img src={example.after} alt={`After ${category}`} className="object-cover w-full h-full" loading="lazy" />
                     </div>
                     {isMobile && <p className="text-xs text-muted-foreground">Tap image to enlarge</p>}
