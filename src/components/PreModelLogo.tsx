@@ -10,12 +10,12 @@ export const PreModelLogo = ({
   size = "md",
   showText = true
 }: PreModelLogoProps) => {
-  // Define the size classes
+  // Define the size classes with larger dimensions
   const sizeClasses = {
-    sm: "h-6 w-auto",
-    md: "h-8 w-auto",
-    lg: "h-12 w-auto",
-    xl: "h-16 w-auto"
+    sm: "h-8 w-auto", // Increased from h-6
+    md: "h-12 w-auto", // Increased from h-8
+    lg: "h-16 w-auto", // Increased from h-12
+    xl: "h-20 w-auto"  // Increased from h-16
   };
 
   // Define the text size classes
