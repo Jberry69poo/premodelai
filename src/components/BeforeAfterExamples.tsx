@@ -101,17 +101,21 @@ export function BeforeAfterExamples() {
                   </div>
                 </div>
                 
-                {/* Fixed prompt card with better mobile styling */}
-                <Card className="bg-primary/10 shadow-sm border border-primary/30 mt-4 mb-8 mx-2 sm:mx-0">
-                  <div className="p-4">
-                    <div className="inline-flex px-2.5 py-1.5 bg-primary/20 text-primary rounded-md text-xs font-bold self-start mb-3">
-                      USER PROMPT
+                {/* Improved prompt card with better mobile styling */}
+                <div className="pt-6 pb-8">
+                  <Card className="bg-primary/10 shadow-sm border border-primary/30 mx-1">
+                    <div className="p-3 sm:p-4">
+                      <div className="inline-flex px-2 py-1 sm:px-2.5 sm:py-1.5 bg-primary/20 text-primary rounded-md text-xs font-bold self-start mb-2">
+                        USER PROMPT
+                      </div>
+                      <div className="py-3">
+                        <p className="text-sm md:text-base text-foreground leading-relaxed text-center">
+                          "{example.prompt}"
+                        </p>
+                      </div>
                     </div>
-                    <p className="text-sm md:text-base text-foreground leading-relaxed text-center my-4">
-                      "{example.prompt}"
-                    </p>
-                  </div>
-                </Card>
+                  </Card>
+                </div>
               </div>)}
           </TabsContent>)}
       </Tabs>
