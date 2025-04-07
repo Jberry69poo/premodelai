@@ -102,11 +102,11 @@ export function BeforeAfterExamples() {
                   </div>
                 </div>
                 
-                {/* Redesigned prompt card for better mobile display */}
-                <div className="mt-2 mb-8">
+                {/* User prompt card that works on both mobile and desktop */}
+                <div className="mt-6 mb-8">
                   <div className="relative bg-black/5 backdrop-blur-sm rounded-lg border border-primary/20 overflow-hidden p-4">
                     <div className="absolute top-0 left-0 right-0 h-1.5 bg-primary/20"></div>
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center mb-2">
                       <span className="inline-flex px-2 py-1 bg-primary/20 text-primary rounded-md text-xs font-bold">
                         USER PROMPT
                       </span>
