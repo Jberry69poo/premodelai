@@ -1,5 +1,6 @@
 
 import { motion } from "framer-motion";
+import { Home } from "lucide-react";
 
 interface PreModelLogoProps {
   size?: "sm" | "md" | "lg" | "xl";
@@ -12,10 +13,10 @@ export const PreModelLogo = ({
 }: PreModelLogoProps) => {
   // Define the size classes
   const sizeClasses = {
-    sm: "h-6 w-auto",
-    md: "h-8 w-auto",
-    lg: "h-12 w-auto",
-    xl: "h-16 w-auto"
+    sm: "h-6 w-6",
+    md: "h-8 w-8",
+    lg: "h-12 w-12",
+    xl: "h-16 w-16"
   };
 
   // Define the text size classes
@@ -27,51 +28,83 @@ export const PreModelLogo = ({
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-3">
       <div className="relative">
-        {/* SVG logo based on the provided image */}
-        <svg 
-          className={`${sizeClasses[size]}`}
-          viewBox="0 0 300 100" 
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect 
-            x="6" 
-            y="6" 
-            width="288" 
-            height="88" 
-            rx="44" 
-            fill="white" 
-            stroke="black" 
-            strokeWidth="6"
-          />
-          <text 
-            x="150" 
-            y="65" 
-            fontFamily="Arial, sans-serif" 
-            fontSize="42" 
-            fontWeight="bold" 
-            textAnchor="middle" 
-            fill="black"
-          >
-            PreModel.AI
-          </text>
-        </svg>
-        
-        {/* Glow effect for an enhanced look */}
+        {/* Logo background glow effect */}
         <motion.div 
-          className={`absolute inset-0 rounded-full blur-lg opacity-50 ${sizeClasses[size]}`} 
+          className={`absolute inset-0 rounded-full blur-lg ${sizeClasses[size]}`} 
           style={{
-            background: "radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(200,200,200,0.4) 100%)"
+            background: "radial-gradient(circle, rgba(111,71,235,0.8) 0%, rgba(95,93,226,0.6) 100%)"
           }}
           animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3]
+            scale: [1, 1.2, 1],
+            opacity: [0.5, 0.8, 0.5]
           }}
           transition={{
             duration: 4,
             repeat: Infinity,
             ease: "easeInOut"
+          }}
+        />
+        
+        {/* Logo - house with arrow */}
+        <div className={`relative ${sizeClasses[size]} flex items-center justify-center`}>
+          <svg 
+            viewBox="0 0 100 100" 
+            className={`${sizeClasses[size]} text-primary`}
+            style={{ color: "#6F47EB" }}
+          >
+            <path 
+              d="M50 15L15 40V85H85V40L50 15Z" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="6"
+            />
+            <rect 
+              x="30" 
+              y="35" 
+              width="40" 
+              height="40" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="6"
+            />
+            <path 
+              d="M45 55L35 65L55 65" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="6"
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        
+        {/* Sparkle effects */}
+        <motion.span 
+          className="absolute -top-1 -right-1 h-1.5 w-1.5 rounded-full bg-blue-400" 
+          animate={{
+            scale: [1, 1.5, 1],
+            opacity: [0.7, 1, 0.7]
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        
+        <motion.span 
+          className="absolute bottom-0 -left-0.5 h-1 w-1 rounded-full bg-purple-400" 
+          animate={{
+            scale: [1, 1.5, 1],
+            opacity: [0.7, 1, 0.7]
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.5
           }}
         />
       </div>
@@ -82,9 +115,17 @@ export const PreModelLogo = ({
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-foreground"
+            className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-200"
           >
-            PreModel.AI
+            Pre
+          </motion.span>
+          <motion.span 
+            initial={{ opacity: 0, x: -5 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-primary-foreground"
+          >
+            Model
           </motion.span>
         </div>
       )}

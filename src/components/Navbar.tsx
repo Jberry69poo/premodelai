@@ -17,7 +17,7 @@ export const Navbar = () => {
       <div className="container flex h-16 items-center px-4">
         <div className="flex items-center gap-2 font-bold">
           <PreModelLogo size="sm" showText={false} />
-          <span className="text-xl">PreModel.AI</span>
+          <span className="text-xl">PreModel</span>
         </div>
         
         <nav className="ml-auto hidden md:flex items-center gap-6">

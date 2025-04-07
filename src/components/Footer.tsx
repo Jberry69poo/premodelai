@@ -1,4 +1,5 @@
 
+import { Home } from "lucide-react";
 import { PreModelLogo } from "./PreModelLogo";
 
 export const Footer = () => {
@@ -10,7 +11,7 @@ export const Footer = () => {
         <div className="flex items-center gap-2">
           <PreModelLogo size="sm" showText={false} />
           <span className="text-sm font-medium">
-            PreModel.AI © {currentYear}
+            PreModel © {currentYear}
           </span>
         </div>
         
