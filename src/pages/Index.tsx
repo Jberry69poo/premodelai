@@ -61,7 +61,9 @@ const Index = () => {
         <section id="how-it-works" className="py-12 md:py-24 bg-card/30 px-4">
           <div className="container">
             <div className="text-center mb-8 md:mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">How <PreModelLogo size="sm" showText={false} /> Works</h2>
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tighter flex items-center justify-center">
+                How <span className="mx-2"><PreModelLogo size="sm" showText={false} /></span> Works
+              </h2>
               <p className="text-muted-foreground md:text-lg mt-2 max-w-[700px] mx-auto">
                 From photo to visualization in minutes, not weeks
               </p>
@@ -101,7 +103,7 @@ const Index = () => {
                   <ImageIcon className="h-8 w-8 md:h-10 md:w-10 text-primary" />
                 </div>
                 <h3 className="text-lg md:text-xl font-semibold mb-2">3. Get Visualizations</h3>
-                <p className="text-muted-foreground"><PreModelLogo size="sm" showText={false} /> AI instantly generates photorealistic visualizations of your space with the changes applied. Show your potential customers their dream home and close the deal.</p>
+                <p className="text-muted-foreground">PreModel AI instantly generates photorealistic visualizations of your space with the changes applied. Show your potential customers their dream home and close the deal.</p>
               </div>
             </div>
             
