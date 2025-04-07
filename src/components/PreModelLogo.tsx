@@ -29,12 +29,34 @@ export const PreModelLogo = ({
   return (
     <div className="flex items-center gap-2">
       <div className="relative">
-        {/* Using the exact logo image provided */}
-        <img 
-          src="/lovable-uploads/19e02c58-4397-44bc-9d7d-b449c6496c0b.png" 
-          alt="PreModel.AI Logo" 
+        {/* SVG logo based on the provided image */}
+        <svg 
           className={`${sizeClasses[size]}`}
-        />
+          viewBox="0 0 300 100" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect 
+            x="6" 
+            y="6" 
+            width="288" 
+            height="88" 
+            rx="44" 
+            fill="white" 
+            stroke="black" 
+            strokeWidth="6"
+          />
+          <text 
+            x="150" 
+            y="65" 
+            fontFamily="Arial, sans-serif" 
+            fontSize="42" 
+            fontWeight="bold" 
+            textAnchor="middle" 
+            fill="black"
+          >
+            PreModel.AI
+          </text>
+        </svg>
         
         {/* Glow effect for an enhanced look */}
         <motion.div 
