@@ -97,8 +97,8 @@ export function BeforeAfterExamples() {
                 
                 {/* Improved prompt card with better mobile styling */}
                 <div className="pt-6 pb-8">
-                  <Card className="bg-primary/10 shadow-sm border border-primary/30 mx-1">
-                    <div className="p-3 sm:p-4 px-0 py-[85px]">
+                  <Card className="shadow-sm border border-primary/30 bg-transparent mx-0">
+                    <div className="p-3 sm:p-4 py-0 px-[2px] mx-0 my-[72px] bg-transparent">
                       <div className="inline-flex px-2 py-1 sm:px-2.5 sm:py-1.5 bg-primary/20 text-primary rounded-md text-xs font-bold self-start mb-2">
                         USER PROMPT
                       </div>
