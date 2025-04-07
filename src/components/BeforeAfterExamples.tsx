@@ -5,12 +5,15 @@ import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { responsiveWidth } from "@/lib/utils";
 import { PreModelLogo } from "@/components/PreModelLogo";
+
 type Category = "painting" | "exterior" | "lighting" | "roofing" | "bathroom" | "flooring" | "landscaping" | "kitchen";
+
 interface ExampleImage {
   before: string;
   after: string;
   prompt: string; // Renamed from description to prompt
 }
+
 const examplesByCategory: Record<Category, ExampleImage[]> = {
   painting: [{
     before: "/lovable-uploads/50ac2ced-7a22-427c-b40c-f6bb9b58befe.png",
@@ -53,9 +56,11 @@ const examplesByCategory: Record<Category, ExampleImage[]> = {
     prompt: "Transform the dark wood kitchen cabinets to bright white shaker style cabinets with gold hardware, keep the same granite countertops, and update the stainless steel appliances"
   }]
 };
+
 export function BeforeAfterExamples() {
   const [activeCategory, setActiveCategory] = useState<Category>("painting");
   const isMobile = useIsMobile();
+  
   return <div className="w-full">
       <Tabs defaultValue="painting" onValueChange={value => setActiveCategory(value as Category)}>
         <div className="overflow-x-auto pb-3">
@@ -81,7 +86,6 @@ export function BeforeAfterExamples() {
                       </div>
                       <img src={example.before} alt={`Before ${category}`} className="object-cover w-full h-full" loading="lazy" />
                     </div>
-                    {isMobile && <p className="text-xs text-muted-foreground">Tap image to enlarge</p>}
                   </div>
                   
                   <div className="space-y-2">
@@ -91,11 +95,9 @@ export function BeforeAfterExamples() {
                       </div>
                       <img src={example.after} alt={`After ${category}`} className="object-cover w-full h-full" loading="lazy" />
                     </div>
-                    {isMobile && <p className="text-xs text-muted-foreground">Tap image to enlarge</p>}
                   </div>
                 </div>
                 
-                {/* Improved prompt card with better mobile styling */}
                 <div className="pt-6 pb-8">
                   <Card className="shadow-sm border border-primary/30 bg-transparent mx-0">
                     <div className="p-3 sm:p-4 py-0 px-[2px] mx-0 my-[72px] bg-transparent">
