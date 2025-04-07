@@ -82,7 +82,9 @@ export function BeforeAfterExamples() {
           <TabsContent key={category} value={category} className="space-y-6">
             {examples.map((example, index) => (
               <div key={index} className="flex flex-col space-y-4">
+                {/* Grid for before/after images - completely rewritten for better mobile layout */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Before image */}
                   <div className="space-y-2">
                     <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
                       <div className="absolute top-2 left-2 bg-black/80 text-white text-xs px-3 py-1.5 rounded font-medium shadow-md backdrop-blur-sm z-10">
@@ -92,6 +94,7 @@ export function BeforeAfterExamples() {
                     </div>
                   </div>
                   
+                  {/* After image */}
                   <div className="space-y-2">
                     <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
                       <div className="absolute top-2 left-2 text-white text-xs rounded font-medium shadow-md backdrop-blur-sm z-10 flex items-center bg-transparent px-0 py-0 my-0 mx-0">
@@ -102,8 +105,8 @@ export function BeforeAfterExamples() {
                   </div>
                 </div>
                 
-                {/* User prompt card that works on both mobile and desktop */}
-                <div className="mt-6 mb-8">
+                {/* User prompt card - NOW POSITIONED CLEARLY BELOW IMAGES */}
+                <div className="mt-8 mb-8 clear-both">
                   <div className="relative bg-black/5 backdrop-blur-sm rounded-lg border border-primary/20 overflow-hidden p-4">
                     <div className="absolute top-0 left-0 right-0 h-1.5 bg-primary/20"></div>
                     <div className="flex items-center mb-2">
