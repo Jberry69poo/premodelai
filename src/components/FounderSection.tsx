@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Phone, MessageSquare, ArrowRight, Award, Star } from "lucide-react";
@@ -13,21 +14,21 @@ export const FounderSection = () => {
     window.location.href = "sms:443-742-2100";
   };
   const stats = [{
-    label: "Emojis Used",
-    value: "700K+",
-    description: "Per month"
+    label: "Loyalty",
+    value: "100%",
+    description: "To PreModel users"
   }, {
     label: "Free Throw %",
     value: "91%",
     description: "Better than Shaq"
   }, {
-    label: "Ravens Games",
-    value: "107",
-    description: "And counting"
+    label: "User Satisfaction",
+    value: "99%",
+    description: "From beta users"
   }, {
-    label: "Coffee Cups",
-    value: "5-8",
-    description: "Daily average"
+    label: "Chance",
+    value: "0%",
+    description: "You don't want to try"
   }];
   return <section id="founder-section" className="py-24 md:py-32 lg:py-40 bg-gradient-to-b from-background via-primary/5 to-background relative overflow-hidden">
       {/* Background decorative elements */}
