@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Phone, MessageSquare, ArrowRight, Award, Star } from "lucide-react";
@@ -31,7 +30,7 @@ export const FounderSection = () => {
   }, {
     label: "Chance",
     value: "0%",
-    description: "You don't want to try"
+    description: "You hate PreModel"
   }];
   
   return <section id="founder-section" className="py-24 md:py-32 lg:py-40 bg-gradient-to-b from-background via-primary/5 to-background relative overflow-hidden">
