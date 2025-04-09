@@ -17,10 +17,10 @@ export const FounderSection = () => {
   };
   
   const stats = [
-    { label: "Tequila Sodas", value: "∞", description: "Personal Record" },
+    { label: "Emojis Used", value: "700K+", description: "Per month" },
     { label: "Free Throw %", value: "91%", description: "Better than Shaq" },
-    { label: "Dad Jokes", value: "9001+", description: "And counting" },
-    { label: "Weight Lost", value: "Yes", description: "Used to be fat" }
+    { label: "Ravens Games", value: "107", description: "And counting" },
+    { label: "Coffee Cups", value: "5-8", description: "Daily average" }
   ];
   
   return (
