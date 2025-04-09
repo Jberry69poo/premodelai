@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Phone, MessageSquare, ArrowRight, Award, Star } from "lucide-react";
@@ -5,13 +6,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 export const FounderSection = () => {
   const handlePhoneCall = () => {
     window.location.href = "tel:443-742-2100";
   };
+  
   const handleTextMessage = () => {
     window.location.href = "sms:443-742-2100";
   };
+  
   const stats = [{
     label: "Loyalty",
     value: "100%",
@@ -29,6 +33,7 @@ export const FounderSection = () => {
     value: "0%",
     description: "You don't want to try"
   }];
+  
   return <section id="founder-section" className="py-24 md:py-32 lg:py-40 bg-gradient-to-b from-background via-primary/5 to-background relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden opacity-10">
@@ -67,28 +72,6 @@ export const FounderSection = () => {
                   </CardContent>
                 </Card>)}
             </div>
-            
-            <Card className="w-full bg-card/40 backdrop-blur-sm border-primary/10 hover:border-primary/30 transition-all duration-300">
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-center justify-center gap-3 mb-2">
-                  <Badge variant="secondary" className="px-3 py-1">
-                    <Star className="w-3.5 h-3.5 mr-1" />
-                    <span>Direct Line</span>
-                  </Badge>
-                </div>
-                
-                <div className="space-y-3">
-                  <Button size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 text-lg py-6 h-auto" onClick={handlePhoneCall}>
-                    <Phone className="mr-2 h-5 w-5" />
-                    Call: 443-742-2100
-                  </Button>
-                  <Button size="lg" variant="outline" className="w-full border-primary/30 hover:bg-primary/10 text-lg py-6 h-auto" onClick={handleTextMessage}>
-                    <MessageSquare className="mr-2 h-5 w-5" />
-                    Text: 443-742-2100
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
           </div>
           
           {/* Right Column - Content */}
@@ -98,7 +81,6 @@ export const FounderSection = () => {
                 <div className="space-y-6 flex-grow">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="h-1 w-16 bg-primary rounded-full"></div>
-                    
                   </div>
                   
                   <p className="text-xl md:text-2xl font-medium leading-relaxed">
@@ -123,11 +105,30 @@ export const FounderSection = () => {
                       I don't give a shit either way honestly. I love you so much.
                     </p>
                     <div className="flex items-center mt-6 gap-4">
-                      
                       <div>
                         <p className="font-bold text-2xl">- JB</p>
-                        
                       </div>
+                    </div>
+                  </div>
+                  
+                  {/* Contact Buttons moved here, below the bio */}
+                  <div className="mt-8 space-y-4">
+                    <div className="flex items-center justify-center gap-3 mb-2">
+                      <Badge variant="secondary" className="px-3 py-1">
+                        <Star className="w-3.5 h-3.5 mr-1" />
+                        <span>Direct Line</span>
+                      </Badge>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <Button size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 text-lg py-6 h-auto" onClick={handlePhoneCall}>
+                        <Phone className="mr-2 h-5 w-5" />
+                        Call: 443-742-2100
+                      </Button>
+                      <Button size="lg" variant="outline" className="w-full border-primary/30 hover:bg-primary/10 text-lg py-6 h-auto" onClick={handleTextMessage}>
+                        <MessageSquare className="mr-2 h-5 w-5" />
+                        Text: 443-742-2100
+                      </Button>
                     </div>
                   </div>
                 </div>
