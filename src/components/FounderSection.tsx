@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Phone, MessageSquare, ArrowRight, Award, Star } from "lucide-react";
@@ -6,25 +5,31 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 export const FounderSection = () => {
   const handlePhoneCall = () => {
     window.location.href = "tel:443-742-2100";
   };
-  
   const handleTextMessage = () => {
     window.location.href = "sms:443-742-2100";
   };
-  
-  const stats = [
-    { label: "Emojis Used", value: "700K+", description: "Per month" },
-    { label: "Free Throw %", value: "91%", description: "Better than Shaq" },
-    { label: "Ravens Games", value: "107", description: "And counting" },
-    { label: "Coffee Cups", value: "5-8", description: "Daily average" }
-  ];
-  
-  return (
-    <section id="founder-section" className="py-24 md:py-32 lg:py-40 bg-gradient-to-b from-background via-primary/5 to-background relative overflow-hidden">
+  const stats = [{
+    label: "Emojis Used",
+    value: "700K+",
+    description: "Per month"
+  }, {
+    label: "Free Throw %",
+    value: "91%",
+    description: "Better than Shaq"
+  }, {
+    label: "Ravens Games",
+    value: "107",
+    description: "And counting"
+  }, {
+    label: "Coffee Cups",
+    value: "5-8",
+    description: "Daily average"
+  }];
+  return <section id="founder-section" className="py-24 md:py-32 lg:py-40 bg-gradient-to-b from-background via-primary/5 to-background relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden opacity-10">
         <div className="absolute top-0 left-[20%] w-72 h-72 bg-primary/30 rounded-full blur-3xl"></div>
@@ -45,11 +50,7 @@ export const FounderSection = () => {
             <div className="relative mb-8 group">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 to-purple-500/50 rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 animate-pulse-subtle"></div>
               <div className="relative rounded-full overflow-hidden border-4 border-background shadow-lg shadow-primary/20 w-64 h-64 md:w-80 md:h-80">
-                <img 
-                  alt="Josh Berry, Founder of PreModel" 
-                  className="w-full h-full object-cover transition duration-300 group-hover:scale-105" 
-                  src="/lovable-uploads/4be4c66e-951a-40ac-aca3-d9bee552ec6a.jpg" 
-                />
+                <img alt="Josh Berry, Founder of PreModel" className="w-full h-full object-cover transition duration-300 group-hover:scale-105" src="/lovable-uploads/4be4c66e-951a-40ac-aca3-d9bee552ec6a.jpg" />
               </div>
             </div>
             
@@ -60,15 +61,13 @@ export const FounderSection = () => {
             
             {/* Stats Grid */}
             <div className="grid grid-cols-2 gap-4 w-full mt-4 mb-8">
-              {stats.map((stat, index) => (
-                <Card key={index} className="bg-card/50 backdrop-blur-sm border-primary/10 hover:border-primary/30 transition-all duration-300 overflow-hidden hover:shadow-md hover:-translate-y-1">
+              {stats.map((stat, index) => <Card key={index} className="bg-card/50 backdrop-blur-sm border-primary/10 hover:border-primary/30 transition-all duration-300 overflow-hidden hover:shadow-md hover:-translate-y-1">
                   <CardContent className="p-4 text-center">
                     <p className="text-3xl md:text-4xl font-bold text-primary">{stat.value}</p>
                     <p className="text-sm font-medium">{stat.label}</p>
                     <p className="text-xs text-muted-foreground mt-1">{stat.description}</p>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
             
             <Card className="w-full bg-card/40 backdrop-blur-sm border-primary/10 hover:border-primary/30 transition-all duration-300">
@@ -129,13 +128,10 @@ export const FounderSection = () => {
                       I don't give a shit either way honestly. I love you so much.
                     </p>
                     <div className="flex items-center mt-6 gap-4">
-                      <Avatar className="h-12 w-12 border-2 border-primary">
-                        <AvatarImage src="/lovable-uploads/4be4c66e-951a-40ac-aca3-d9bee552ec6a.jpg" alt="Josh" />
-                        <AvatarFallback>JB</AvatarFallback>
-                      </Avatar>
+                      
                       <div>
                         <p className="font-bold text-2xl">- JB</p>
-                        <p className="text-muted-foreground">Ogre in Chief</p>
+                        
                       </div>
                     </div>
                   </div>
@@ -145,6 +141,5 @@ export const FounderSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
