@@ -65,29 +65,29 @@ export function BeforeAfterExamples() {
   return (
     <div className="w-full">
       <Tabs defaultValue="painting" onValueChange={value => setActiveCategory(value as Category)}>
-        <div className="overflow-x-auto pb-3">
-          <TabsList className="flex w-max min-w-full justify-start gap-1 px-1 py-1.5 md:justify-center md:flex-wrap">
-            <TabsTrigger value="painting" className="text-xs sm:text-sm whitespace-nowrap">Painting</TabsTrigger>
-            <TabsTrigger value="exterior" className="text-xs sm:text-sm whitespace-nowrap">Exterior</TabsTrigger>
-            <TabsTrigger value="lighting" className="text-xs sm:text-sm whitespace-nowrap">Lighting</TabsTrigger>
-            <TabsTrigger value="roofing" className="text-xs sm:text-sm whitespace-nowrap">Roofing</TabsTrigger>
-            <TabsTrigger value="bathroom" className="text-xs sm:text-sm whitespace-nowrap">Bathroom</TabsTrigger>
-            <TabsTrigger value="flooring" className="text-xs sm:text-sm whitespace-nowrap">Flooring</TabsTrigger>
-            <TabsTrigger value="landscaping" className="text-xs sm:text-sm whitespace-nowrap">Landscaping</TabsTrigger>
-            <TabsTrigger value="kitchen" className="text-xs sm:text-sm whitespace-nowrap">Kitchen</TabsTrigger>
+        <div className="overflow-x-auto pb-4">
+          <TabsList className="flex w-max min-w-full justify-start gap-2 px-2 py-2 md:justify-center md:flex-wrap">
+            <TabsTrigger value="painting" className="text-sm sm:text-base whitespace-nowrap px-4 py-2">Painting</TabsTrigger>
+            <TabsTrigger value="exterior" className="text-sm sm:text-base whitespace-nowrap px-4 py-2">Exterior</TabsTrigger>
+            <TabsTrigger value="lighting" className="text-sm sm:text-base whitespace-nowrap px-4 py-2">Lighting</TabsTrigger>
+            <TabsTrigger value="roofing" className="text-sm sm:text-base whitespace-nowrap px-4 py-2">Roofing</TabsTrigger>
+            <TabsTrigger value="bathroom" className="text-sm sm:text-base whitespace-nowrap px-4 py-2">Bathroom</TabsTrigger>
+            <TabsTrigger value="flooring" className="text-sm sm:text-base whitespace-nowrap px-4 py-2">Flooring</TabsTrigger>
+            <TabsTrigger value="landscaping" className="text-sm sm:text-base whitespace-nowrap px-4 py-2">Landscaping</TabsTrigger>
+            <TabsTrigger value="kitchen" className="text-sm sm:text-base whitespace-nowrap px-4 py-2">Kitchen</TabsTrigger>
           </TabsList>
         </div>
         
         {Object.entries(examplesByCategory).map(([category, examples]) => (
-          <TabsContent key={category} value={category} className="space-y-6">
+          <TabsContent key={category} value={category} className="space-y-8">
             {examples.map((example, index) => (
               <div key={index}>
                 {/* First: Show ONLY images in a grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   {/* Before image */}
                   <div>
-                    <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
-                      <div className="absolute top-2 left-2 bg-black/80 text-white text-xs px-3 py-1.5 rounded font-medium shadow-md backdrop-blur-sm z-10">
+                    <div className="relative rounded-lg overflow-hidden aspect-[4/3] border shadow-lg">
+                      <div className="absolute top-3 left-3 bg-black/80 text-white text-sm px-4 py-2 rounded font-medium shadow-md backdrop-blur-sm z-10">
                         Before
                       </div>
                       <img 
@@ -101,8 +101,8 @@ export function BeforeAfterExamples() {
                   
                   {/* After image */}
                   <div>
-                    <div className="relative rounded-lg overflow-hidden aspect-[4/3] border">
-                      <div className="absolute top-2 left-2 text-white text-xs rounded font-medium shadow-md backdrop-blur-sm z-10 flex items-center bg-transparent px-0 py-0 my-0 mx-0">
+                    <div className="relative rounded-lg overflow-hidden aspect-[4/3] border shadow-lg">
+                      <div className="absolute top-3 left-3 text-white text-sm rounded font-medium shadow-md backdrop-blur-sm z-10 flex items-center bg-transparent px-0 py-0 my-0 mx-0">
                         <PreModelLogo size="sm" showText={false} />
                       </div>
                       <img 
@@ -116,15 +116,15 @@ export function BeforeAfterExamples() {
                 </div>
                 
                 {/* Second: Show ONLY prompt card in its own section, always below images */}
-                <div className="mt-4 mb-12">
-                  <div className="relative bg-black/5 backdrop-blur-sm rounded-lg border border-primary/20 overflow-hidden p-4">
+                <div className="mt-6 mb-16">
+                  <div className="relative bg-black/5 backdrop-blur-sm rounded-lg border border-primary/20 overflow-hidden p-6">
                     <div className="absolute top-0 left-0 right-0 h-1.5 bg-primary/20"></div>
-                    <div className="flex items-center mb-2">
-                      <span className="inline-flex px-2 py-1 bg-primary/20 text-primary rounded-md text-xs font-bold">
+                    <div className="flex items-center mb-3">
+                      <span className="inline-flex px-3 py-1.5 bg-primary/20 text-primary rounded-md text-sm font-bold">
                         USER PROMPT
                       </span>
                     </div>
-                    <p className="text-sm md:text-base text-foreground leading-relaxed">
+                    <p className="text-base md:text-lg text-foreground leading-relaxed">
                       "{example.prompt}"
                     </p>
                   </div>
