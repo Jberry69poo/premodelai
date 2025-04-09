@@ -12,10 +12,10 @@ export const PreModelLogo = ({
 }: PreModelLogoProps) => {
   // Define the size classes
   const sizeClasses = {
-    sm: "h-10 w-auto", // Match button height
-    md: "h-14 w-auto",
-    lg: "h-20 w-auto",
-    xl: "h-28 w-auto"
+    sm: "h-8 w-auto", // Increased height, width auto to maintain aspect ratio
+    md: "h-12 w-auto",
+    lg: "h-18 w-auto",
+    xl: "h-24 w-auto"
   };
 
   // Define the text size classes
@@ -32,7 +32,7 @@ export const PreModelLogo = ({
         <img 
           src="/lovable-uploads/a467188d-2dd0-4ac4-bed1-967adeb16893.png" 
           alt="PreModel.AI Logo"
-          className={`${sizeClasses[size]}`}
+          className={`${sizeClasses[size]} object-contain`} // Added object-contain
         />
         
         {/* Subtle glow effect */}

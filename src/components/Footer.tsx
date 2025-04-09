@@ -8,7 +8,7 @@ export const Footer = () => {
     <footer className="border-t border-border/40 py-8 w-full">
       <div className="container max-w-[1400px] px-6 flex flex-col md:flex-row items-center justify-between gap-6 md:h-20">
         <div className="flex items-center gap-3">
-          <PreModelLogo size="md" showText={false} />
+          <PreModelLogo size="sm" showText={false} />
           <span className="text-base font-medium">
             PreModel.AI © {currentYear}
           </span>

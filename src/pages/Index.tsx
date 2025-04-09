@@ -61,8 +61,10 @@ const Index = () => {
         <section id="how-it-works" className="py-16 md:py-32 bg-card/30">
           <div className="container max-w-[1400px] mx-auto">
             <div className="text-center mb-12 md:mb-20">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter flex items-center justify-center">
-                How <span className="mx-3"><PreModelLogo size="md" showText={false} /></span> Works
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter flex items-center justify-center flex-wrap">
+                <span>How</span> 
+                <span className="mx-3 inline-flex items-center"><PreModelLogo size="md" showText={false} /></span> 
+                <span>Works</span>
               </h2>
               <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">
                 From photo to visualization in minutes, not weeks
