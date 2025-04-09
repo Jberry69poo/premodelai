@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Phone, MessageSquare, ArrowRight, Award, Star } from "lucide-react";
@@ -39,9 +38,7 @@ export const FounderSection = () => {
       
       <div className="container px-4 md:px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16 relative">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">
-            Meet Our Founder
-          </h2>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">Meet Our Idiot Founder</h2>
           <div className="h-1 w-24 bg-primary mx-auto mt-6 rounded-full"></div>
         </div>
         
@@ -101,10 +98,7 @@ export const FounderSection = () => {
                 <div className="space-y-6 flex-grow">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="h-1 w-16 bg-primary rounded-full"></div>
-                    <Badge variant="outline" className="px-3 py-1.5 text-sm">
-                      <Award className="w-4 h-4 mr-1.5 text-primary" />
-                      Certified Ogre
-                    </Badge>
+                    
                   </div>
                   
                   <p className="text-xl md:text-2xl font-medium leading-relaxed">
