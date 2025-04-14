@@ -5,16 +5,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 export const FounderSection = () => {
   const handlePhoneCall = () => {
     window.location.href = "tel:443-742-2100";
   };
-  
   const handleTextMessage = () => {
     window.location.href = "sms:443-742-2100";
   };
-  
   const stats = [{
     label: "Loyalty",
     value: "100%",
@@ -32,7 +29,6 @@ export const FounderSection = () => {
     value: "0%",
     description: "You hate PreModel"
   }];
-  
   return <section id="founder-section" className="py-24 md:py-32 lg:py-40 bg-gradient-to-b from-background via-primary/5 to-background relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden opacity-10">
@@ -82,16 +78,9 @@ export const FounderSection = () => {
                     <div className="h-1 w-16 bg-primary rounded-full"></div>
                   </div>
                   
-                  <p className="text-xl md:text-2xl font-medium leading-relaxed">
-                    Hello, My name is Josh. I am by all accounts a big giant ogre who likes farting and drinking tequila 
-                    sodas (watching my figure). I am building PreModel because I am a greedy capitalist pig who wants to 
-                    help sales people close more deals.
-                  </p>
+                  <p className="text-xl md:text-2xl font-medium leading-relaxed">Hello, My name is Josh. I am by all accounts a big giant ogre who likes farting and drinking tequila sodas (watching my figure). I am building PreModel because I am a greedy capitalist pig who wants to help both Real Estate and Home Improvement sales teams close more deals and make more money.</p>
                   
-                  <p className="text-xl md:text-2xl font-medium leading-relaxed">
-                    Obviously being able to show customers their dream outcome during the sales process will 
-                    close more deals. If you disagree you're a fucking idiot.
-                  </p>
+                  <p className="text-xl md:text-2xl font-medium leading-relaxed">Obviously being able to show customers/buyers/investors their dream outcome during the sales process will close more deals. If you disagree you're a fucking idiot.</p>
                 </div>
                 
                 <Separator className="my-6 bg-border/50" />
