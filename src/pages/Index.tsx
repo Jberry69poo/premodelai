@@ -1,4 +1,3 @@
-
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -8,14 +7,13 @@ import { Hero } from "@/components/Hero";
 import { FounderSection } from "@/components/FounderSection";
 import { useEffect } from "react";
 import { PreModelLogo } from "@/components/PreModelLogo";
-
 const Index = () => {
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({
       behavior: "smooth"
     });
   };
-  
+
   // Add "Meet Josh" link to the navigation
   useEffect(() => {
     const addMeetJoshLink = () => {
@@ -25,7 +23,7 @@ const Index = () => {
         if (!document.querySelector('[data-nav-link="meet-josh"]')) {
           const meetJoshLink = document.createElement('li');
           meetJoshLink.innerHTML = '<a href="#founder-section" class="text-sm font-medium transition-colors hover:text-primary" data-nav-link="meet-josh">Meet Josh</a>';
-          meetJoshLink.addEventListener('click', (e) => {
+          meetJoshLink.addEventListener('click', e => {
             e.preventDefault();
             scrollToSection('founder-section');
           });
@@ -33,25 +31,25 @@ const Index = () => {
         }
       }
     };
-    
+
     // Add the link on load and after any dynamic navbar changes
     addMeetJoshLink();
-    
+
     // Set up an observer to detect when the navbar might be loaded/modified
     const observer = new MutationObserver(() => {
       addMeetJoshLink();
     });
-    
     const navbar = document.querySelector('nav');
     if (navbar) {
-      observer.observe(navbar, { childList: true, subtree: true });
+      observer.observe(navbar, {
+        childList: true,
+        subtree: true
+      });
     }
-    
     return () => {
       observer.disconnect();
     };
   }, []);
-
   return <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
       <CustomNavbar />
       
@@ -66,9 +64,7 @@ const Index = () => {
                 <span className="mx-3 inline-flex items-center"><PreModelLogo size="md" showText={false} /></span> 
                 <span>Works</span>
               </h2>
-              <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">
-                From photo to visualization in minutes, not weeks
-              </p>
+              <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">Snap, Prompt, Receive. PreModel couldn't be easier to use.</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16 mt-10 md:mt-16">
@@ -137,5 +133,4 @@ const Index = () => {
       <Footer />
     </div>;
 };
-
 export default Index;
