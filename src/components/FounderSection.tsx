@@ -80,7 +80,7 @@ export const FounderSection = () => {
                   
                   <p className="text-xl md:text-2xl font-medium leading-relaxed">Hello, My name is Josh. I am by all accounts a big giant ogre who likes farting and drinking tequila sodas (watching my figure). I am building PreModel because I am a greedy capitalist pig who wants to help both Real Estate and Home Improvement sales teams close more deals and make more money.</p>
                   
-                  <p className="text-xl md:text-2xl font-medium leading-relaxed">Obviously being able to show customers/buyers/investors their dream outcome during the sales process will close more deals. If you disagree you're a fucking idiot.</p>
+                  <p className="text-xl md:text-2xl font-medium leading-relaxed">Obviously being able to show potential customers / buyers / investors their dream outcome during the sales process will close more deals. If you disagree you are a fucking idiot.</p>
                 </div>
                 
                 <Separator className="my-6 bg-border/50" />
