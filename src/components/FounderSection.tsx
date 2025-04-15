@@ -38,7 +38,7 @@ export const FounderSection = () => {
       
       <div className="container px-4 md:px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16 relative">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">Meet Our Idiot Founder</h2>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter lg:text-8xl">Meet Our Idiot Founder</h2>
           <div className="h-1 w-24 bg-primary mx-auto mt-6 rounded-full"></div>
         </div>
         
