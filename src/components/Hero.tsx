@@ -63,7 +63,7 @@ export const Hero = () => {
         }}>The next big thing in Home Improvement</motion.h1>
           
           {/* Subheading */}
-          <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible"> PreModel turns estimates into experiences, Giving your customers the confidence to say yes.</motion.p>
+          <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible"> PreModel turns estimates into experiences, Giving your customers the visualizations they need to say yes.</motion.p>
 
           {/* Value props */}
           <motion.div className="mt-10 md:mt-16 flex flex-col md:flex-row justify-center md:gap-x-16 gap-y-6" variants={staggerChildren} initial="hidden" animate="visible">
