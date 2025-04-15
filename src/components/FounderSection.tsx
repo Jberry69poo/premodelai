@@ -78,9 +78,9 @@ export const FounderSection = () => {
                     <div className="h-1 w-16 bg-primary rounded-full"></div>
                   </div>
                   
-                  <p className="text-xl md:text-2xl font-medium leading-relaxed">Hello, My name is Josh. I am by all accounts a big giant ogre who likes farting and drinking tequila sodas (watching my figure). I am building PreModel because I am a greedy capitalist pig who wants to help both Real Estate and Home Improvement sales teams close more deals and make more money.</p>
+                  <p className="text-xl md:text-2xl font-medium leading-relaxed">Hello, My name is Josh. I am by all accounts a marginally (at best) intelligent guy who enjoys hoops and drinking tequila sodas (watching my figure). I am building PreModel because I am a greedy capitalist pig who wants to help Home Improvement sales teams close more deals and make more money. Does that make me a hero? probably.</p>
                   
-                  <p className="text-xl md:text-2xl font-medium leading-relaxed">Obviously being able to show potential customers / buyers / investors their dream outcome during the sales process will close more deals. If you disagree you are a fucking idiot.</p>
+                  <p className="text-xl md:text-2xl font-medium leading-relaxed">Obviously being able to show potential customers their dream outcome during the sales process will close more deals. If you disagree you are a fucking idiot.</p>
                 </div>
                 
                 <Separator className="my-6 bg-border/50" />
