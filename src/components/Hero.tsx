@@ -1,13 +1,10 @@
-
 import { Button } from "@/components/ui/button";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { ArrowRight, Eye, Zap, Building, Rocket, Home } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
-
 export const Hero = () => {
   const isMobile = useIsMobile();
-  
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -16,7 +13,6 @@ export const Hero = () => {
       });
     }
   };
-  
   const fadeIn = {
     hidden: {
       opacity: 0,
@@ -30,7 +26,6 @@ export const Hero = () => {
       }
     }
   };
-  
   const staggerChildren = {
     hidden: {
       opacity: 0
@@ -42,7 +37,6 @@ export const Hero = () => {
       }
     }
   };
-  
   return <section className="relative overflow-hidden bg-gradient-to-b from-background via-background/90 to-primary/5 pt-32 pb-24 md:pt-40 md:pb-32 px-4 min-h-[90vh] flex items-center">
       {/* Background Elements */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
@@ -66,14 +60,10 @@ export const Hero = () => {
         }} transition={{
           duration: 0.8,
           delay: 0.2
-        }}>
-            The next big thing in Home Improvement
-          </motion.h1>
+        }}>The next big thing in Real Estate</motion.h1>
           
           {/* Subheading */}
-          <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">
-            PreModel Shows clients exactly what their renovated space will look like before you even start the work.
-          </motion.p>
+          <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">PreModel turns “needs work” into “dream home” with visualizations that sell</motion.p>
 
           {/* Value props */}
           <motion.div className="mt-10 md:mt-16 flex flex-col md:flex-row justify-center md:gap-x-16 gap-y-6" variants={staggerChildren} initial="hidden" animate="visible">
