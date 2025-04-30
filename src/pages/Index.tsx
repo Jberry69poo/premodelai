@@ -83,7 +83,7 @@ const Index = () => {
         <section id="examples" className="py-16 md:py-32">
           <div className="container max-w-[1400px] mx-auto">
             <div className="text-center mb-12 md:mb-20">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Epoxy Floor Transformation</h2>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Epoxy Floor Transformations</h2>
               <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">
                 See how PreModel visualizes beautiful epoxy floor finishes before installation
               </p>
