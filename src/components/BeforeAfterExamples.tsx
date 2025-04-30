@@ -16,7 +16,7 @@ import {
   PaginationItem, 
   PaginationLink 
 } from "@/components/ui/pagination";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock, DollarSign, CheckSquare } from "lucide-react";
 
 // Example data for better organization
 const beforeAfterExamples = [
@@ -26,8 +26,7 @@ const beforeAfterExamples = [
     beforeImage: "/lovable-uploads/da974d50-3da6-4a4d-ad70-563295eb53f4.png",
     afterImage: "/lovable-uploads/aaf5d6f9-0e32-45d3-8080-6359883d01b3.png",
     beforeAlt: "Before garage floor transformation",
-    afterAlt: "After garage floor transformation",
-    prompt: "Transform my concrete garage floor with a rich, glossy amber epoxy finish that enhances the space and is durable enough to handle vehicle traffic"
+    afterAlt: "After garage floor transformation"
   },
   {
     id: 2,
@@ -35,8 +34,7 @@ const beforeAfterExamples = [
     beforeImage: "/lovable-uploads/254298a2-9cdb-4928-a92c-f3127bb3902f.png",
     afterImage: "/lovable-uploads/013a1078-5fca-4674-b267-8343a9989431.png",
     beforeAlt: "Before gray speckled garage floor",
-    afterAlt: "After gray speckled garage floor",
-    prompt: "Transform my standard concrete garage floor into a premium speckled epoxy finish in gray tones that is durable, easy to clean, and enhances the overall appearance of the space"
+    afterAlt: "After gray speckled garage floor"
   }
 ];
 
@@ -116,17 +114,42 @@ export function BeforeAfterExamples() {
         </Card>
       </div>
       
-      {/* Prompt card */}
-      <Card className="mb-8">
+      {/* Business Impact Section */}
+      <Card className="mb-8 border-primary/20 bg-primary/5">
         <CardContent className="pt-6">
-          <div className="flex items-center mb-3">
-            <span className="px-3 py-1.5 bg-primary/20 text-primary rounded-md text-sm font-bold">
-              USER PROMPT
-            </span>
+          <div className="flex flex-col md:flex-row md:items-center gap-6">
+            <div className="flex flex-col gap-4">
+              <h4 className="text-lg md:text-xl font-semibold text-primary">Real Business Impact</h4>
+              <p className="text-base md:text-lg">
+                These photorealistic renderings were created in under 90 seconds using PreModel.AI, 
+                helping contractors close more than $25,000 worth of projects on the spot. 
+                When clients can instantly see the transformation, they're ready to sign.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4 md:mt-0">
+              <div className="flex flex-col items-center text-center p-3">
+                <div className="p-2 rounded-full bg-primary/20 mb-2">
+                  <Clock className="h-5 w-5 text-primary" />
+                </div>
+                <span className="text-sm font-medium">90-Second Renders</span>
+              </div>
+              
+              <div className="flex flex-col items-center text-center p-3">
+                <div className="p-2 rounded-full bg-primary/20 mb-2">
+                  <DollarSign className="h-5 w-5 text-primary" />
+                </div>
+                <span className="text-sm font-medium">$25K+ Closed Deals</span>
+              </div>
+              
+              <div className="flex flex-col items-center text-center p-3">
+                <div className="p-2 rounded-full bg-primary/20 mb-2">
+                  <CheckSquare className="h-5 w-5 text-primary" />
+                </div>
+                <span className="text-sm font-medium">Instant Approvals</span>
+              </div>
+            </div>
           </div>
-          <p className="text-base md:text-lg text-foreground">
-            "{activeExample.prompt}"
-          </p>
         </CardContent>
       </Card>
       
