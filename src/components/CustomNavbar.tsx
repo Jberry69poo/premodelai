@@ -72,8 +72,8 @@ export const CustomNavbar = () => {
           <a href="#examples" className="text-sm font-medium transition-colors hover:text-primary">
             Examples
           </a>
-          <a href="#founder-section" className="text-sm font-medium transition-colors hover:text-primary">
-            Meet Josh
+          <a href="#benefits" className="text-sm font-medium transition-colors hover:text-primary">
+            Benefits
           </a>
 
           {isMounted && (user ? <Button size="sm" onClick={() => signOut()}>
@@ -94,7 +94,7 @@ export const CustomNavbar = () => {
             <SheetHeader className="text-left">
               <SheetTitle>Menu</SheetTitle>
               <SheetDescription>
-                Explore and manage your account settings.
+                Explore epoxy flooring visualization solutions.
               </SheetDescription>
             </SheetHeader>
             <div className="mt-4 flex flex-col space-y-2">
@@ -107,8 +107,8 @@ export const CustomNavbar = () => {
               <a href="#examples" className="block py-2 hover:text-primary">
                 Examples
               </a>
-              <a href="#founder-section" className="block py-2 hover:text-primary">
-                Meet Josh
+              <a href="#benefits" className="block py-2 hover:text-primary">
+                Benefits
               </a>
               {isMounted && (user ? <Button size="sm" onClick={() => signOut()}>
                     Sign Out

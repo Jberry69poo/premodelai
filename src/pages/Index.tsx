@@ -1,12 +1,12 @@
+
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { BeforeAfterExamples } from "@/components/BeforeAfterExamples";
-import { ArrowRight, CameraIcon, MessageSquareText, ImageIcon } from "lucide-react";
+import { ArrowRight, PaintBucket, Layers, CheckSquare } from "lucide-react";
 import { Hero } from "@/components/Hero";
-import { FounderSection } from "@/components/FounderSection";
-import { useEffect } from "react";
 import { PreModelLogo } from "@/components/PreModelLogo";
+
 const Index = () => {
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({
@@ -14,42 +14,6 @@ const Index = () => {
     });
   };
 
-  // Add "Meet Josh" link to the navigation
-  useEffect(() => {
-    const addMeetJoshLink = () => {
-      const navbarLinks = document.querySelector('.navbar-links');
-      if (navbarLinks) {
-        // Check if the link already exists
-        if (!document.querySelector('[data-nav-link="meet-josh"]')) {
-          const meetJoshLink = document.createElement('li');
-          meetJoshLink.innerHTML = '<a href="#founder-section" class="text-sm font-medium transition-colors hover:text-primary" data-nav-link="meet-josh">Meet Josh</a>';
-          meetJoshLink.addEventListener('click', e => {
-            e.preventDefault();
-            scrollToSection('founder-section');
-          });
-          navbarLinks.appendChild(meetJoshLink);
-        }
-      }
-    };
-
-    // Add the link on load and after any dynamic navbar changes
-    addMeetJoshLink();
-
-    // Set up an observer to detect when the navbar might be loaded/modified
-    const observer = new MutationObserver(() => {
-      addMeetJoshLink();
-    });
-    const navbar = document.querySelector('nav');
-    if (navbar) {
-      observer.observe(navbar, {
-        childList: true,
-        subtree: true
-      });
-    }
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
   return <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
       <CustomNavbar />
       
@@ -62,20 +26,19 @@ const Index = () => {
               <h2 className="text-3xl md:text-5xl font-bold tracking-tighter flex items-center justify-center flex-wrap">
                 <span>How</span> 
                 <span className="mx-3 inline-flex items-center"><PreModelLogo size="md" showText={false} /></span> 
-                <span>Works</span>
+                <span>Works for Epoxy Floors</span>
               </h2>
-              <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">Snap, Prompt, Receive. PreModel couldn't be easier to use.</p>
+              <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">Transform your epoxy flooring business with powerful visualization tools.</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16 mt-10 md:mt-16">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-primary/10 p-6 md:p-8 rounded-full mb-5 md:mb-6">
-                  <CameraIcon className="h-10 w-10 md:h-14 md:w-14 text-primary" />
+                  <PaintBucket className="h-10 w-10 md:h-14 md:w-14 text-primary" />
                 </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4">1. Snap a Photo</h3>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4">1. Capture the Space</h3>
                 <p className="text-muted-foreground text-lg">
-                  Take a picture or upload an existing photo of the space you want to renovate. 
-                  Works with kitchens, bathrooms, exteriors, landscaping, and more.
+                  Take a photo of your client's concrete floor in its current state - garages, basements, showrooms, or commercial spaces.
                 </p>
               </div>
               
@@ -84,12 +47,11 @@ const Index = () => {
                   <ArrowRight className="h-8 w-8 text-muted-foreground" />
                 </div>
                 <div className="bg-primary/10 p-6 md:p-8 rounded-full mb-5 md:mb-6">
-                  <MessageSquareText className="h-10 w-10 md:h-14 md:w-14 text-primary" />
+                  <Layers className="h-10 w-10 md:h-14 md:w-14 text-primary" />
                 </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4">2. Describe Your Vision</h3>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4">2. Choose Your Epoxy Style</h3>
                 <p className="text-muted-foreground text-lg">
-                  Explain what changes you want to make in plain English. For example: 
-                  "Paint the walls light blue, add white trim, and install hardwood flooring."
+                  Select from various epoxy finishes, colors, and effects - metallic, flake systems, solid colors, or custom designs.
                 </p>
               </div>
               
@@ -98,16 +60,16 @@ const Index = () => {
                   <ArrowRight className="h-8 w-8 text-muted-foreground" />
                 </div>
                 <div className="bg-primary/10 p-6 md:p-8 rounded-full mb-5 md:mb-6">
-                  <ImageIcon className="h-10 w-10 md:h-14 md:w-14 text-primary" />
+                  <CheckSquare className="h-10 w-10 md:h-14 md:w-14 text-primary" />
                 </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4">3. Get Visualizations</h3>
-                <p className="text-muted-foreground text-lg">PreModel AI instantly generates photorealistic visualizations of your space with the changes applied. Show your potential customers their dream home and close the deal.</p>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4">3. Close More Deals</h3>
+                <p className="text-muted-foreground text-lg">Show clients a photorealistic preview of their new epoxy floors. When customers can visualize the results, closing rates increase by 200-300%.</p>
               </div>
             </div>
             
             <div className="mt-12 md:mt-20 text-center">
-              <Button onClick={() => scrollToSection("founder-section")} className="bg-primary text-primary-foreground text-lg px-8 py-6 rounded-md">
-                Contact Josh
+              <Button onClick={() => window.location.href = "mailto:sales@premodel.ai"} className="bg-primary text-primary-foreground text-lg px-8 py-6 rounded-md">
+                Get Started Today
                 <ArrowRight className="ml-3 h-5 w-5" />
               </Button>
             </div>
@@ -117,9 +79,9 @@ const Index = () => {
         <section id="examples" className="py-16 md:py-32">
           <div className="container max-w-[1400px] mx-auto">
             <div className="text-center mb-12 md:mb-20">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Before & After Examples</h2>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Epoxy Floor Transformations</h2>
               <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">
-                See the transformative power of PreModel visualizations
+                See how PreModel visualizes beautiful epoxy floor finishes before installation
               </p>
             </div>
             
@@ -127,10 +89,53 @@ const Index = () => {
           </div>
         </section>
 
-        <FounderSection />
+        <section id="benefits" className="py-16 md:py-32 bg-card/30">
+          <div className="container max-w-[1400px] mx-auto">
+            <div className="text-center mb-12 md:mb-20">
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Why Epoxy Contractors Choose PreModel</h2>
+              <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">
+                The competitive advantage that sets successful epoxy flooring companies apart
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="bg-background/80 p-8 rounded-lg border border-primary/10 hover:border-primary/30 transition-colors">
+                <div className="bg-primary/10 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                  <CheckSquare className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Higher Close Rates</h3>
+                <p className="text-muted-foreground">Convert more consultations to signed contracts when clients can visualize their finished epoxy floors.</p>
+              </div>
+              
+              <div className="bg-background/80 p-8 rounded-lg border border-primary/10 hover:border-primary/30 transition-colors">
+                <div className="bg-primary/10 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                  <Layers className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Upsell Premium Finishes</h3>
+                <p className="text-muted-foreground">Easily demonstrate the value of higher-end epoxy systems and decorative options with realistic visualizations.</p>
+              </div>
+              
+              <div className="bg-background/80 p-8 rounded-lg border border-primary/10 hover:border-primary/30 transition-colors">
+                <div className="bg-primary/10 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                  <PaintBucket className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Eliminate Design Confusion</h3>
+                <p className="text-muted-foreground">Reduce miscommunications by showing exactly how different epoxy colors and patterns will look in the actual space.</p>
+              </div>
+            </div>
+            
+            <div className="mt-16 text-center">
+              <Button onClick={() => window.location.href = "mailto:sales@premodel.ai"} className="bg-primary text-primary-foreground text-lg px-8 py-6 rounded-md">
+                Schedule a Demo
+                <ArrowRight className="ml-3 h-5 w-5" />
+              </Button>
+            </div>
+          </div>
+        </section>
       </main>
       
       <Footer />
     </div>;
 };
+
 export default Index;

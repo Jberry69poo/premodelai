@@ -15,7 +15,7 @@ export const Footer = () => {
         </div>
         
         <div className="text-base text-muted-foreground text-center my-3 md:my-0">
-          AI-powered home improvement visualizations
+          AI-powered epoxy flooring visualizations
         </div>
         
         <div className="flex items-center gap-6">

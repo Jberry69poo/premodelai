@@ -1,10 +1,13 @@
+
 import { Button } from "@/components/ui/button";
 import { PreModelLogo } from "@/components/PreModelLogo";
-import { ArrowRight, Eye, Zap, Building, Rocket, Home } from "lucide-react";
+import { ArrowRight, Eye, Zap, Building, Layers, PaintBucket } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+
 export const Hero = () => {
   const isMobile = useIsMobile();
+  
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -13,6 +16,7 @@ export const Hero = () => {
       });
     }
   };
+  
   const fadeIn = {
     hidden: {
       opacity: 0,
@@ -26,6 +30,7 @@ export const Hero = () => {
       }
     }
   };
+  
   const staggerChildren = {
     hidden: {
       opacity: 0
@@ -37,6 +42,7 @@ export const Hero = () => {
       }
     }
   };
+  
   return <section className="relative overflow-hidden bg-gradient-to-b from-background via-background/90 to-primary/5 pt-32 pb-24 md:pt-40 md:pb-32 px-4 min-h-[90vh] flex items-center">
       {/* Background Elements */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
@@ -60,10 +66,10 @@ export const Hero = () => {
         }} transition={{
           duration: 0.8,
           delay: 0.2
-        }}>The next big thing in Home Improvement</motion.h1>
+        }}>Revolutionizing Epoxy Floor Sales</motion.h1>
           
           {/* Subheading */}
-          <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible"> PreModel turns estimates into experiences, Giving your customers the visualizations they need to say yes.</motion.p>
+          <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">PreModel visualizes stunning epoxy floors for your customers before installation, turning estimates into impressive visual experiences that close deals.</motion.p>
 
           {/* Value props */}
           <motion.div className="mt-10 md:mt-16 flex flex-col md:flex-row justify-center md:gap-x-16 gap-y-6" variants={staggerChildren} initial="hidden" animate="visible">
@@ -97,7 +103,7 @@ export const Hero = () => {
             
             <Button variant="outline" size="lg" className="text-lg px-8 py-7 border-primary/30 hover:bg-primary/10" onClick={() => scrollToSection("examples")}>
               <span className="flex items-center">
-                See Examples
+                See Epoxy Examples
                 <Eye className="ml-3 h-5 w-5 md:h-6 md:w-6" />
               </span>
             </Button>
@@ -113,7 +119,6 @@ export const Hero = () => {
           delay: 1.2
         }}>
             <div className="mt-6 flex flex-wrap justify-center gap-x-10 md:gap-x-16 gap-y-6 opacity-70">
-              {/* You can replace these with actual company logos */}
               <div className="h-8 md:h-10 w-20 md:w-32 rounded-md bg-primary/20"></div>
               <div className="h-8 md:h-10 w-24 md:w-36 rounded-md bg-primary/20"></div>
               <div className="h-8 md:h-10 w-18 md:w-28 rounded-md bg-primary/20"></div>
