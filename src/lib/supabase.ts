@@ -1,5 +1,6 @@
 
 import { supabase } from "@/integrations/supabase/client";
+import { Tables } from "@/integrations/supabase/types";
 
 export async function uploadImage(file: File): Promise<string | null> {
   try {
@@ -66,7 +67,7 @@ export async function saveGeneratedImage(
   try {
     console.log("Saving generated image:", { userId, prompt, enhancedPrompt });
     const { data, error } = await supabase
-      .from('generated_images')
+      .from("generated_images")
       .insert([
         { 
           user_id: userId, 
@@ -93,7 +94,7 @@ export async function saveGeneratedImage(
 export async function getUserGeneratedImages(userId: string) {
   try {
     const { data, error } = await supabase
-      .from('generated_images')
+      .from("generated_images")
       .select('*')
       .eq('user_id', userId)
       .order('created_at', { ascending: false });

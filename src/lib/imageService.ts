@@ -1,3 +1,4 @@
+
 import { supabase } from "@/integrations/supabase/client";
 
 export async function uploadImage(file: File): Promise<string | null> {
@@ -91,7 +92,7 @@ export async function saveMockup(
   try {
     console.log("Saving mockup:", { userId, prompt });
     const { data, error } = await supabase
-      .from('mockups')
+      .from("mockups")
       .insert([
         { 
           user_id: userId || null, 
@@ -117,7 +118,7 @@ export async function saveMockup(
 export async function getUserMockups(userId: string) {
   try {
     const { data, error } = await supabase
-      .from('mockups')
+      .from("mockups")
       .select('*')
       .eq('user_id', userId)
       .order('created_at', { ascending: false });

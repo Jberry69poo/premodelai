@@ -9,7 +9,90 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      beta_signups: {
+        Row: {
+          company: string
+          created_at: string
+          email: string
+          id: string
+          name: string
+          phone: string
+        }
+        Insert: {
+          company: string
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          phone: string
+        }
+        Update: {
+          company?: string
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          phone?: string
+        }
+        Relationships: []
+      }
+      generated_images: {
+        Row: {
+          created_at: string
+          enhanced_prompt: string | null
+          generated_image_url: string
+          id: string
+          original_image_url: string
+          prompt: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          enhanced_prompt?: string | null
+          generated_image_url: string
+          id?: string
+          original_image_url: string
+          prompt: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          enhanced_prompt?: string | null
+          generated_image_url?: string
+          id?: string
+          original_image_url?: string
+          prompt?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      mockups: {
+        Row: {
+          created_at: string
+          generated_image_url: string
+          id: string
+          original_image_url: string
+          prompt: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          generated_image_url: string
+          id?: string
+          original_image_url: string
+          prompt: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          generated_image_url?: string
+          id?: string
+          original_image_url?: string
+          prompt?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
