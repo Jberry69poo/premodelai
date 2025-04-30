@@ -1,3 +1,4 @@
+
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -7,12 +8,14 @@ import { Hero } from "@/components/Hero";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { Pricing } from "@/components/Pricing";
 import { WhatIsPreModel } from "@/components/WhatIsPreModel";
+
 const Index = () => {
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({
       behavior: "smooth"
     });
   };
+  
   return <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
       <CustomNavbar />
       
@@ -80,7 +83,7 @@ const Index = () => {
         <section id="examples" className="py-16 md:py-32">
           <div className="container max-w-[1400px] mx-auto">
             <div className="text-center mb-12 md:mb-20">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Epoxy Floor Transformations</h2>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Epoxy Floor Transformation</h2>
               <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">
                 See how PreModel visualizes beautiful epoxy floor finishes before installation
               </p>
@@ -140,4 +143,5 @@ const Index = () => {
       <Footer />
     </div>;
 };
+
 export default Index;
