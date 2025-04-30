@@ -3,7 +3,7 @@ import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { BeforeAfterExamples } from "@/components/BeforeAfterExamples";
-import { ArrowRight, PaintBucket, Layers, CheckSquare } from "lucide-react";
+import { ArrowRight, PaintBucket, Layers, CheckSquare, Smartphone, Clock } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { Pricing } from "@/components/Pricing";
@@ -30,19 +30,21 @@ const Index = () => {
               <h2 className="text-3xl md:text-5xl font-bold tracking-tighter flex items-center justify-center flex-wrap">
                 <span>How</span> 
                 <span className="mx-3 inline-flex items-center"><PreModelLogo size="md" showText={false} /></span> 
-                <span>Works for Epoxy Floors</span>
+                <span>Works in Your Pocket</span>
               </h2>
-              <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">Transform your epoxy flooring business with powerful visualization tools.</p>
+              <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">
+                Transform your epoxy flooring business with our simple mobile app that delivers results in under 2 minutes.
+              </p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16 mt-10 md:mt-16">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-primary/10 p-6 md:p-8 rounded-full mb-5 md:mb-6">
-                  <PaintBucket className="h-10 w-10 md:h-14 md:w-14 text-primary" />
+                  <Smartphone className="h-10 w-10 md:h-14 md:w-14 text-primary" />
                 </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4">1. Capture the Space</h3>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4">1. Snap & Upload</h3>
                 <p className="text-muted-foreground text-lg">
-                  Take a photo of your client's concrete floor in its current state - garages, basements, showrooms, or commercial spaces.
+                  Open the PreModel mobile app and take a photo of your client's concrete floor, or upload an existing image. Works for garages, basements, showrooms, and commercial spaces.
                 </p>
               </div>
               
@@ -53,9 +55,9 @@ const Index = () => {
                 <div className="bg-primary/10 p-6 md:p-8 rounded-full mb-5 md:mb-6">
                   <Layers className="h-10 w-10 md:h-14 md:w-14 text-primary" />
                 </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4">2. Choose Your Epoxy Style</h3>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4">2. Select & Prompt</h3>
                 <p className="text-muted-foreground text-lg">
-                  Select from various epoxy finishes, colors, and effects - metallic, flake systems, solid colors, or custom designs.
+                  Choose from various epoxy finishes or create a custom prompt describing the exact look you want. The intuitive app interface makes selecting options quick and easy.
                 </p>
               </div>
               
@@ -64,16 +66,16 @@ const Index = () => {
                   <ArrowRight className="h-8 w-8 text-muted-foreground" />
                 </div>
                 <div className="bg-primary/10 p-6 md:p-8 rounded-full mb-5 md:mb-6">
-                  <CheckSquare className="h-10 w-10 md:h-14 md:w-14 text-primary" />
+                  <Clock className="h-10 w-10 md:h-14 md:w-14 text-primary" />
                 </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4">3. Close More Deals</h3>
-                <p className="text-muted-foreground text-lg">Show clients a photorealistic preview of their new epoxy floors. When customers can visualize the results, closing rates increase by 200-300%.</p>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4">3. Get Results in 2 Minutes</h3>
+                <p className="text-muted-foreground text-lg">Show clients a photorealistic preview of their new epoxy floors in less than 2 minutes. When customers can visualize the results instantly, closing rates increase dramatically.</p>
               </div>
             </div>
             
             <div className="mt-12 md:mt-20 text-center">
               <Button onClick={() => window.location.href = "mailto:sales@premodel.ai"} className="bg-primary text-primary-foreground text-lg px-8 py-6 rounded-md">
-                Get Started Today
+                Download App Today
                 <ArrowRight className="ml-3 h-5 w-5" />
               </Button>
             </div>
