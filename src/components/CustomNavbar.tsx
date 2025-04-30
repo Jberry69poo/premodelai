@@ -1,16 +1,15 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { Button } from "@/components/ui/button";
-import { useAuthContext } from "@/hooks/use-auth";
+import { useAuth } from "@/hooks/use-auth";
 import { Menu, X } from "lucide-react";
 
 export const CustomNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { user } = useAuthContext();
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
