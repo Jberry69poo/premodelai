@@ -17,7 +17,7 @@ export function BeforeAfterExamples() {
                   Before
                 </div>
                 <img 
-                  src="/lovable-uploads/254298a2-9cdb-4928-a92c-f3127bb3902f.png" 
+                  src="/lovable-uploads/da974d50-3da6-4a4d-ad70-563295eb53f4.png" 
                   alt="Before garage floor transformation" 
                   className="object-cover w-full h-full" 
                   loading="lazy" 
@@ -31,8 +31,11 @@ export function BeforeAfterExamples() {
                 <div className="absolute top-3 left-3 text-white text-sm rounded font-medium shadow-md backdrop-blur-sm z-10 flex items-center bg-transparent px-0 py-0 my-0 mx-0">
                   <PreModelLogo size="sm" showText={false} />
                 </div>
+                <div className="absolute bottom-3 right-3 bg-white/90 text-black/80 text-sm px-3 py-1 rounded-full font-medium shadow-sm backdrop-blur-sm">
+                  PreModel.AI
+                </div>
                 <img 
-                  src="/lovable-uploads/013a1078-5fca-4674-b267-8343a9989431.png" 
+                  src="/lovable-uploads/aaf5d6f9-0e32-45d3-8080-6359883d01b3.png" 
                   alt="After garage floor transformation" 
                   className="object-cover w-full h-full" 
                   loading="lazy" 
@@ -51,7 +54,7 @@ export function BeforeAfterExamples() {
                 </span>
               </div>
               <p className="text-base md:text-lg text-foreground leading-relaxed">
-                "Transform my standard concrete garage floor into a premium speckled epoxy finish in gray tones that is durable, easy to clean, and enhances the overall appearance of the space"
+                "Transform my concrete garage floor with a rich, glossy amber epoxy finish that enhances the space and is durable enough to handle vehicle traffic"
               </p>
             </div>
           </div>
