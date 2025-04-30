@@ -1,3 +1,4 @@
+
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -6,6 +7,7 @@ import { ArrowRight, PaintBucket, Layers, CheckSquare } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { Pricing } from "@/components/Pricing";
+import { WhatIsPreModel } from "@/components/WhatIsPreModel";
 
 const Index = () => {
   const scrollToSection = (sectionId: string) => {
@@ -19,6 +21,8 @@ const Index = () => {
       
       <main className="flex-1">
         <Hero />
+        
+        <WhatIsPreModel />
 
         <section id="how-it-works" className="py-16 md:py-32 bg-card/30">
           <div className="container max-w-[1400px] mx-auto">
