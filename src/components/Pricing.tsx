@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -40,9 +39,7 @@ export const Pricing = () => {
         "850 PreModels per month",
         "Unlimited user accounts",
         "High-resolution images",
-        "Project organization tools",
-        "Priority customer support",
-        "Custom branding options"
+        "Priority customer support"
       ],
       cta: "Upgrade to Team",
       popular: true
@@ -56,10 +53,7 @@ export const Pricing = () => {
         "2500 PreModels per month",
         "Unlimited user accounts",
         "Maximum resolution images",
-        "Advanced analytics dashboard",
-        "Dedicated account manager",
-        "White-label solution",
-        "API access"
+        "Dedicated account manager"
       ],
       cta: "Contact Sales"
     }
