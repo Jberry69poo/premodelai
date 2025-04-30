@@ -1,123 +1,149 @@
 
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
-import { useAuth } from "@/hooks/use-auth";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AlignJustify } from "lucide-react";
-import { PreModelLogo } from "./PreModelLogo";
+import { cn } from "@/lib/utils";
+import { PreModelLogo } from "@/components/PreModelLogo";
+import { Button } from "@/components/ui/button";
+import { useAuthContext } from "@/hooks/use-auth";
+import { Menu, X } from "lucide-react";
 
 export const CustomNavbar = () => {
-  const {
-    user,
-    signOut
-  } = useAuth();
-  const [isMounted, setIsMounted] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user } = useAuthContext();
+
   useEffect(() => {
-    setIsMounted(true);
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  return <nav className="bg-background border-b">
-      <div className="container flex items-center justify-between py-4">
-        <Link to="/" className="font-bold text-2xl flex items-center">
-          <PreModelLogo size="sm" showText={true} />
-        </Link>
 
-        <div className="hidden md:flex items-center space-x-6 navbar-links">
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                
-                <NavigationMenuContent>
-                  <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] grid-cols-2">
-                    {/*<li>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="/#example1"
-                          className="block p-3 rounded-md hover:bg-accent hover:text-accent-foreground focus:shadow-md"
-                        >
-                          <div className="font-medium leading-none">
-                            Example 1
-                          </div>
-                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            An example of a cool project.
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                     </li>
-                     <li>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="/#example2"
-                          className="block p-3 rounded-md hover:bg-accent hover:text-accent-foreground focus:shadow-md"
-                        >
-                          <div className="font-medium leading-none">
-                            Example 2
-                          </div>
-                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                            Another example of a cool project.
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                     </li>*/}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+  const scrollToSection = (sectionId: string) => {
+    setIsMobileMenuOpen(false);
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+  };
 
-          <a href="#how-it-works" className="text-sm font-medium transition-colors hover:text-primary">
-            How it Works
-          </a>
-          <a href="#examples" className="text-sm font-medium transition-colors hover:text-primary">
-            Examples
-          </a>
-          <a href="#benefits" className="text-sm font-medium transition-colors hover:text-primary">
-            Benefits
-          </a>
+  const navLinks = [
+    { label: "How It Works", id: "how-it-works" },
+    { label: "Examples", id: "examples" },
+    { label: "Benefits", id: "benefits" },
+    { label: "Pricing", id: "pricing" }
+  ];
 
-          {isMounted && (user ? <Button size="sm" onClick={() => signOut()}>
-                Sign Out
-              </Button> : <Link to="/admin">
-                
-              </Link>)}
+  return (
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        isScrolled
+          ? "bg-background/80 backdrop-blur-md shadow-md py-2"
+          : "bg-transparent py-4"
+      )}
+    >
+      <div className="container max-w-[1400px] mx-auto px-4 md:px-6">
+        <div className="flex items-center justify-between">
+          <Link to="/" className="flex items-center">
+            <PreModelLogo showText={true} size="sm" />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-6">
+            {navLinks.map((link) => (
+              <button
+                key={link.id}
+                onClick={() => scrollToSection(link.id)}
+                className="text-foreground/80 hover:text-primary transition-colors"
+              >
+                {link.label}
+              </button>
+            ))}
+          </nav>
+
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center gap-4">
+            {user ? (
+              <Button
+                variant="default"
+                size="sm"
+                asChild
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+              >
+                <Link to="/dashboard">Dashboard</Link>
+              </Button>
+            ) : (
+              <Button
+                onClick={() => window.location.href = "mailto:sales@premodel.ai"}
+                variant="default"
+                size="sm"
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+              >
+                Contact Sales
+              </Button>
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-foreground"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
         </div>
 
-        <Sheet>
-          <SheetTrigger asChild className="md:hidden">
-            <Button variant="outline" size="icon">
-              <AlignJustify className="h-[1.2rem] w-[1.2rem] rotate-0 sm:rotate-0" />
-              <span className="sr-only">Open menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-full sm:w-64">
-            <SheetHeader className="text-left">
-              <SheetTitle>Menu</SheetTitle>
-              <SheetDescription>
-                Explore epoxy flooring visualization solutions.
-              </SheetDescription>
-            </SheetHeader>
-            <div className="mt-4 flex flex-col space-y-2">
-              <Link to="/" className="block py-2 hover:text-primary">
-                Home
-              </Link>
-              <a href="#how-it-works" className="block py-2 hover:text-primary">
-                How it Works
-              </a>
-              <a href="#examples" className="block py-2 hover:text-primary">
-                Examples
-              </a>
-              <a href="#benefits" className="block py-2 hover:text-primary">
-                Benefits
-              </a>
-              {isMounted && (user ? <Button size="sm" onClick={() => signOut()}>
-                    Sign Out
-                  </Button> : <Link to="/admin">
-                    <Button size="sm">Admin</Button>
-                  </Link>)}
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden pt-4 pb-6 mt-2 space-y-4 border-t border-border/50">
+            {navLinks.map((link) => (
+              <div key={link.id} className="py-2">
+                <button
+                  onClick={() => scrollToSection(link.id)}
+                  className="text-foreground/80 hover:text-primary transition-colors w-full text-left"
+                >
+                  {link.label}
+                </button>
+              </div>
+            ))}
+            <div className="pt-4 border-t border-border/50">
+              {user ? (
+                <Button
+                  variant="default"
+                  size="sm"
+                  asChild
+                  className="w-full"
+                >
+                  <Link to="/dashboard">Dashboard</Link>
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => window.location.href = "mailto:sales@premodel.ai"}
+                  variant="default"
+                  size="sm"
+                  className="w-full"
+                >
+                  Contact Sales
+                </Button>
+              )}
             </div>
-          </SheetContent>
-        </Sheet>
+          </div>
+        )}
       </div>
-    </nav>;
+    </header>
+  );
 };

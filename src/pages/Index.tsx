@@ -1,4 +1,3 @@
-
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { BeforeAfterExamples } from "@/components/BeforeAfterExamples";
 import { ArrowRight, PaintBucket, Layers, CheckSquare } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { PreModelLogo } from "@/components/PreModelLogo";
+import { Pricing } from "@/components/Pricing";
 
 const Index = () => {
   const scrollToSection = (sectionId: string) => {
@@ -132,6 +132,8 @@ const Index = () => {
             </div>
           </div>
         </section>
+        
+        <Pricing />
       </main>
       
       <Footer />
