@@ -1,4 +1,3 @@
-
 import { CustomNavbar } from "@/components/CustomNavbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -8,14 +7,12 @@ import { Hero } from "@/components/Hero";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { Pricing } from "@/components/Pricing";
 import { WhatIsPreModel } from "@/components/WhatIsPreModel";
-
 const Index = () => {
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({
       behavior: "smooth"
     });
   };
-
   return <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
       <CustomNavbar />
       
@@ -56,9 +53,7 @@ const Index = () => {
                   <Layers className="h-10 w-10 md:h-14 md:w-14 text-primary" />
                 </div>
                 <h3 className="text-xl md:text-2xl font-semibold mb-4">2. Select & Prompt</h3>
-                <p className="text-muted-foreground text-lg">
-                  Choose from various epoxy finishes or create a custom prompt describing the exact look you want. The intuitive app interface makes selecting options quick and easy.
-                </p>
+                <p className="text-muted-foreground text-lg">Write a custom prompt describing the exact look you want or upload a color sample photo. After this, PreModel gets to work.</p>
               </div>
               
               <div className="flex flex-col items-center text-center relative">
@@ -145,5 +140,4 @@ const Index = () => {
       <Footer />
     </div>;
 };
-
 export default Index;
