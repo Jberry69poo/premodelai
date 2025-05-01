@@ -7,6 +7,7 @@ import { ArrowRight, PaintBucket, Layers, CheckSquare, Smartphone, Clock } from 
 import { Hero } from "@/components/Hero";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { Pricing } from "@/components/Pricing";
+import { VideoSection } from "@/components/VideoSection";
 
 const Index = () => {
   const scrollToSection = (sectionId: string) => {
@@ -21,7 +22,10 @@ const Index = () => {
       <main className="flex-1">
         <Hero />
         
-        {/* Moved Examples right after Hero */}
+        {/* Video Section - How PreModel Works */}
+        <VideoSection />
+        
+        {/* Examples Section */}
         <section id="examples" className="py-16 md:py-24">
           <div className="container max-w-[1400px] mx-auto">
             <div className="text-center mb-12 md:mb-16">
