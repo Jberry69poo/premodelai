@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -21,16 +22,27 @@ const beforeAfterExamples = [{
   afterImage: "/lovable-uploads/013a1078-5fca-4674-b267-8343a9989431.png",
   beforeAlt: "Before gray speckled garage floor",
   afterAlt: "After gray speckled garage floor"
+}, {
+  id: 3,
+  title: "Tan Flake Epoxy Garage Floor",
+  beforeImage: "/lovable-uploads/985ef332-a875-43f5-bc54-28028eb078ed.png",
+  afterImage: "/lovable-uploads/59d135cf-4ca2-477d-b8e4-8eb04678e9cd.png",
+  beforeAlt: "Before tan flake epoxy garage floor",
+  afterAlt: "After tan flake epoxy garage floor with organized storage"
 }];
+
 export function BeforeAfterExamples() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeExample = beforeAfterExamples[activeIndex];
+  
   const handlePrevious = () => {
     setActiveIndex(prev => prev === 0 ? beforeAfterExamples.length - 1 : prev - 1);
   };
+  
   const handleNext = () => {
     setActiveIndex(prev => (prev + 1) % beforeAfterExamples.length);
   };
+  
   return <div className="w-full max-w-5xl mx-auto">
       {/* Title & Pagination */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
@@ -56,7 +68,7 @@ export function BeforeAfterExamples() {
             <div className="absolute top-3 left-3 bg-black/70 text-white text-sm font-medium px-3 py-1 rounded-md z-10">
               Before
             </div>
-            <div className="aspect-video">
+            <div className="aspect-video w-full h-[300px] md:h-[350px]">
               <img src={activeExample.beforeImage} alt={activeExample.beforeAlt} className="object-cover w-full h-full" loading="lazy" />
             </div>
           </div>
@@ -71,7 +83,7 @@ export function BeforeAfterExamples() {
             <div className="absolute bottom-3 right-3 bg-white/90 text-black/80 text-sm px-3 py-1 rounded-full font-medium">
               PreModel.AI
             </div>
-            <div className="aspect-video">
+            <div className="aspect-video w-full h-[300px] md:h-[350px]">
               <img src={activeExample.afterImage} alt={activeExample.afterAlt} className="object-cover w-full h-full" loading="lazy" />
             </div>
           </div>
