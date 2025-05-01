@@ -87,9 +87,6 @@ export function BeforeAfterExamples() {
             <div className="absolute top-3 left-3 z-10">
               <PreModelLogo size="sm" showText={false} />
             </div>
-            <div className="absolute bottom-3 right-3 bg-white/90 text-black/80 text-sm px-3 py-1 rounded-full font-medium">
-              PreModel.AI
-            </div>
             <div className="aspect-video w-full h-[300px] md:h-[350px]">
               <img src={activeExample.afterImage} alt={activeExample.afterAlt} className="object-cover w-full h-full" loading="lazy" />
             </div>
