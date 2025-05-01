@@ -88,8 +88,8 @@ export const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* CTA section with app download button and example button */}
-          <motion.div className="mt-10 md:mt-16 flex flex-col sm:flex-row items-center justify-center gap-5" initial={{
+          {/* CTA section with app download button */}
+          <motion.div className="mt-10 md:mt-16 flex items-center justify-center gap-5" initial={{
           opacity: 0,
           y: 30
         }} animate={{
@@ -110,18 +110,6 @@ export const Hero = () => {
               <span className="flex items-center">
                 Download the App
                 <Apple className="ml-3 h-5 w-5 md:h-6 md:w-6" />
-              </span>
-            </Button>
-            
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="text-lg px-8 py-7 border-primary/30 hover:bg-primary/10" 
-              onClick={() => scrollToSection("examples")}
-            >
-              <span className="flex items-center">
-                See Epoxy Examples
-                <Eye className="ml-3 h-5 w-5 md:h-6 md:w-6" />
               </span>
             </Button>
           </motion.div>
@@ -147,4 +135,3 @@ export const Hero = () => {
       </div>
     </section>;
 };
-
