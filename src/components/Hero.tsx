@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { PreModelLogo } from "@/components/PreModelLogo";
-import { ArrowRight, Eye, Zap, Building, Layers, PaintBucket, Download } from "lucide-react";
+import { ArrowRight, Eye, Zap, Building, Layers, PaintBucket, Apple } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -109,7 +109,7 @@ export const Hero = () => {
             >
               <span className="flex items-center">
                 Download the App
-                <Download className="ml-3 h-5 w-5 md:h-6 md:w-6" />
+                <Apple className="ml-3 h-5 w-5 md:h-6 md:w-6" />
               </span>
             </Button>
             
@@ -147,3 +147,4 @@ export const Hero = () => {
       </div>
     </section>;
 };
+
