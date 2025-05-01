@@ -43,7 +43,7 @@ export const Hero = () => {
     }
   };
   
-  return <section className="relative overflow-hidden bg-gradient-to-b from-background via-background/90 to-primary/5 pt-32 pb-24 md:pt-40 md:pb-32 px-4 min-h-[90vh] flex items-center">
+  return <section className="relative overflow-hidden bg-gradient-to-b from-background via-background/90 to-primary/5 pt-32 pb-12 md:pt-40 md:pb-16 px-4 min-h-[80vh] flex items-center">
       {/* Background Elements */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         <div className="absolute top-0 right-[10%] h-[50rem] w-[50rem] rounded-full bg-primary/5 blur-[150px]" />
@@ -66,10 +66,10 @@ export const Hero = () => {
         }} transition={{
           duration: 0.8,
           delay: 0.2
-        }}>Revolutionizing Epoxy Floor Sales</motion.h1>
+        }}>The App Epoxy Pros Need to Close More Deals</motion.h1>
           
           {/* Subheading */}
-          <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">PreModel visualizes stunning epoxy floors for your customers before installation, turning estimates into impressive visual experiences that close deals.</motion.p>
+          <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">PreModel creates visualizations of the finished project before the work even starts. Measure, PreModel, Sell.</motion.p>
 
           {/* Value props */}
           <motion.div className="mt-10 md:mt-16 flex flex-col md:flex-row justify-center md:gap-x-16 gap-y-6" variants={staggerChildren} initial="hidden" animate="visible">
@@ -110,7 +110,7 @@ export const Hero = () => {
           </motion.div>
           
           {/* Social Proof */}
-          <motion.div className="mt-16 md:mt-24 border-t border-border/30 pt-8 md:pt-10 w-full" initial={{
+          <motion.div className="mt-16 md:mt-20 border-t border-border/30 pt-8 md:pt-10 w-full" initial={{
           opacity: 0
         }} animate={{
           opacity: 1
@@ -128,8 +128,5 @@ export const Hero = () => {
           </motion.div>
         </div>
       </div>
-      
-      {/* Decorative bottom wave */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSI3MHB4IiB2aWV3Qm94PSIwIDAgMTI4MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iIzExMTIxMyI+PHBhdGggZD0iTTEyODAgMEw2NDAgNzAgMCAwdjE0MGgxMjgwVjB6IiBmaWxsLW9wYWNpdHk9Ii41Ii8+PHBhdGggZD0iTTEyODAgMGwtNjQwIDcwLTY0MC03MHY3MGgxMjgwVjB6Ii8+PC9nPjwvc3ZnPg==')] bg-bottom bg-no-repeat"></div>
     </section>;
 };
