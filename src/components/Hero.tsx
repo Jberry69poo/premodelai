@@ -69,7 +69,7 @@ export const Hero = () => {
         }}>The App Epoxy Pros Need to Close More Deals</motion.h1>
           
           {/* Subheading */}
-          <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">PreModel creates visualizations of the finished project before the work even starts. Measure, PreModel, Sell.</motion.p>
+          <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">PreModel creates visualizations of the finished project before the work even starts.</motion.p>
 
           {/* Value props */}
           <motion.div className="mt-10 md:mt-16 flex flex-col md:flex-row justify-center md:gap-x-16 gap-y-6" variants={staggerChildren} initial="hidden" animate="visible">
