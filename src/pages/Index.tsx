@@ -39,50 +39,6 @@ const Index = () => {
             <BeforeAfterExamples />
           </div>
         </section>
-
-        <section id="benefits" className="py-16 md:py-32 bg-card/30">
-          <div className="container max-w-[1400px] mx-auto">
-            <div className="text-center mb-12 md:mb-20">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Why Epoxy Contractors Choose PreModel</h2>
-              <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">
-                The competitive advantage that sets successful epoxy flooring companies apart
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-background/80 p-8 rounded-lg border border-primary/10 hover:border-primary/30 transition-colors">
-                <div className="bg-primary/10 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
-                  <CheckSquare className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Higher Close Rates</h3>
-                <p className="text-muted-foreground">Convert more consultations to signed contracts when clients can visualize their finished epoxy floors.</p>
-              </div>
-              
-              <div className="bg-background/80 p-8 rounded-lg border border-primary/10 hover:border-primary/30 transition-colors">
-                <div className="bg-primary/10 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
-                  <Layers className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Upsell Premium Finishes</h3>
-                <p className="text-muted-foreground">Easily demonstrate the value of higher-end epoxy systems and decorative options with realistic visualizations.</p>
-              </div>
-              
-              <div className="bg-background/80 p-8 rounded-lg border border-primary/10 hover:border-primary/30 transition-colors">
-                <div className="bg-primary/10 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
-                  <PaintBucket className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Eliminate Design Confusion</h3>
-                <p className="text-muted-foreground">Reduce miscommunications by showing exactly how different epoxy colors and patterns will look in the actual space.</p>
-              </div>
-            </div>
-            
-            <div className="mt-16 text-center">
-              <Button onClick={() => window.location.href = "mailto:sales@premodel.ai"} className="bg-primary text-primary-foreground text-lg px-8 py-6 rounded-md">
-                Schedule a Demo
-                <ArrowRight className="ml-3 h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-        </section>
         
         <Pricing />
       </main>
