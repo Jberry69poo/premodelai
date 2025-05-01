@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -37,19 +36,15 @@ const beforeAfterExamples = [{
   beforeAlt: "Before light gray epoxy floor installation",
   afterAlt: "After light gray epoxy floor installation"
 }];
-
 export function BeforeAfterExamples() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeExample = beforeAfterExamples[activeIndex];
-  
   const handlePrevious = () => {
     setActiveIndex(prev => prev === 0 ? beforeAfterExamples.length - 1 : prev - 1);
   };
-  
   const handleNext = () => {
     setActiveIndex(prev => (prev + 1) % beforeAfterExamples.length);
   };
-  
   return <div className="w-full max-w-5xl mx-auto">
       {/* Title & Pagination */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
@@ -115,7 +110,7 @@ export function BeforeAfterExamples() {
                 <div className="p-2 rounded-full bg-primary/20 mb-2">
                   <DollarSign className="h-5 w-5 text-primary" />
                 </div>
-                <span className="text-sm font-medium">$25K+ Closed Deals</span>
+                <span className="text-sm font-medium">$2M+ Closed Deals</span>
               </div>
               
               <div className="flex flex-col items-center text-center p-3">
