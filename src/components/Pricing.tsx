@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ interface PricingPlan {
   cta: string;
   popular?: boolean;
   preModels: string;
+  stripeLink?: string;
 }
 
 export const Pricing = () => {
@@ -28,7 +30,8 @@ export const Pricing = () => {
         "Client sharing capabilities",
         "Email support"
       ],
-      cta: "Get Started"
+      cta: "Get Started",
+      stripeLink: "https://buy.stripe.com/7sI28U5WNcUo7VC9B9"
     },
     {
       name: "Team",
@@ -108,7 +111,13 @@ export const Pricing = () => {
               
               <CardFooter className="pt-6 pb-8">
                 <Button
-                  onClick={() => window.location.href = "mailto:sales@premodel.ai"}
+                  onClick={() => {
+                    if (plan.stripeLink) {
+                      window.open(plan.stripeLink, "_blank");
+                    } else {
+                      window.location.href = "mailto:sales@premodel.ai";
+                    }
+                  }}
                   className={cn(
                     "w-full py-6 text-lg",
                     plan.popular 

@@ -99,8 +99,8 @@ export const Hero = () => {
           duration: 0.6,
           delay: 0.8
         }}>
-            {/* Increased logo size */}
-            <PreModelLogo size="lg" showText={false} />
+            {/* Reduced logo size to match button height */}
+            <PreModelLogo size="md" showText={false} />
             
             <Button 
               variant="default" 
