@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -92,7 +91,7 @@ export const Pricing = () => {
         <div className="text-center mt-12 pt-8 border-t border-border/30">
           <div className="flex items-center justify-center gap-3 mb-6">
             <Users className="h-5 w-5 text-primary" />
-            <span className="text-lg font-medium">Need a custom plan for your business?</span>
+            <span className="text-lg font-medium">Download the app  to get started</span>
           </div>
           <Button variant="outline" onClick={() => window.location.href = "mailto:sales@premodel.ai?subject=Custom%20PreModel%20Plan%20Inquiry"} className="text-lg px-8 py-6 border-primary/30 hover:bg-primary/10">
             Contact our sales team
