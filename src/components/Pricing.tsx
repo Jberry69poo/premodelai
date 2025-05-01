@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -38,7 +37,8 @@ export const Pricing = () => {
     preModels: "2500 PreModels/mo",
     description: "For established epoxy flooring companies with high volume needs.",
     features: ["2500 PreModels per month", "Unlimited user accounts", "Maximum resolution images", "Dedicated account manager"],
-    cta: "Contact Sales"
+    cta: "Contact Sales",
+    stripeLink: "https://buy.stripe.com/fZe6paetj6w07VCcNn"
   }];
   return <section id="pricing" className="py-16 md:py-32">
       <div className="container max-w-[1400px] mx-auto px-4 md:px-6">
