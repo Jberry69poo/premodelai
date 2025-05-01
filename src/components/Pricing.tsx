@@ -1,7 +1,8 @@
+
 import React from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, Users } from "lucide-react";
+import { ArrowRight, Check, Users, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 interface PricingPlan {
   name: string;
@@ -88,14 +89,26 @@ export const Pricing = () => {
             </Card>)}
         </div>
         
-        <div className="text-center mt-12 pt-8 border-t border-border/30">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <Users className="h-5 w-5 text-primary" />
-            <span className="text-lg font-medium">Download the app  to get started</span>
-          </div>
-          <Button variant="outline" onClick={() => window.location.href = "mailto:sales@premodel.ai?subject=Custom%20PreModel%20Plan%20Inquiry"} className="text-lg px-8 py-6 border-primary/30 hover:bg-primary/10">
-            Contact our sales team
+        {/* Download button section */}
+        <div className="text-center mt-16 pt-8 border-t border-border/30">
+          <Button 
+            size="lg" 
+            onClick={() => window.open("https://premodel.page.link/app", "_blank")}
+            className="text-xl px-12 py-8 h-auto bg-primary text-primary-foreground hover:bg-primary/90"
+          >
+            <Download className="mr-3 h-6 w-6" />
+            Download the App to Onboard Your Team
           </Button>
+          
+          <div className="mt-8 text-center">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Users className="h-5 w-5 text-primary" />
+              <span className="text-lg font-medium">Need help getting started?</span>
+            </div>
+            <Button variant="outline" onClick={() => window.location.href = "mailto:sales@premodel.ai?subject=Custom%20PreModel%20Plan%20Inquiry"} className="text-lg px-8 py-6 border-primary/30 hover:bg-primary/10">
+              Contact our sales team
+            </Button>
+          </div>
         </div>
       </div>
     </section>;
