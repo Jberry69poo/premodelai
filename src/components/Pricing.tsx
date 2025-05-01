@@ -2,7 +2,7 @@
 import React from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, Users, Download } from "lucide-react";
+import { ArrowRight, Check, Users, Apple } from "lucide-react";
 import { cn } from "@/lib/utils";
 interface PricingPlan {
   name: string;
@@ -93,10 +93,10 @@ export const Pricing = () => {
         <div className="text-center mt-16 pt-8 border-t border-border/30">
           <Button 
             size="lg" 
-            onClick={() => window.open("https://premodel.page.link/app", "_blank")}
+            onClick={() => window.open("https://apps.apple.com/us/app/premodel-ai/id6744342396", "_blank")}
             className="text-xl px-12 py-8 h-auto bg-primary text-primary-foreground hover:bg-primary/90"
           >
-            <Download className="mr-3 h-6 w-6" />
+            <Apple className="mr-3 h-6 w-6" />
             Download the App to Onboard Your Team
           </Button>
           
