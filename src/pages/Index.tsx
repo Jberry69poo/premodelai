@@ -7,7 +7,6 @@ import { ArrowRight, PaintBucket, Layers, CheckSquare, Smartphone, Clock } from 
 import { Hero } from "@/components/Hero";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { Pricing } from "@/components/Pricing";
-import { WhatIsPreModel } from "@/components/WhatIsPreModel";
 
 const Index = () => {
   const scrollToSection = (sectionId: string) => {
@@ -34,64 +33,6 @@ const Index = () => {
             </div>
             
             <BeforeAfterExamples />
-          </div>
-        </section>
-        
-        <WhatIsPreModel />
-
-        <section id="how-it-works" className="py-16 md:py-32 bg-card/30">
-          <div className="container max-w-[1400px] mx-auto">
-            <div className="text-center mb-12 md:mb-20">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter flex items-center justify-center flex-wrap">
-                <span>How</span> 
-                <span className="mx-3 inline-flex items-center"><PreModelLogo size="md" showText={false} /></span> 
-                <span>Works in Your Pocket</span>
-              </h2>
-              <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">
-                Transform your epoxy flooring business with our simple mobile app that delivers results in under 2 minutes.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16 mt-10 md:mt-16">
-              <div className="flex flex-col items-center text-center">
-                <div className="bg-primary/10 p-6 md:p-8 rounded-full mb-5 md:mb-6">
-                  <Smartphone className="h-10 w-10 md:h-14 md:w-14 text-primary" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4">1. Snap & Upload</h3>
-                <p className="text-muted-foreground text-lg">
-                  Open the PreModel mobile app and take a photo of your client's concrete floor, or upload an existing image. Works for garages, basements, showrooms, and commercial spaces.
-                </p>
-              </div>
-              
-              <div className="flex flex-col items-center text-center relative">
-                <div className="absolute left-0 top-12 hidden md:block">
-                  <ArrowRight className="h-8 w-8 text-muted-foreground" />
-                </div>
-                <div className="bg-primary/10 p-6 md:p-8 rounded-full mb-5 md:mb-6">
-                  <Layers className="h-10 w-10 md:h-14 md:w-14 text-primary" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4">2. Select & Prompt</h3>
-                <p className="text-muted-foreground text-lg">Write a custom prompt describing the exact look you want or upload a color sample photo. After this, PreModel gets to work.</p>
-              </div>
-              
-              <div className="flex flex-col items-center text-center relative">
-                <div className="absolute left-0 top-12 hidden md:block">
-                  <ArrowRight className="h-8 w-8 text-muted-foreground" />
-                </div>
-                <div className="bg-primary/10 p-6 md:p-8 rounded-full mb-5 md:mb-6">
-                  <Clock className="h-10 w-10 md:h-14 md:w-14 text-primary" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4">3. Get Results in 2 Minutes</h3>
-                <p className="text-muted-foreground text-lg">Show clients a photorealistic preview of their new epoxy floors in less than 2 minutes. When customers can visualize the results instantly, closing rates increase dramatically.</p>
-              </div>
-            </div>
-            
-            <div className="mt-12 md:mt-20 text-center">
-              <Button onClick={() => window.location.href = "mailto:sales@premodel.ai"} className="bg-primary text-primary-foreground text-lg px-8 py-6 rounded-md">
-                Download App Today
-                <ArrowRight className="ml-3 h-5 w-5" />
-              </Button>
-            </div>
           </div>
         </section>
 

@@ -51,7 +51,7 @@ export function BeforeAfterExamples() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-5xl mx-auto">
       {/* Title & Pagination */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
         <h3 className="text-2xl md:text-3xl font-bold mb-4 sm:mb-0">
@@ -82,7 +82,7 @@ export function BeforeAfterExamples() {
             <div className="absolute top-3 left-3 bg-black/70 text-white text-sm font-medium px-3 py-1 rounded-md z-10">
               Before
             </div>
-            <div className="aspect-[4/3]">
+            <div className="aspect-video">
               <img 
                 src={activeExample.beforeImage} 
                 alt={activeExample.beforeAlt} 
@@ -102,7 +102,7 @@ export function BeforeAfterExamples() {
             <div className="absolute bottom-3 right-3 bg-white/90 text-black/80 text-sm px-3 py-1 rounded-full font-medium">
               PreModel.AI
             </div>
-            <div className="aspect-[4/3]">
+            <div className="aspect-video">
               <img 
                 src={activeExample.afterImage} 
                 alt={activeExample.afterAlt} 
