@@ -95,7 +95,7 @@ export function BeforeAfterExamples() {
           <div className="flex flex-col md:flex-row md:items-center gap-6">
             <div className="flex flex-col gap-4">
               <h4 className="text-lg md:text-xl font-semibold text-primary">Real Business Impact</h4>
-              <p className="text-base md:text-lg">These photorealistic renderings were created in under 90 seconds using PreModel.AI, helping contractors close more than $2,500,000 worth of projects on the spot. When clients can visualize the transformation, they're ready to sign.</p>
+              <p className="text-base md:text-lg">These PreModels were created in under 90 seconds, Helping contractors close more than $2,500,000 worth of projects on the spot. When clients can visualize the transformation, You close more deals.</p>
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4 md:mt-0">
@@ -117,7 +117,7 @@ export function BeforeAfterExamples() {
                 <div className="p-2 rounded-full bg-primary/20 mb-2">
                   <CheckSquare className="h-5 w-5 text-primary" />
                 </div>
-                <span className="text-sm font-medium">Instant Approvals</span>
+                <span className="text-sm font-medium">2-3X Close Rates</span>
               </div>
             </div>
           </div>
