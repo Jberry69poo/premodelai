@@ -29,6 +29,13 @@ const beforeAfterExamples = [{
   afterImage: "/lovable-uploads/59d135cf-4ca2-477d-b8e4-8eb04678e9cd.png",
   beforeAlt: "Before tan flake epoxy garage floor",
   afterAlt: "After tan flake epoxy garage floor with organized storage"
+}, {
+  id: 4,
+  title: "Light Gray Epoxy Floor",
+  beforeImage: "/lovable-uploads/d0531a73-ff16-470d-b399-738dbcb5c977.png",
+  afterImage: "/lovable-uploads/a68ad189-39ba-4f82-a9ee-ef57f49e529b.png",
+  beforeAlt: "Before light gray epoxy floor installation",
+  afterAlt: "After light gray epoxy floor installation"
 }];
 
 export function BeforeAfterExamples() {
