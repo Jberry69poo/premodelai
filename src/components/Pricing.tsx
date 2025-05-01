@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -28,7 +29,7 @@ export const Pricing = () => {
     preModels: "850 PreModels/mo",
     description: "Ideal for growing epoxy businesses with multiple team members.",
     features: ["850 PreModels per month", "Unlimited user accounts", "High-resolution images", "Priority customer support"],
-    cta: "Upgrade to Team",
+    cta: "Get Started",
     popular: true,
     stripeLink: "https://buy.stripe.com/6oE3cYbh7f2w1xe6oY"
   }, {
@@ -37,7 +38,7 @@ export const Pricing = () => {
     preModels: "2500 PreModels/mo",
     description: "For established epoxy flooring companies with high volume needs.",
     features: ["2500 PreModels per month", "Unlimited user accounts", "Maximum resolution images", "Dedicated account manager"],
-    cta: "Contact Sales",
+    cta: "Get Started",
     stripeLink: "https://buy.stripe.com/fZe6paetj6w07VCcNn"
   }];
   return <section id="pricing" className="py-16 md:py-32">
