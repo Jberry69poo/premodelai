@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -36,15 +37,19 @@ const beforeAfterExamples = [{
   beforeAlt: "Before light gray epoxy floor installation",
   afterAlt: "After light gray epoxy floor installation"
 }];
+
 export function BeforeAfterExamples() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeExample = beforeAfterExamples[activeIndex];
+  
   const handlePrevious = () => {
     setActiveIndex(prev => prev === 0 ? beforeAfterExamples.length - 1 : prev - 1);
   };
+  
   const handleNext = () => {
     setActiveIndex(prev => (prev + 1) % beforeAfterExamples.length);
   };
+  
   return <div className="w-full max-w-5xl mx-auto">
       {/* Title & Pagination */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
@@ -95,7 +100,7 @@ export function BeforeAfterExamples() {
           <div className="flex flex-col md:flex-row md:items-center gap-6">
             <div className="flex flex-col gap-4">
               <h4 className="text-lg md:text-xl font-semibold text-primary">Real Business Impact</h4>
-              <p className="text-base md:text-lg">These PreModels were created in under 90 seconds, Helping contractors close more than $2,500,000 worth of projects on the spot. When clients can visualize the transformation, You close more deals.</p>
+              <p className="text-base md:text-lg">When clients can visualize the transformation, You close more deals.</p>
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4 md:mt-0">
