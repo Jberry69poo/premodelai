@@ -1,57 +1,37 @@
-
 import { useState } from "react";
 import { PreModelLogo } from "@/components/PreModelLogo";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-  Pagination, 
-  PaginationContent, 
-  PaginationItem, 
-  PaginationLink 
-} from "@/components/ui/pagination";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@/components/ui/pagination";
 import { ArrowLeft, ArrowRight, Clock, DollarSign, CheckSquare } from "lucide-react";
 
 // Example data for better organization
-const beforeAfterExamples = [
-  {
-    id: 1,
-    title: "Amber Epoxy Garage Floor",
-    beforeImage: "/lovable-uploads/da974d50-3da6-4a4d-ad70-563295eb53f4.png",
-    afterImage: "/lovable-uploads/aaf5d6f9-0e32-45d3-8080-6359883d01b3.png",
-    beforeAlt: "Before garage floor transformation",
-    afterAlt: "After garage floor transformation"
-  },
-  {
-    id: 2,
-    title: "Gray Speckled Epoxy Garage Floor",
-    beforeImage: "/lovable-uploads/254298a2-9cdb-4928-a92c-f3127bb3902f.png",
-    afterImage: "/lovable-uploads/013a1078-5fca-4674-b267-8343a9989431.png",
-    beforeAlt: "Before gray speckled garage floor",
-    afterAlt: "After gray speckled garage floor"
-  }
-];
-
+const beforeAfterExamples = [{
+  id: 1,
+  title: "Amber Epoxy Garage Floor",
+  beforeImage: "/lovable-uploads/da974d50-3da6-4a4d-ad70-563295eb53f4.png",
+  afterImage: "/lovable-uploads/aaf5d6f9-0e32-45d3-8080-6359883d01b3.png",
+  beforeAlt: "Before garage floor transformation",
+  afterAlt: "After garage floor transformation"
+}, {
+  id: 2,
+  title: "Gray Speckled Epoxy Garage Floor",
+  beforeImage: "/lovable-uploads/254298a2-9cdb-4928-a92c-f3127bb3902f.png",
+  afterImage: "/lovable-uploads/013a1078-5fca-4674-b267-8343a9989431.png",
+  beforeAlt: "Before gray speckled garage floor",
+  afterAlt: "After gray speckled garage floor"
+}];
 export function BeforeAfterExamples() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeExample = beforeAfterExamples[activeIndex];
-
   const handlePrevious = () => {
-    setActiveIndex(prev => (prev === 0 ? beforeAfterExamples.length - 1 : prev - 1));
+    setActiveIndex(prev => prev === 0 ? beforeAfterExamples.length - 1 : prev - 1);
   };
-
   const handleNext = () => {
     setActiveIndex(prev => (prev + 1) % beforeAfterExamples.length);
   };
-
-  return (
-    <div className="w-full max-w-5xl mx-auto">
+  return <div className="w-full max-w-5xl mx-auto">
       {/* Title & Pagination */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
         <h3 className="text-2xl md:text-3xl font-bold mb-4 sm:mb-0">
@@ -59,17 +39,11 @@ export function BeforeAfterExamples() {
         </h3>
         <Pagination>
           <PaginationContent>
-            {beforeAfterExamples.map((example, index) => (
-              <PaginationItem key={example.id}>
-                <PaginationLink 
-                  onClick={() => setActiveIndex(index)} 
-                  isActive={index === activeIndex}
-                  className="cursor-pointer"
-                >
+            {beforeAfterExamples.map((example, index) => <PaginationItem key={example.id}>
+                <PaginationLink onClick={() => setActiveIndex(index)} isActive={index === activeIndex} className="cursor-pointer">
                   {index + 1}
                 </PaginationLink>
-              </PaginationItem>
-            ))}
+              </PaginationItem>)}
           </PaginationContent>
         </Pagination>
       </div>
@@ -83,12 +57,7 @@ export function BeforeAfterExamples() {
               Before
             </div>
             <div className="aspect-video">
-              <img 
-                src={activeExample.beforeImage} 
-                alt={activeExample.beforeAlt} 
-                className="object-cover w-full h-full" 
-                loading="lazy" 
-              />
+              <img src={activeExample.beforeImage} alt={activeExample.beforeAlt} className="object-cover w-full h-full" loading="lazy" />
             </div>
           </div>
         </Card>
@@ -103,12 +72,7 @@ export function BeforeAfterExamples() {
               PreModel.AI
             </div>
             <div className="aspect-video">
-              <img 
-                src={activeExample.afterImage} 
-                alt={activeExample.afterAlt} 
-                className="object-cover w-full h-full" 
-                loading="lazy" 
-              />
+              <img src={activeExample.afterImage} alt={activeExample.afterAlt} className="object-cover w-full h-full" loading="lazy" />
             </div>
           </div>
         </Card>
@@ -120,11 +84,7 @@ export function BeforeAfterExamples() {
           <div className="flex flex-col md:flex-row md:items-center gap-6">
             <div className="flex flex-col gap-4">
               <h4 className="text-lg md:text-xl font-semibold text-primary">Real Business Impact</h4>
-              <p className="text-base md:text-lg">
-                These photorealistic renderings were created in under 90 seconds using PreModel.AI, 
-                helping contractors close more than $25,000 worth of projects on the spot. 
-                When clients can instantly see the transformation, they're ready to sign.
-              </p>
+              <p className="text-base md:text-lg">These photorealistic renderings were created in under 90 seconds using PreModel.AI, helping contractors close more than $2,500,000 worth of projects on the spot. When clients can visualize the transformation, they're ready to sign.</p>
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4 md:mt-0">
@@ -155,23 +115,14 @@ export function BeforeAfterExamples() {
       
       {/* Navigation buttons */}
       <div className="flex justify-center gap-4">
-        <Button 
-          variant="outline" 
-          onClick={handlePrevious}
-          className="flex items-center gap-2"
-        >
+        <Button variant="outline" onClick={handlePrevious} className="flex items-center gap-2">
           <ArrowLeft size={18} />
           Previous Example
         </Button>
-        <Button 
-          variant="default"
-          onClick={handleNext}
-          className="flex items-center gap-2"
-        >
+        <Button variant="default" onClick={handleNext} className="flex items-center gap-2">
           Next Example
           <ArrowRight size={18} />
         </Button>
       </div>
-    </div>
-  );
+    </div>;
 }
