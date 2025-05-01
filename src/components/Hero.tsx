@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { PreModelLogo } from "@/components/PreModelLogo";
-import { ArrowRight, Eye, Zap, Building, Layers, PaintBucket } from "lucide-react";
+import { ArrowRight, Eye, Zap, Building, Layers, PaintBucket, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -88,7 +88,7 @@ export const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* CTA section with logo on the left of the button */}
+          {/* CTA section with app download button and example button */}
           <motion.div className="mt-10 md:mt-16 flex flex-col sm:flex-row items-center justify-center gap-5" initial={{
           opacity: 0,
           y: 30
@@ -101,7 +101,24 @@ export const Hero = () => {
         }}>
             <PreModelLogo size="md" showText={false} />
             
-            <Button variant="outline" size="lg" className="text-lg px-8 py-7 border-primary/30 hover:bg-primary/10" onClick={() => scrollToSection("examples")}>
+            <Button 
+              variant="default" 
+              size="lg" 
+              className="text-lg px-8 py-7 bg-primary hover:bg-primary/90" 
+              onClick={() => window.open("https://apps.apple.com/us/app/premodel-ai/id6744342396", "_blank")}
+            >
+              <span className="flex items-center">
+                Download the App
+                <Download className="ml-3 h-5 w-5 md:h-6 md:w-6" />
+              </span>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="text-lg px-8 py-7 border-primary/30 hover:bg-primary/10" 
+              onClick={() => scrollToSection("examples")}
+            >
               <span className="flex items-center">
                 See Epoxy Examples
                 <Eye className="ml-3 h-5 w-5 md:h-6 md:w-6" />
