@@ -88,8 +88,8 @@ export const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* CTA section with app download button */}
-          <motion.div className="mt-10 md:mt-16 flex items-center justify-center gap-5" initial={{
+          {/* CTA section with app logo and download button */}
+          <motion.div className="mt-10 md:mt-16 flex flex-col items-center justify-center gap-5" initial={{
           opacity: 0,
           y: 30
         }} animate={{
@@ -99,7 +99,8 @@ export const Hero = () => {
           duration: 0.6,
           delay: 0.8
         }}>
-            <PreModelLogo size="md" showText={false} />
+            {/* Increased logo size */}
+            <PreModelLogo size="lg" showText={false} />
             
             <Button 
               variant="default" 
