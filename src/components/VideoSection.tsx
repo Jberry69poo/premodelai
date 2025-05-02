@@ -35,9 +35,9 @@ export const VideoSection = () => {
           </motion.div>
         </div>
         
-        <div className={`mx-auto max-w-3xl ${isMobile ? 'h-[400px]' : ''} relative rounded-xl shadow-lg overflow-hidden`}>
-          {/* Use a consistent aspect ratio container */}
-          <AspectRatio ratio={isMobile ? 9/16 : 16/9} className="bg-secondary/20">
+        <div className="mx-auto max-w-3xl relative rounded-xl shadow-lg overflow-hidden">
+          {/* Use a more appropriate aspect ratio for iPhone screen recordings */}
+          <AspectRatio ratio={isMobile ? 9/19.5 : 16/9} className="bg-secondary/20">
             {isLoading && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="h-8 w-8 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>
