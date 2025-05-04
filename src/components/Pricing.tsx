@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -65,14 +66,13 @@ export const Pricing = () => {
       return;
     }
 
-    // Check if Rewardful is available
+    // Direct approach - just open the link
     if (window.rewardful) {
       try {
-        // Let Rewardful modify the link with affiliate tracking
-        window.rewardful('convert', {
-          checkout: {
-            url: stripeLinkWithoutReferral
-          }
+        // For Rewardful tracking, we need to use their specific method
+        // which will handle both the URL modification and redirection
+        window.rewardful('checkout', {
+          url: stripeLinkWithoutReferral
         });
       } catch (error) {
         console.error("Error with Rewardful:", error);
