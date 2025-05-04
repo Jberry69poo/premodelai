@@ -142,7 +142,7 @@ export const Hero = () => {
               </Button>
             </div>
             
-            <p className="text-sm md:text-base text-muted-foreground">Try it at your next appointment.</p>
+            {/* Removed the "Try it at your next appointment" text */}
           </motion.div>
           
           {/* Social Proof */}
