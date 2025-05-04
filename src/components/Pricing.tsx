@@ -20,17 +20,17 @@ export const Pricing = () => {
   const plans: PricingPlan[] = [{
     name: "Solo",
     price: "$89",
-    preModels: "50 Renders/mo",
+    preModels: "75 Renders/mo",
     description: "Perfect for independent epoxy contractors looking to grow their business.",
-    features: ["50 Renders per month", "Up to 3 sales rep accounts", "Standard definition renders", "Client sharing capabilities", "Email support"],
+    features: ["75 Renders per month", "Up to 3 sales rep accounts", "Standard definition renders", "Client sharing capabilities", "Email support"],
     cta: "Get Started",
     stripeLink: "https://buy.stripe.com/7sI28U5WNcUo7VC9B9"
   }, {
     name: "Team",
-    price: "$329",
-    preModels: "350 Renders/mo",
+    price: "$399",
+    preModels: "500 Renders/mo",
     description: "Ideal for growing epoxy businesses with multiple team members.",
-    features: ["350 Renders per month", "Unlimited sales rep accounts", "HD renders", "Priority customer support"],
+    features: ["500 Renders per month", "Unlimited sales rep accounts", "HD renders", "Priority customer support"],
     cta: "Get Started",
     popular: true,
     stripeLink: "https://buy.stripe.com/6oE3cYbh7f2w1xe6oY"
