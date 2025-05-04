@@ -20,26 +20,26 @@ export const Pricing = () => {
   const plans: PricingPlan[] = [{
     name: "Solo",
     price: "$129",
-    preModels: "75 Renders/mo",
+    preModels: "75 PreModels/mo",
     description: "Perfect for independent epoxy contractors looking to grow their business.",
-    features: ["75 Renders per month", "Up to 3 sales rep accounts", "Standard definition renders", "Client sharing capabilities", "Email support"],
+    features: ["75 PreModels per month", "Up to 3 sales rep accounts", "Standard definition renders", "Client sharing capabilities", "Email support"],
     cta: "Get Started",
     stripeLink: "https://buy.stripe.com/7sI28U5WNcUo7VC9B9"
   }, {
     name: "Team",
     price: "$349",
-    preModels: "350 Renders/mo",
+    preModels: "350 PreModels/mo",
     description: "Ideal for growing epoxy businesses with multiple team members.",
-    features: ["350 Renders per month", "Unlimited sales rep accounts", "HD renders", "Priority customer support", "Plus all Solo features"],
+    features: ["350 PreModels per month", "Unlimited sales rep accounts", "HD renders", "Priority customer support", "Plus all Solo features"],
     cta: "Get Started",
     popular: true,
     stripeLink: "https://buy.stripe.com/6oE3cYbh7f2w1xe6oY"
   }, {
     name: "Growth",
     price: "$699",
-    preModels: "1250 Renders/mo",
+    preModels: "1250 PreModels/mo",
     description: "For established epoxy flooring companies with high volume needs.",
-    features: ["1250 Renders per month", "Unlimited sales rep accounts", "HD renders", "Dedicated account manager", "Plus all Team features"],
+    features: ["1250 PreModels per month", "Unlimited sales rep accounts", "HD renders", "Dedicated account manager", "Plus all Team features"],
     cta: "Get Started",
     stripeLink: "https://buy.stripe.com/fZe6paetj6w07VCcNn"
   }];
