@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Users, Apple } from "lucide-react";
 import { cn } from "@/lib/utils";
+
 interface PricingPlan {
   name: string;
   price: string;
@@ -13,33 +14,35 @@ interface PricingPlan {
   preModels: string;
   stripeLink?: string;
 }
+
 export const Pricing = () => {
   const plans: PricingPlan[] = [{
     name: "Solo",
-    price: "$199",
-    preModels: "250 PreModels/mo",
+    price: "$89",
+    preModels: "50 Renders/mo",
     description: "Perfect for independent epoxy contractors looking to grow their business.",
-    features: ["250 PreModels per month", "Unlimited user logins", "Standard image resolution", "Client sharing capabilities", "Email support"],
+    features: ["50 Renders per month", "Unlimited user logins", "Standard image resolution", "Client sharing capabilities", "Email support"],
     cta: "Get Started",
     stripeLink: "https://buy.stripe.com/7sI28U5WNcUo7VC9B9"
   }, {
     name: "Team",
-    price: "$499",
-    preModels: "850 PreModels/mo",
+    price: "$329",
+    preModels: "350 Renders/mo",
     description: "Ideal for growing epoxy businesses with multiple team members.",
-    features: ["850 PreModels per month", "Unlimited user accounts", "High-resolution images", "Priority customer support"],
+    features: ["350 Renders per month", "Unlimited sales rep accounts", "High-resolution images", "Priority customer support"],
     cta: "Get Started",
     popular: true,
     stripeLink: "https://buy.stripe.com/6oE3cYbh7f2w1xe6oY"
   }, {
-    name: "Big Dawgs Only",
-    price: "$979",
-    preModels: "2500 PreModels/mo",
+    name: "Growth",
+    price: "$699",
+    preModels: "1250 Renders/mo",
     description: "For established epoxy flooring companies with high volume needs.",
-    features: ["2500 PreModels per month", "Unlimited user accounts", "Maximum resolution images", "Dedicated account manager"],
+    features: ["1250 Renders per month", "Unlimited user accounts", "Maximum resolution images", "Dedicated account manager"],
     cta: "Get Started",
     stripeLink: "https://buy.stripe.com/fZe6paetj6w07VCcNn"
   }];
+  
   return <section id="pricing" className="py-16 md:py-32">
       <div className="container max-w-[1400px] mx-auto px-4 md:px-6">
         <div className="text-center mb-12 md:mb-20">
