@@ -27,7 +27,7 @@ export const Pricing = () => {
     stripeLink: "https://buy.stripe.com/00gbJuad3f2w7VCbJl"
   }, {
     name: "Team",
-    price: "$349",
+    price: "$389",
     preModels: "350 PreModels/mo",
     description: "Ideal for growing epoxy businesses with multiple team members.",
     features: ["350 PreModels per month", "Unlimited sales rep accounts", "HD renders", "Priority customer support", "Plus all Solo features"],
