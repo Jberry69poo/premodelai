@@ -1,10 +1,11 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Download } from "lucide-react";
 
 export const CustomNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -81,14 +82,25 @@ export const CustomNavbar = () => {
                 <Link to="/dashboard">Dashboard</Link>
               </Button>
             ) : (
-              <Button
-                onClick={() => window.location.href = "mailto:sales@premodel.ai"}
-                variant="default"
-                size="sm"
-                className="bg-primary text-primary-foreground hover:bg-primary/90"
-              >
-                Contact Sales
-              </Button>
+              <>
+                <Button
+                  onClick={() => window.open("https://apps.apple.com/us/app/premodel-ai/id6744342396", "_blank")}
+                  variant="default"
+                  size="sm"
+                  className="bg-primary/90 text-primary-foreground hover:bg-primary"
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  Try Free
+                </Button>
+                <Button
+                  onClick={() => window.location.href = "mailto:sales@premodel.ai"}
+                  variant="outline"
+                  size="sm"
+                  className="border-primary/30 text-foreground hover:bg-primary/10"
+                >
+                  Contact Sales
+                </Button>
+              </>
             )}
           </div>
 
@@ -130,14 +142,25 @@ export const CustomNavbar = () => {
                   <Link to="/dashboard">Dashboard</Link>
                 </Button>
               ) : (
-                <Button
-                  onClick={() => window.location.href = "mailto:sales@premodel.ai"}
-                  variant="default"
-                  size="sm"
-                  className="w-full"
-                >
-                  Contact Sales
-                </Button>
+                <>
+                  <Button
+                    onClick={() => window.open("https://apps.apple.com/us/app/premodel-ai/id6744342396", "_blank")}
+                    variant="default"
+                    size="sm"
+                    className="w-full mb-2"
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    Try Free
+                  </Button>
+                  <Button
+                    onClick={() => window.location.href = "mailto:sales@premodel.ai"}
+                    variant="outline"
+                    size="sm"
+                    className="w-full"
+                  >
+                    Contact Sales
+                  </Button>
+                </>
               )}
             </div>
           </div>

@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { PreModelLogo } from "@/components/PreModelLogo";
-import { ArrowRight, Eye, Zap, Building, Layers, PaintBucket, Apple } from "lucide-react";
+import { ArrowRight, Eye, Zap, Building, Layers, PaintBucket, Apple, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -68,6 +68,20 @@ export const Hero = () => {
           delay: 0.2
         }}>The App Epoxy Pros Need to Close More Deals</motion.h1>
           
+          {/* Free Trial Banner */}
+          <motion.div className="mt-4 px-6 py-2 bg-primary/20 rounded-full" initial={{
+          opacity: 0,
+          scale: 0.9
+        }} animate={{
+          opacity: 1,
+          scale: 1
+        }} transition={{
+          duration: 0.5,
+          delay: 0.8
+        }}>
+            <span className="text-lg md:text-xl font-medium text-primary-foreground">Try it free at your next sales appointment!</span>
+          </motion.div>
+          
           {/* Subheading */}
           <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">PreModel creates visualizations of the finished project before the work even starts.</motion.p>
 
@@ -88,7 +102,7 @@ export const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* CTA section with app logo and download button */}
+          {/* CTA section with app logo, download button, and free trial messaging */}
           <motion.div className="mt-10 md:mt-16 flex flex-col items-center justify-center gap-5" initial={{
           opacity: 0,
           y: 30
@@ -102,17 +116,33 @@ export const Hero = () => {
             {/* Reduced logo size to match button height */}
             <PreModelLogo size="md" showText={false} />
             
-            <Button 
-              variant="default" 
-              size="lg" 
-              className="text-lg px-8 py-7 bg-primary hover:bg-primary/90" 
-              onClick={() => window.open("https://apps.apple.com/us/app/premodel-ai/id6744342396", "_blank")}
-            >
-              <span className="flex items-center">
-                Download the App
-                <Apple className="ml-3 h-5 w-5 md:h-6 md:w-6" />
-              </span>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 items-center">
+              <Button 
+                variant="default" 
+                size="lg" 
+                className="text-lg px-8 py-7 bg-primary hover:bg-primary/90" 
+                onClick={() => window.open("https://apps.apple.com/us/app/premodel-ai/id6744342396", "_blank")}
+              >
+                <span className="flex items-center">
+                  Start Free Trial
+                  <Download className="ml-3 h-5 w-5 md:h-6 md:w-6" />
+                </span>
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="text-lg px-8 py-7 border-primary/30 text-primary hover:bg-primary/10" 
+                onClick={() => scrollToSection("pricing")}
+              >
+                <span className="flex items-center">
+                  View Pricing
+                  <ArrowRight className="ml-3 h-5 w-5 md:h-6 md:w-6" />
+                </span>
+              </Button>
+            </div>
+            
+            <p className="text-sm md:text-base text-muted-foreground">No credit card required. Try it at your next appointment.</p>
           </motion.div>
           
           {/* Social Proof */}

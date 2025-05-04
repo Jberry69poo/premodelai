@@ -2,7 +2,7 @@
 import React from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, Users, Apple } from "lucide-react";
+import { ArrowRight, Check, Users, Apple, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface PricingPlan {
@@ -51,6 +51,20 @@ export const Pricing = () => {
           <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">Download the app, enter your company code (You will receive minutes after purchasing) and get to making magic.</p>
         </div>
 
+        {/* Free Trial Banner */}
+        <div className="mb-12 p-6 md:p-8 bg-primary/10 border border-primary/30 rounded-xl text-center">
+          <h3 className="text-2xl md:text-3xl font-bold mb-2">Try PreModel For Free</h3>
+          <p className="text-lg mb-4">Download the app now and create your first render at your next sales appointment - no credit card required!</p>
+          <Button 
+            size="lg" 
+            onClick={() => window.open("https://apps.apple.com/us/app/premodel-ai/id6744342396", "_blank")} 
+            className="text-lg h-auto py-4 px-8"
+          >
+            <Download className="mr-2 h-5 w-5" />
+            Start Free Trial
+          </Button>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {plans.map(plan => <Card key={plan.name} className={cn("flex flex-col border", plan.popular ? "border-primary/50 shadow-lg shadow-primary/20" : "border-primary/10")}>
               {plan.popular && <div className="bg-primary text-primary-foreground text-sm font-medium py-1 px-4 rounded-b-md mx-auto">
@@ -92,11 +106,17 @@ export const Pricing = () => {
             </Card>)}
         </div>
         
-        {/* Download button section */}
+        {/* Download button section with free trial messaging */}
         <div className="text-center mt-16 pt-8 border-t border-border/30">
+          <h3 className="text-2xl md:text-3xl font-semibold mb-4">Not ready to commit? Try PreModel risk-free!</h3>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Experience the power of PreModel with our free trial. See how it can transform your sales process
+            at your very next appointment.
+          </p>
+          
           <Button size="lg" onClick={() => window.open("https://apps.apple.com/us/app/premodel-ai/id6744342396", "_blank")} className="text-xl px-12 py-8 h-auto bg-primary text-primary-foreground hover:bg-primary/90">
             <Apple className="mr-3 h-6 w-6" />
-            Download the App to Onboard Your Team
+            Download the App & Start Free Trial
           </Button>
           
           <div className="mt-8 text-center">
