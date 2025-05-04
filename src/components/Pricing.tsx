@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -66,14 +65,20 @@ export const Pricing = () => {
       return;
     }
 
-    // Check if Rewardful is available and ready
+    // Check if Rewardful is available
     if (window.rewardful) {
-      // Let Rewardful modify the link with affiliate tracking
-      window.rewardful('convert', {
-        checkout: {
-          url: stripeLinkWithoutReferral
-        }
-      });
+      try {
+        // Let Rewardful modify the link with affiliate tracking
+        window.rewardful('convert', {
+          checkout: {
+            url: stripeLinkWithoutReferral
+          }
+        });
+      } catch (error) {
+        console.error("Error with Rewardful:", error);
+        // Fallback to direct link if Rewardful has an error
+        window.open(stripeLinkWithoutReferral, "_blank");
+      }
     } else {
       // Fallback to direct link if Rewardful isn't available
       window.open(stripeLinkWithoutReferral, "_blank");
