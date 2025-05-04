@@ -33,7 +33,7 @@ export const Pricing = () => {
     features: ["350 PreModels per month", "Unlimited sales rep accounts", "HD renders", "Priority customer support", "Plus all Solo features"],
     cta: "Start closing more deals",
     popular: true,
-    stripeLink: "https://buy.stripe.com/6oE3cYbh7f2w1xe6oY"
+    stripeLink: "https://buy.stripe.com/fZeeVG4SJdYsb7O3cQ"
   }, {
     name: "Growth",
     price: "$699",
