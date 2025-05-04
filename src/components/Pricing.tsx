@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Users, Apple, Download } from "lucide-react";
@@ -14,6 +14,13 @@ interface PricingPlan {
   popular?: boolean;
   preModels: string;
   stripeLink?: string;
+}
+
+declare global {
+  interface Window {
+    rewardful?: (command: string, ...args: any[]) => void;
+    _rwq?: any[];
+  }
 }
 
 export const Pricing = () => {
@@ -43,6 +50,35 @@ export const Pricing = () => {
     cta: "Start closing more deals",
     stripeLink: "https://buy.stripe.com/28ocNydpfdYs4Jq8x8"
   }];
+  
+  useEffect(() => {
+    // Initialize Rewardful when the component loads
+    if (window.rewardful) {
+      window.rewardful('ready', () => {
+        console.log('Rewardful is ready');
+      });
+    }
+  }, []);
+
+  const handleStripePurchase = (stripeLinkWithoutReferral: string | undefined) => {
+    if (!stripeLinkWithoutReferral) {
+      window.location.href = "mailto:sales@premodel.ai";
+      return;
+    }
+
+    // Check if Rewardful is available and ready
+    if (window.rewardful) {
+      // Let Rewardful modify the link with affiliate tracking
+      window.rewardful('convert', {
+        checkout: {
+          url: stripeLinkWithoutReferral
+        }
+      });
+    } else {
+      // Fallback to direct link if Rewardful isn't available
+      window.open(stripeLinkWithoutReferral, "_blank");
+    }
+  };
   
   return <section id="pricing" className="py-16 md:py-32">
       <div className="container max-w-[1400px] mx-auto px-4 md:px-6">
@@ -92,13 +128,11 @@ export const Pricing = () => {
               </CardContent>
               
               <CardFooter className="pt-6 pb-8">
-                <Button onClick={() => {
-              if (plan.stripeLink) {
-                window.open(plan.stripeLink, "_blank");
-              } else {
-                window.location.href = "mailto:sales@premodel.ai";
-              }
-            }} className={cn("w-full py-6 text-lg", plan.popular ? "bg-primary text-primary-foreground hover:bg-primary/90" : "bg-secondary text-secondary-foreground hover:bg-secondary/80")}>
+                <Button 
+                  onClick={() => handleStripePurchase(plan.stripeLink)} 
+                  className={cn("w-full py-6 text-lg", 
+                    plan.popular ? "bg-primary text-primary-foreground hover:bg-primary/90" : "bg-secondary text-secondary-foreground hover:bg-secondary/80")}
+                >
                   {plan.cta}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
