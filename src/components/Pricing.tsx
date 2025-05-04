@@ -41,7 +41,7 @@ export const Pricing = () => {
     description: "For established epoxy flooring companies with high volume needs.",
     features: ["1250 PreModels per month", "Unlimited sales rep accounts", "HD renders", "Dedicated account manager", "Plus all Team features"],
     cta: "Start closing more deals",
-    stripeLink: "https://buy.stripe.com/fZe6paetj6w07VCcNn"
+    stripeLink: "https://buy.stripe.com/28ocNydpfdYs4Jq8x8"
   }];
   
   return <section id="pricing" className="py-16 md:py-32">
