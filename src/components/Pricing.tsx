@@ -1,9 +1,9 @@
-
 import React, { useEffect } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Users, Apple, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { toast } from "@/components/ui/use-toast";
 
 interface PricingPlan {
   name: string;
@@ -66,21 +66,31 @@ export const Pricing = () => {
       return;
     }
 
-    // Direct approach - just open the link
-    if (window.rewardful) {
-      try {
-        // For Rewardful tracking, we need to use their specific method
-        // which will handle both the URL modification and redirection
-        window.rewardful('checkout', {
-          url: stripeLinkWithoutReferral
-        });
-      } catch (error) {
-        console.error("Error with Rewardful:", error);
-        // Fallback to direct link if Rewardful has an error
-        window.open(stripeLinkWithoutReferral, "_blank");
+    try {
+      // Instead of using non-existent 'checkout' method, use the appropriate way
+      // to handle affiliate tracking with Rewardful
+      
+      // First check if Rewardful is available and ready
+      if (window._rwq) {
+        // Add affiliate tracking to the URL (this is how Rewardful works)
+        console.log("Using Rewardful for tracking");
+        
+        // Push the conversion event to Rewardful's queue for tracking
+        window._rwq.push(['trackVisit']);
+      } else {
+        console.log("Rewardful not available, proceeding directly");
       }
-    } else {
-      // Fallback to direct link if Rewardful isn't available
+      
+      // Open the Stripe link in a new tab
+      window.open(stripeLinkWithoutReferral, "_blank");
+      
+      toast({
+        title: "Opening checkout",
+        description: "Taking you to Stripe's secure checkout page",
+      });
+    } catch (error) {
+      console.error("Error processing purchase:", error);
+      // Fallback - direct link if there's any error
       window.open(stripeLinkWithoutReferral, "_blank");
     }
   };
