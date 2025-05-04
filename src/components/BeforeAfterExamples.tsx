@@ -128,17 +128,5 @@ export function BeforeAfterExamples() {
           </div>
         </CardContent>
       </Card>
-      
-      {/* Navigation buttons */}
-      <div className="flex justify-center gap-4">
-        <Button variant="outline" onClick={handlePrevious} className="flex items-center gap-2">
-          <ArrowLeft size={18} />
-          Previous Example
-        </Button>
-        <Button variant="default" onClick={handleNext} className="flex items-center gap-2">
-          Next Example
-          <ArrowRight size={18} />
-        </Button>
-      </div>
     </div>;
 }

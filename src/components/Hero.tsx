@@ -142,7 +142,7 @@ export const Hero = () => {
               </Button>
             </div>
             
-            <p className="text-sm md:text-base text-muted-foreground">No credit card required. Try it at your next appointment.</p>
+            <p className="text-sm md:text-base text-muted-foreground">Try it at your next appointment.</p>
           </motion.div>
           
           {/* Social Proof */}

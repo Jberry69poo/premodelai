@@ -54,7 +54,7 @@ export const Pricing = () => {
         {/* Free Trial Banner */}
         <div className="mb-12 p-6 md:p-8 bg-primary/10 border border-primary/30 rounded-xl text-center">
           <h3 className="text-2xl md:text-3xl font-bold mb-2">Try PreModel For Free</h3>
-          <p className="text-lg mb-4">Download the app now and create your first render at your next sales appointment - no credit card required!</p>
+          <p className="text-lg mb-4">Download the app now and experience how it can transform your sales process at your next appointment!</p>
           <Button 
             size="lg" 
             onClick={() => window.open("https://apps.apple.com/us/app/premodel-ai/id6744342396", "_blank")} 
@@ -118,14 +118,6 @@ export const Pricing = () => {
             <Apple className="mr-3 h-6 w-6" />
             Download the App & Start Free Trial
           </Button>
-          
-          <div className="mt-8 text-center">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              
-              
-            </div>
-            
-          </div>
         </div>
       </div>
     </section>;
