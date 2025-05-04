@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -21,7 +22,7 @@ export const Pricing = () => {
     price: "$89",
     preModels: "50 Renders/mo",
     description: "Perfect for independent epoxy contractors looking to grow their business.",
-    features: ["50 Renders per month", "Unlimited user logins", "Standard image resolution", "Client sharing capabilities", "Email support"],
+    features: ["50 Renders per month", "Up to 3 sales rep accounts", "Standard definition renders", "Client sharing capabilities", "Email support"],
     cta: "Get Started",
     stripeLink: "https://buy.stripe.com/7sI28U5WNcUo7VC9B9"
   }, {
@@ -29,7 +30,7 @@ export const Pricing = () => {
     price: "$329",
     preModels: "350 Renders/mo",
     description: "Ideal for growing epoxy businesses with multiple team members.",
-    features: ["350 Renders per month", "Unlimited sales rep accounts", "High-resolution images", "Priority customer support"],
+    features: ["350 Renders per month", "Unlimited sales rep accounts", "HD renders", "Priority customer support"],
     cta: "Get Started",
     popular: true,
     stripeLink: "https://buy.stripe.com/6oE3cYbh7f2w1xe6oY"
@@ -38,7 +39,7 @@ export const Pricing = () => {
     price: "$699",
     preModels: "1250 Renders/mo",
     description: "For established epoxy flooring companies with high volume needs.",
-    features: ["1250 Renders per month", "Unlimited user accounts", "Maximum resolution images", "Dedicated account manager"],
+    features: ["1250 Renders per month", "Unlimited sales rep accounts", "HD renders", "Dedicated account manager"],
     cta: "Get Started",
     stripeLink: "https://buy.stripe.com/fZe6paetj6w07VCcNn"
   }];
