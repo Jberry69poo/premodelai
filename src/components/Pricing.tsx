@@ -48,7 +48,7 @@ export const Pricing = () => {
       <div className="container max-w-[1400px] mx-auto px-4 md:px-6">
         <div className="text-center mb-12 md:mb-20">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Pricing Plans for Every Epoxy Business</h2>
-          <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">Download the app, enter your company code (You will receive minutes after purchasing) and get to making magic.</p>
+          <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">Download the app and get to making magic.</p>
         </div>
 
         {/* Free Trial Banner */}
