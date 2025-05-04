@@ -23,7 +23,7 @@ export const Pricing = () => {
     preModels: "75 PreModels/mo",
     description: "Perfect for independent epoxy contractors looking to grow their business.",
     features: ["75 PreModels per month", "Up to 3 sales rep accounts", "Standard definition renders", "Client sharing capabilities", "Email support"],
-    cta: "Get Started",
+    cta: "Start closing more deals",
     stripeLink: "https://buy.stripe.com/7sI28U5WNcUo7VC9B9"
   }, {
     name: "Team",
@@ -31,7 +31,7 @@ export const Pricing = () => {
     preModels: "350 PreModels/mo",
     description: "Ideal for growing epoxy businesses with multiple team members.",
     features: ["350 PreModels per month", "Unlimited sales rep accounts", "HD renders", "Priority customer support", "Plus all Solo features"],
-    cta: "Get Started",
+    cta: "Start closing more deals",
     popular: true,
     stripeLink: "https://buy.stripe.com/6oE3cYbh7f2w1xe6oY"
   }, {
@@ -40,7 +40,7 @@ export const Pricing = () => {
     preModels: "1250 PreModels/mo",
     description: "For established epoxy flooring companies with high volume needs.",
     features: ["1250 PreModels per month", "Unlimited sales rep accounts", "HD renders", "Dedicated account manager", "Plus all Team features"],
-    cta: "Get Started",
+    cta: "Start closing more deals",
     stripeLink: "https://buy.stripe.com/fZe6paetj6w07VCcNn"
   }];
   
