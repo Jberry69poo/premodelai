@@ -28,16 +28,16 @@ declare global {
 
 export const Pricing = () => {
   const plans: PricingPlan[] = [{
-    name: "Small Company",
+    name: "Growing Company",
     price: "$299",
     preModels: "125 PreModels/mo",
     targetAudience: "Perfect for growing teams with 1-3 sales reps",
     description: "Ideal for small epoxy contractors looking to boost their sales efficiency.",
-    features: ["125 PreModels per month", "Up to 3 user accounts", "Standard definition renders", "Client sharing capabilities", "Email support", "Weekly usage reports"],
+    features: ["125 PreModels per month", "Up to 3 user accounts", "HD renders", "Client sharing capabilities", "Email support", "Weekly usage reports"],
     cta: "Start closing more deals",
     stripeLink: "https://buy.stripe.com/00gbJuad3f2w7VCbJl"
   }, {
-    name: "Big Company",
+    name: "Grown Company",
     price: "$499",
     preModels: "350 PreModels/mo",
     targetAudience: "Great for established teams with 4-10 sales reps",
@@ -52,7 +52,7 @@ export const Pricing = () => {
     preModels: "Unlimited PreModels",
     targetAudience: "For large epoxy operations with 10+ sales reps",
     description: "Tailored solutions for enterprise-level epoxy flooring companies with high volume needs.",
-    features: ["Unlimited PreModels", "Unlimited sales rep accounts", "4K renders", "Dedicated account manager", "API access", "Custom integrations", "Advanced reporting"],
+    features: ["Unlimited PreModels", "Unlimited sales rep accounts", "4K renders", "Dedicated account manager", "Custom integrations", "Advanced reporting"],
     cta: "Contact Sales",
     isCustom: true
   }];
