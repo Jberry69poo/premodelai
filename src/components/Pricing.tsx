@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -34,7 +35,7 @@ export const Pricing = () => {
     stripeLink: "https://buy.stripe.com/00gbJuad3f2w7VCbJl"
   }, {
     name: "Team",
-    price: "$389",
+    price: "$399",
     preModels: "350 PreModels/mo",
     description: "Ideal for growing epoxy businesses with multiple team members.",
     features: ["350 PreModels per month", "Unlimited sales rep accounts", "HD renders", "Priority customer support", "Plus all Solo features"],
