@@ -33,7 +33,7 @@ export const Pricing = () => {
     preModels: "125 PreModels/mo",
     targetAudience: "Perfect for growing teams with 1-5 sales reps",
     description: "Ideal for small epoxy contractors looking to boost their sales efficiency.",
-    features: ["125 PreModels per month", "Up to 5 user accounts", "HD renders", "Client sharing capabilities", "Email support", "Weekly usage reports"],
+    features: ["125 PreModels per month", "Up to 5 sales rep accounts", "HD renders", "Client sharing capabilities", "Email support", "Weekly usage reports"],
     cta: "Start closing more deals",
     stripeLink: "https://buy.stripe.com/00gbJuad3f2w7VCbJl"
   }, {
