@@ -1,8 +1,7 @@
-
 import React, { useEffect } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, Users, Apple, Download, PhoneCall } from "lucide-react";
+import { ArrowRight, Check, Users, Apple, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "@/components/ui/use-toast";
 
@@ -10,13 +9,11 @@ interface PricingPlan {
   name: string;
   price: string;
   description: string;
-  targetAudience: string;
   features: string[];
   cta: string;
   popular?: boolean;
   preModels: string;
   stripeLink?: string;
-  isCustom?: boolean;
 }
 
 declare global {
@@ -28,33 +25,30 @@ declare global {
 
 export const Pricing = () => {
   const plans: PricingPlan[] = [{
-    name: "Growing Company",
-    price: "$299",
-    preModels: "125 PreModels/mo",
-    targetAudience: "Perfect for growing teams with 1-5 sales reps",
-    description: "Ideal for small epoxy contractors looking to boost their sales efficiency.",
-    features: ["125 PreModels per month", "Up to 5 sales rep accounts", "HD renders", "Client sharing capabilities", "Email support", "Weekly usage reports"],
+    name: "Solo",
+    price: "$129",
+    preModels: "75 PreModels/mo",
+    description: "Perfect for independent epoxy contractors looking to grow their business.",
+    features: ["75 PreModels per month", "Includes One user account", "Standard definition renders", "Client sharing capabilities", "Email support"],
     cta: "Start closing more deals",
     stripeLink: "https://buy.stripe.com/00gbJuad3f2w7VCbJl"
   }, {
-    name: "Grown Company",
-    price: "$499",
+    name: "Team",
+    price: "$389",
     preModels: "350 PreModels/mo",
-    targetAudience: "Great for established teams with 4-10 sales reps",
-    description: "Complete solution for growing epoxy businesses with multiple team members.",
-    features: ["350 PreModels per month", "Up to 10 sales rep accounts", "HD renders", "Priority customer support", "Detailed analytics dashboard", "Custom branding options"],
-    cta: "Scale your sales",
+    description: "Ideal for growing epoxy businesses with multiple team members.",
+    features: ["350 PreModels per month", "Unlimited sales rep accounts", "HD renders", "Priority customer support", "Plus all Solo features"],
+    cta: "Start closing more deals",
     popular: true,
     stripeLink: "https://buy.stripe.com/fZeeVG4SJdYsb7O3cQ"
   }, {
-    name: "Enterprise",
-    price: "Custom",
-    preModels: "Unlimited PreModels",
-    targetAudience: "For large epoxy operations with 10+ sales reps",
-    description: "Tailored solutions for enterprise-level epoxy flooring companies with high volume needs.",
-    features: ["Unlimited PreModels", "Unlimited sales rep accounts", "4K renders", "Dedicated account manager", "Custom integrations", "Advanced reporting"],
-    cta: "Contact Sales",
-    isCustom: true
+    name: "Growth",
+    price: "$699",
+    preModels: "1250 PreModels/mo",
+    description: "For established epoxy flooring companies with high volume needs.",
+    features: ["1250 PreModels per month", "Unlimited sales rep accounts", "HD renders", "Dedicated account manager", "Plus all Team features"],
+    cta: "Start closing more deals",
+    stripeLink: "https://buy.stripe.com/28ocNydpfdYs4Jq8x8"
   }];
   
   useEffect(() => {
@@ -66,19 +60,19 @@ export const Pricing = () => {
     }
   }, []);
 
-  const handleStripePurchase = (stripeLinkWithoutReferral: string | undefined, isCustom: boolean = false) => {
-    if (isCustom || !stripeLinkWithoutReferral) {
+  const handleStripePurchase = (stripeLinkWithoutReferral: string | undefined) => {
+    if (!stripeLinkWithoutReferral) {
       window.location.href = "mailto:sales@premodel.ai";
-      toast({
-        title: "Contact request",
-        description: "Redirecting you to our sales team contact",
-      });
       return;
     }
 
     try {
-      // Check if Rewardful is available and ready
+      // Instead of using non-existent 'checkout' method, use the appropriate way
+      // to handle affiliate tracking with Rewardful
+      
+      // First check if Rewardful is available and ready
       if (window._rwq) {
+        // Add affiliate tracking to the URL (this is how Rewardful works)
         console.log("Using Rewardful for tracking");
         
         // Push the conversion event to Rewardful's queue for tracking
@@ -131,14 +125,11 @@ export const Pricing = () => {
               <CardHeader className={cn(plan.popular ? "pt-6" : "")}>
                 <CardTitle className="text-2xl">{plan.name}</CardTitle>
                 <div className="mt-4 flex items-baseline text-5xl font-extrabold">
-                  {plan.price}<span className="ml-2 text-xl font-medium text-muted-foreground">{!plan.isCustom && "/mo"}</span>
+                  {plan.price}<span className="ml-2 text-xl font-medium text-muted-foreground">/mo</span>
                 </div>
                 <CardDescription className="mt-2 text-base">
                   {plan.preModels}
                 </CardDescription>
-                <p className="text-sm mt-3 font-medium text-primary">
-                  {plan.targetAudience}
-                </p>
               </CardHeader>
               
               <CardContent className="flex-grow">
@@ -153,13 +144,12 @@ export const Pricing = () => {
               
               <CardFooter className="pt-6 pb-8">
                 <Button 
-                  onClick={() => handleStripePurchase(plan.stripeLink, plan.isCustom)} 
+                  onClick={() => handleStripePurchase(plan.stripeLink)} 
                   className={cn("w-full py-6 text-lg", 
-                    plan.popular ? "bg-primary text-primary-foreground hover:bg-primary/90" : 
-                    plan.isCustom ? "bg-secondary text-secondary-foreground hover:bg-secondary/80" : "bg-secondary text-secondary-foreground hover:bg-secondary/80")}
+                    plan.popular ? "bg-primary text-primary-foreground hover:bg-primary/90" : "bg-secondary text-secondary-foreground hover:bg-secondary/80")}
                 >
                   {plan.cta}
-                  {plan.isCustom ? <PhoneCall className="ml-2 h-5 w-5" /> : <ArrowRight className="ml-2 h-5 w-5" />}
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </CardFooter>
             </Card>)}
