@@ -10,8 +10,8 @@ export const VideoSection = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   
-  // Add additional YouTube parameters for better mobile experience
-  const youtubeUrl = "https://www.youtube.com/embed/DIZQxDNHUKc?playsinline=1&rel=0&modestbranding=1";
+  // Updated YouTube URL to the new shorts video
+  const youtubeUrl = "https://www.youtube.com/embed/T_FX0uk0GfM?playsinline=1&rel=0&modestbranding=1";
   
   return (
     <section className="py-16 md:py-24 relative overflow-hidden" id="how-it-works">
@@ -36,8 +36,8 @@ export const VideoSection = () => {
         </div>
         
         <div className="mx-auto max-w-3xl relative rounded-xl shadow-lg overflow-hidden">
-          {/* Use a more appropriate aspect ratio for iPhone screen recordings */}
-          <AspectRatio ratio={isMobile ? 9/19.5 : 16/9} className="bg-secondary/20">
+          {/* Use a more appropriate aspect ratio for YouTube shorts */}
+          <AspectRatio ratio={isMobile ? 9/16 : 16/9} className="bg-secondary/20">
             {isLoading && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="h-8 w-8 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>
