@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -27,7 +26,7 @@ declare global {
 export const Pricing = () => {
   const plans: PricingPlan[] = [{
     name: "Solo",
-    price: "$129",
+    price: "$149",
     preModels: "75 PreModels/mo",
     description: "Perfect for independent epoxy contractors looking to grow their business.",
     features: ["75 PreModels per month", "Up to 5 sales rep accounts", "HD renders", "Client sharing capabilities", "Email support"],
