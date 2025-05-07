@@ -11,7 +11,7 @@ export const VideoSection = () => {
   const [hasError, setHasError] = useState(false);
   
   // Updated YouTube URL to the new shorts video
-  const youtubeUrl = "https://www.youtube.com/embed/T_FX0uk0GfM?playsinline=1&rel=0&modestbranding=1";
+  const youtubeUrl = "https://www.youtube.com/embed/tyLY-FlOLIk?playsinline=1&rel=0&modestbranding=1";
   
   return (
     <section className="py-16 md:py-24 relative overflow-hidden" id="how-it-works">
