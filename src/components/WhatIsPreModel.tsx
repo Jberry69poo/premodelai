@@ -1,8 +1,10 @@
+
 import React from "react";
 import { motion } from "framer-motion";
 import { Eye, Check, Camera, PaintBucket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
 export const WhatIsPreModel = () => {
   const fadeIn = {
     hidden: {
@@ -17,6 +19,7 @@ export const WhatIsPreModel = () => {
       }
     }
   };
+  
   const staggerChildren = {
     hidden: {
       opacity: 0
@@ -28,32 +31,13 @@ export const WhatIsPreModel = () => {
       }
     }
   };
+  
   return <section className="py-16 md:py-24 bg-gradient-to-b from-background to-card/30 relative overflow-hidden">
       <div className="absolute inset-0 -z-10 opacity-[0.05] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+PHBhdGggZD0iTTAgMGg2MHY2MEgweiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEiLz48L3N2Zz4=')]" />
       <div className="container max-w-[1400px] mx-auto px-4">
         <div className="flex flex-col md:flex-row gap-12 md:gap-16 lg:gap-24 items-center">
-          {/* Left side: Image and visualization */}
-          <motion.div className="w-full md:w-1/2 relative" initial="hidden" whileInView="visible" viewport={{
-          once: true,
-          margin: "-100px"
-        }} variants={fadeIn}>
-            <div className="relative z-10">
-              <div className="bg-gradient-to-br from-primary/20 to-primary/5 p-4 md:p-6 rounded-xl">
-                <div className="aspect-video bg-gradient-to-r from-primary/30 to-primary/10 rounded-lg flex items-center justify-center">
-                  <div className="text-center px-8 md:px-12">
-                    <PaintBucket className="h-12 w-12 md:h-16 md:w-16 text-primary mx-auto mb-4" />
-                    <p className="text-lg md:text-xl text-primary-foreground opacity-90">
-                      Visualize your epoxy floors
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-tr from-primary/20 via-primary/10 to-transparent rounded-xl blur-xl -z-10" />
-          </motion.div>
-
-          {/* Right side: Text content */}
-          <motion.div className="w-full md:w-1/2" initial="hidden" whileInView="visible" viewport={{
+          {/* Right side content now takes full width */}
+          <motion.div className="w-full" initial="hidden" whileInView="visible" viewport={{
           once: true,
           margin: "-100px"
         }} variants={staggerChildren}>
