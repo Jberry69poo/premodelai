@@ -68,20 +68,6 @@ export const Hero = () => {
           delay: 0.2
         }}>The App Epoxy Pros Need to Close More Deals</motion.h1>
           
-          {/* Free Trial Banner */}
-          <motion.div className="mt-4 px-6 py-2 bg-primary/20 rounded-full" initial={{
-          opacity: 0,
-          scale: 0.9
-        }} animate={{
-          opacity: 1,
-          scale: 1
-        }} transition={{
-          duration: 0.5,
-          delay: 0.8
-        }}>
-            <span className="text-lg md:text-xl font-medium text-primary-foreground">Try it free at your next sales appointment!</span>
-          </motion.div>
-          
           {/* Subheading with ROI message */}
           <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">
             Close one extra job and PreModel pays for itself. Our contractors average 6+ additional sales every month.
@@ -143,8 +129,6 @@ export const Hero = () => {
                 </span>
               </Button>
             </div>
-            
-            {/* Removed the "Try it at your next appointment" text */}
           </motion.div>
           
           {/* Social Proof */}
