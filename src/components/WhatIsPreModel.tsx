@@ -61,13 +61,6 @@ export const WhatIsPreModel = () => {
                 <div className={cn("mr-3 flex h-8 w-8 items-center justify-center rounded-full", "bg-primary/20 text-primary")}>
                   <Check className="h-5 w-5" />
                 </div>
-                <p className="text-lg">End indecision with photorealistic previews of finished projects</p>
-              </motion.li>
-              
-              <motion.li variants={fadeIn} className="flex items-start">
-                <div className={cn("mr-3 flex h-8 w-8 items-center justify-center rounded-full", "bg-primary/20 text-primary")}>
-                  <Check className="h-5 w-5" />
-                </div>
                 <p className="text-lg">No more holding sample chips against concrete floors</p>
               </motion.li>
               
@@ -75,14 +68,21 @@ export const WhatIsPreModel = () => {
                 <div className={cn("mr-3 flex h-8 w-8 items-center justify-center rounded-full", "bg-primary/20 text-primary")}>
                   <Check className="h-5 w-5" />
                 </div>
-                <p className="text-lg">Settle design debates instantly with visual proof</p>
+                <p className="text-lg">Sell like a professional designer</p>
               </motion.li>
               
               <motion.li variants={fadeIn} className="flex items-start">
                 <div className={cn("mr-3 flex h-8 w-8 items-center justify-center rounded-full", "bg-primary/20 text-primary")}>
                   <Check className="h-5 w-5" />
                 </div>
-                <p className="text-lg">Transform your sales process into a powerful closing tool</p>
+                <p className="text-lg">Confirm customer satisfaction before the job even starts</p>
+              </motion.li>
+              
+              <motion.li variants={fadeIn} className="flex items-start">
+                <div className={cn("mr-3 flex h-8 w-8 items-center justify-center rounded-full", "bg-primary/20 text-primary")}>
+                  <Check className="h-5 w-5" />
+                </div>
+                <p className="text-lg">App so easy to use my dog could do it</p>
               </motion.li>
             </motion.ul>
 
