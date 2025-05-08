@@ -82,8 +82,10 @@ export const Hero = () => {
             <span className="text-lg md:text-xl font-medium text-primary-foreground">Try it free at your next sales appointment!</span>
           </motion.div>
           
-          {/* Subheading */}
-          <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">PreModel creates visualizations of the finished project before the work even starts.</motion.p>
+          {/* Subheading with ROI message */}
+          <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">
+            Close one extra job and PreModel pays for itself. Our contractors average 6+ additional sales every month.
+          </motion.p>
 
           {/* Value props */}
           <motion.div className="mt-10 md:mt-16 flex flex-col md:flex-row justify-center md:gap-x-16 gap-y-6" variants={staggerChildren} initial="hidden" animate="visible">
@@ -98,7 +100,7 @@ export const Hero = () => {
               <div className="flex items-center justify-center w-10 md:w-12 h-10 md:h-12 rounded-full bg-primary/20">
                 <Building className="h-5 w-5 md:h-6 md:w-6 text-primary" />
               </div>
-              <span className="text-lg md:text-xl font-medium">2-3x Close Rates</span>
+              <span className="text-lg md:text-xl font-medium">28% Higher Close Rates</span>
             </motion.div>
           </motion.div>
 

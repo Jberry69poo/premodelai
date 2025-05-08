@@ -8,6 +8,7 @@ import { Hero } from "@/components/Hero";
 import { PreModelLogo } from "@/components/PreModelLogo";
 import { Pricing } from "@/components/Pricing";
 import { VideoSection } from "@/components/VideoSection";
+import { WhatIsPreModel } from "@/components/WhatIsPreModel";
 
 const Index = () => {
   const scrollToSection = (sectionId: string) => {
@@ -21,6 +22,9 @@ const Index = () => {
       
       <main className="flex-1">
         <Hero />
+        
+        {/* What is PreModel Section */}
+        <WhatIsPreModel />
         
         {/* Video Section - How PreModel Works */}
         <VideoSection />
