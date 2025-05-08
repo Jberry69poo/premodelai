@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, Users, Apple, Download } from "lucide-react";
+import { ArrowRight, Check, Users, Apple, Download, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "@/components/ui/use-toast";
 
@@ -26,30 +26,22 @@ declare global {
 
 export const Pricing = () => {
   const plans: PricingPlan[] = [{
-    name: "Solo",
-    price: "$199",
-    preModels: "125 PreModels/mo",
-    description: "Perfect for independent epoxy contractors looking to grow their business.",
-    features: ["125 PreModels per month", "Up to 5 sales rep accounts", "HD renders", "Client sharing capabilities", "Email support"],
-    cta: "Start closing more deals",
-    stripeLink: "https://buy.stripe.com/aEUaFq5WN07C6Ry8xb"
-  }, {
-    name: "Team",
-    price: "$399",
-    preModels: "500 PreModels/mo",
-    description: "Ideal for growing epoxy businesses with multiple team members.",
-    features: ["500 PreModels per month", "Unlimited sales rep accounts", "HD renders", "Priority customer support", "Plus all Solo features"],
+    name: "Professional",
+    price: "$299",
+    preModels: "250 PreModels/mo",
+    description: "Everything you need to transform your epoxy business and close more deals.",
+    features: [
+      "250 PreModels per month", 
+      "Unlimited sales rep accounts", 
+      "HD quality renderings", 
+      "Dedicated customer support", 
+      "Access to invite-only epoxy industry events", 
+      "Instant activation - start creating now", 
+      "Client sharing capabilities"
+    ],
     cta: "Start closing more deals",
     popular: true,
-    stripeLink: "https://buy.stripe.com/dR6eVG84V4nS4Jq5l0"
-  }, {
-    name: "Growth",
-    price: "$699",
-    preModels: "1250 PreModels/mo",
-    description: "For established epoxy flooring companies with high volume needs.",
-    features: ["1250 PreModels per month", "Unlimited sales rep accounts", "HD renders", "Dedicated account manager", "Plus all Team features"],
-    cta: "Start closing more deals",
-    stripeLink: "https://buy.stripe.com/28ocNydpfdYs4Jq8x8"
+    stripeLink: "https://buy.stripe.com/aEUaFq5WN07C6Ry8xb"
   }];
   
   useEffect(() => {
@@ -95,12 +87,20 @@ export const Pricing = () => {
       window.open(stripeLinkWithoutReferral, "_blank");
     }
   };
+
+  const handleCallSales = () => {
+    window.location.href = "tel:443-742-2100";
+    toast({
+      title: "Calling sales",
+      description: "Connecting you with our sales team",
+    });
+  };
   
   return <section id="pricing" className="py-16 md:py-32">
       <div className="container max-w-[1400px] mx-auto px-4 md:px-6">
         <div className="text-center mb-12 md:mb-20">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Pricing Plans for Every Epoxy Business</h2>
-          <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">Download the app and get to making magic.</p>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Simple Pricing for Every Epoxy Business</h2>
+          <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">One powerful plan to transform your sales process.</p>
         </div>
 
         {/* Free Trial Banner */}
@@ -117,13 +117,14 @@ export const Pricing = () => {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {plans.map(plan => <Card key={plan.name} className={cn("flex flex-col border", plan.popular ? "border-primary/50 shadow-lg shadow-primary/20" : "border-primary/10")}>
-              {plan.popular && <div className="bg-primary text-primary-foreground text-sm font-medium py-1 px-4 rounded-b-md mx-auto">
-                  Most Popular
-                </div>}
+        {/* Main pricing card */}
+        <div className="grid grid-cols-1 max-w-3xl mx-auto gap-8 mb-16">
+          {plans.map(plan => <Card key={plan.name} className={cn("flex flex-col border shadow-lg shadow-primary/20 border-primary/50")}>
+              <div className="bg-primary text-primary-foreground text-sm font-medium py-1 px-4 rounded-b-md mx-auto">
+                Most Popular
+              </div>
               
-              <CardHeader className={cn(plan.popular ? "pt-6" : "")}>
+              <CardHeader className="pt-6">
                 <CardTitle className="text-2xl">{plan.name}</CardTitle>
                 <div className="mt-4 flex items-baseline text-5xl font-extrabold">
                   {plan.price}<span className="ml-2 text-xl font-medium text-muted-foreground">/mo</span>
@@ -146,14 +147,41 @@ export const Pricing = () => {
               <CardFooter className="pt-6 pb-8">
                 <Button 
                   onClick={() => handleStripePurchase(plan.stripeLink)} 
-                  className={cn("w-full py-6 text-lg", 
-                    plan.popular ? "bg-primary text-primary-foreground hover:bg-primary/90" : "bg-secondary text-secondary-foreground hover:bg-secondary/80")}
+                  className="w-full py-6 text-lg bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                   {plan.cta}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </CardFooter>
             </Card>)}
+        </div>
+
+        {/* Enterprise card */}
+        <div className="max-w-3xl mx-auto">
+          <Card className="border border-border/30 bg-secondary/30">
+            <CardHeader>
+              <CardTitle className="text-2xl">Enterprise</CardTitle>
+              <CardDescription className="text-base mt-2">
+                Need more PreModels for your business?
+              </CardDescription>
+            </CardHeader>
+            
+            <CardContent>
+              <p className="text-lg">
+                For larger epoxy businesses with high volume needs, our enterprise plan offers customized PreModel allocations and dedicated support.
+              </p>
+            </CardContent>
+            
+            <CardFooter className="pb-8">
+              <Button 
+                onClick={handleCallSales} 
+                className="w-full py-6 text-lg bg-secondary text-secondary-foreground hover:bg-secondary/80"
+              >
+                <Phone className="mr-2 h-5 w-5" />
+                Talk to sales today
+              </Button>
+            </CardFooter>
+          </Card>
         </div>
         
         {/* Download button section with free trial messaging */}
