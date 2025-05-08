@@ -70,7 +70,7 @@ export const Hero = () => {
           
           {/* Subheading with ROI message */}
           <motion.p className="mt-6 md:mt-8 text-xl md:text-3xl text-muted-foreground max-w-3xl mx-auto" variants={fadeIn} initial="hidden" animate="visible">
-            Close one extra job and PreModel pays for itself. Our contractors average 6+ additional sales every month.
+            Transform photos into stunning floor visualizations that boost close rates by 28% on average
           </motion.p>
 
           {/* Value props */}
