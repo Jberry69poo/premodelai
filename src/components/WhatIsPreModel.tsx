@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Eye, Check, Camera, PaintBucket } from "lucide-react";
@@ -36,8 +35,16 @@ export const WhatIsPreModel = () => {
       <div className="absolute inset-0 -z-10 opacity-[0.05] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+PHBhdGggZD0iTTAgMGg2MHY2MEgweiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEiLz48L3N2Zz4=')]" />
       <div className="container max-w-[1400px] mx-auto px-4">
         <div className="flex flex-col md:flex-row gap-12 md:gap-16 lg:gap-24 items-center">
-          {/* Right side content now takes full width */}
-          <motion.div className="w-full" initial="hidden" whileInView="visible" viewport={{
+          {/* Left side: Empty space or could be used for future content */}
+          <motion.div className="w-full md:w-1/2 relative" initial="hidden" whileInView="visible" viewport={{
+          once: true,
+          margin: "-100px"
+        }} variants={fadeIn}>
+            {/* Banner removed, but keeping the left side for layout balance */}
+          </motion.div>
+
+          {/* Right side: Text content */}
+          <motion.div className="w-full md:w-1/2" initial="hidden" whileInView="visible" viewport={{
           once: true,
           margin: "-100px"
         }} variants={staggerChildren}>
