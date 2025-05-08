@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -101,20 +100,6 @@ export const Pricing = () => {
         <div className="text-center mb-12 md:mb-20">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Simple Pricing for Every Epoxy Business</h2>
           <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">One powerful plan to transform your sales process.</p>
-        </div>
-
-        {/* Free Trial Banner */}
-        <div className="mb-12 p-6 md:p-8 bg-primary/10 border border-primary/30 rounded-xl text-center">
-          <h3 className="text-2xl md:text-3xl font-bold mb-2">Try PreModel For Free</h3>
-          <p className="text-lg mb-4">Download the app now and experience how it can transform your sales process at your next appointment!</p>
-          <Button 
-            size="lg" 
-            onClick={() => window.open("https://apps.apple.com/us/app/premodel-ai/id6744342396", "_blank")} 
-            className="text-lg h-auto py-4 px-8"
-          >
-            <Download className="mr-2 h-5 w-5" />
-            Start Free Trial
-          </Button>
         </div>
 
         {/* Main pricing card */}
