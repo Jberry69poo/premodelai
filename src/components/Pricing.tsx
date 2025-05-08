@@ -98,8 +98,12 @@ export const Pricing = () => {
   return <section id="pricing" className="py-16 md:py-32">
       <div className="container max-w-[1400px] mx-auto px-4 md:px-6">
         <div className="text-center mb-12 md:mb-20">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Simple Pricing for Every Epoxy Business</h2>
-          <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">One powerful plan to transform your sales process.</p>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">
+            Investment That Pays for Itself
+          </h2>
+          <p className="text-muted-foreground text-xl mt-4 max-w-[800px] mx-auto">
+            Close just one extra job a year and PreModel pays for itself. Our users average 6+ additional jobs each month with a 28% increase in close rates.
+          </p>
         </div>
 
         {/* Main pricing card */}
